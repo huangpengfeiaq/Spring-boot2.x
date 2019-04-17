@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  * 基础的控制器，如对Token的操作等..
  *
- * @author hpf
- * @since 0.1.1
+ * @author haungpengfei
+ * @version 1.1.0315
+ * @since 2019/1/10
  */
 @RestController
 @RequestMapping("/")

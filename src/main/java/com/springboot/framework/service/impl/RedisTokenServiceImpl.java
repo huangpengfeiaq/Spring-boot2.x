@@ -6,22 +6,25 @@ import com.springboot.framework.dao.entity.Admin;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.util.RedisUtil;
 import com.springboot.framework.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 基础的控制器，如对Token的操作等..
+ *
+ * @author haungpengfei
+ * @version 1.1.0315
+ * @since 2019/1/10
+ */
 @Component
 public class RedisTokenServiceImpl implements RedisTokenService {
-
-    @Autowired
+    @Resource
     private RedisUtil redisUtils;
 
     /**
      * 创建token
-     *
-     * @param userInfo
-     * @return
      */
     public String getToken(Admin userInfo) {
         //1.使用adminId作为源token
@@ -44,8 +47,6 @@ public class RedisTokenServiceImpl implements RedisTokenService {
 
     /**
      * 刷新用户
-     *
-     * @param token
      */
     public void refreshUserToken(String token) {
         token = String.format(Const.SERVER_USER_KEY, token);
@@ -56,8 +57,6 @@ public class RedisTokenServiceImpl implements RedisTokenService {
 
     /**
      * 用户退出登陆
-     *
-     * @param userInfo
      */
     public void loginOff(Admin userInfo) {
 //        token = String.format(Const.SERVER_USER_KEY, token);
@@ -67,8 +66,6 @@ public class RedisTokenServiceImpl implements RedisTokenService {
 
     /**
      * 用户退出登陆
-     *
-     * @param request
      */
     @Override
     public void loginOff(HttpServletRequest request) {
@@ -79,9 +76,6 @@ public class RedisTokenServiceImpl implements RedisTokenService {
 
     /**
      * 获取用户信息
-     *
-     * @param token
-     * @return
      */
     public Admin getUserInfoByToken(String token) {
 //        token = String.format(Const.SERVER_USER_KEY, token);
@@ -117,10 +111,18 @@ public class RedisTokenServiceImpl implements RedisTokenService {
     }
 
     /**
+     * 获取真实ip
+     */
+    @Override
+    public String getRemoteIP(HttpServletRequest request) {
+        if (request.getHeader("x-forwarded-for") == null) {
+            return request.getRemoteAddr();
+        }
+        return request.getHeader("x-forwarded-for");
+    }
+
+    /**
      * 获取用户缓存key
-     *
-     * @param request
-     * @return
      */
     private String getUserSessionKey(HttpServletRequest request) {
 //        String key = Const.SERVER_USER_KEY + getSessionKey(request);
@@ -130,12 +132,8 @@ public class RedisTokenServiceImpl implements RedisTokenService {
     }
 
     /**
-     * <pre>
      * 获取缓存key
      * 同时使用，使用token保存登录信息，优先使用token，如果获取失败则取session
-     * </pre>
-     *
-     * @param request
      */
     private String getSessionKey(HttpServletRequest request) {
         String sessionId = "";
