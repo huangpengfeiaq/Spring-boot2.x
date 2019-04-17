@@ -79,10 +79,8 @@ public class RedisTokenServiceImpl implements RedisTokenService {
      */
     public Admin getUserInfoByToken(String token) {
 //        token = String.format(Const.SERVER_USER_KEY, token);
-//        System.out.println("token：" + token);
         if (redisUtils.hasKey(token)) {
             String jsonStr = (String) redisUtils.get(token);
-//            System.out.println(jsonStr);
             Admin user = JSON.parseObject(jsonStr, Admin.class);
             return user;
         }

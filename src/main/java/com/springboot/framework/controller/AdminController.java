@@ -63,7 +63,6 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "查看个人信息", notes = "查看个人信息")
     @GetMapping(value = "selectBySession")
     public ResponseEntity<Admin> selectBySession(HttpServletRequest request) {
-//        System.out.println("re:"+request);
         Admin admin = super.getSessionUser(request);
         if (admin != null) {
             return ResponseEntityUtil.success(admin);
