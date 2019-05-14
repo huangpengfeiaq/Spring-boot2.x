@@ -3,17 +3,17 @@ package com.springboot.framework.interceptor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 
 /**
  * Spring MVC 的辅助配置, 用来注册拦截器.
- * 
+ *
  * @author jzsong@uworks.cc
  */
 @Configuration
-public class DefaultWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
+public class DefaultWebMvcConfigurerAdapter implements WebMvcConfigurer {
 
   @Resource
   private ApplicationContext applicationContext;

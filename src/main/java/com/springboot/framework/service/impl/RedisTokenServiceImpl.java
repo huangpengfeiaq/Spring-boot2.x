@@ -1,7 +1,7 @@
 package com.springboot.framework.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.springboot.framework.contants.Const;
+import com.springboot.framework.constant.Const;
 import com.springboot.framework.dao.entity.Admin;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.util.RedisUtil;
@@ -26,6 +26,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
     /**
      * 创建token
      */
+    @Override
     public String getToken(Admin userInfo) {
         //1.使用adminId作为源token
         String adminId = Const.SERVER_USER_KEY + userInfo.getId();
@@ -48,6 +49,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
     /**
      * 刷新用户
      */
+    @Override
     public void refreshUserToken(String token) {
         token = String.format(Const.SERVER_USER_KEY, token);
         if (redisUtils.hasKey(token)) {
@@ -58,6 +60,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
     /**
      * 用户退出登陆
      */
+    @Override
     public void loginOff(Admin userInfo) {
 //        token = String.format(Const.SERVER_USER_KEY, token);
         redisUtils.del(Const.SERVER_USER_KEY + userInfo.getId());
@@ -77,6 +80,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
     /**
      * 获取用户信息
      */
+    @Override
     public Admin getUserInfoByToken(String token) {
 //        token = String.format(Const.SERVER_USER_KEY, token);
         if (redisUtils.hasKey(token)) {

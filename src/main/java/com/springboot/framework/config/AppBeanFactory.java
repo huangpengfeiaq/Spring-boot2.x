@@ -6,12 +6,17 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.Resource;
+
 /**
  * 生成特殊bean的工厂bean, 有些第三方的Bean没有标注@component, 需要手工初始化.
  */
 @Configuration
 @EnableConfigurationProperties
 public class AppBeanFactory {
+    @Resource
+    private AppConfig appConfig;
+
     /**
      * 注册跨域支持过滤器
      */
@@ -20,7 +25,7 @@ public class AppBeanFactory {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         CrossDomainFilter crossDomainFilter = new CrossDomainFilter();
         // 设置是否允许跨域访问
-        crossDomainFilter.setAllowCrossDomain(true);
+        crossDomainFilter.setAllowCrossDomain(appConfig.getAllowCrossDomainAccess());
         registrationBean.setFilter(crossDomainFilter);
         registrationBean.setOrder(1);
         return registrationBean;

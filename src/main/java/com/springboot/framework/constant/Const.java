@@ -1,4 +1,4 @@
-package com.springboot.framework.contants;
+package com.springboot.framework.constant;
 
 
 public class Const {

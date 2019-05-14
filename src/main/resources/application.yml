@@ -35,3 +35,15 @@ mybatis:
 
 logging:
   path: /base-web-log
+
+
+# 应用信息
+app:
+  app-name: app
+  app-host: http://app.com
+  allow-generate-api: true
+  allow-cross-domain-access: true
+  # 开发dev 测试test  生产 master
+  env: dev
+  # 腾讯地图key
+  tencentMapKey: WX7BZ-TYPKQ-GTJ5Z-GJUIQ-G66GF-CSFGQ

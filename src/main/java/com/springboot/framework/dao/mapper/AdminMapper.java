@@ -4,27 +4,12 @@ import com.springboot.framework.dao.entity.Admin;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import tk.mybatis.mapper.common.Mapper;
 
-import java.util.List;
+public interface AdminMapper extends Mapper<Admin> {
+    @Select("SELECT * FROM sys_admin WHERE status != -1 AND (phone = #{loginKey} OR account = #{loginKey}) AND password = #{password}")
+    Admin login(@Param("loginKey") String loginKey, @Param("password") String password);
 
-public interface AdminMapper {
-    @Update("UPDATE sys_admin SET status = -1, update_by = #{updateBy} WHERE id = #{id}")
-    int deleteByPrimaryKey(@Param("id") Integer id, @Param("updateBy") String updateBy);
-
-    int insert(Admin record);
-
-    int insertSelective(Admin record);
-
-    @Select("SELECT * FROM sys_admin WHERE phone = #{phone} AND password = #{password}")
-    Admin login(@Param("phone") String phone, @Param("password") String password);
-
-    Admin selectByPrimaryKey(Integer id);
-
-    @Select("SELECT * FROM sys_admin WHERE status != -1 ORDER BY create_date DESC")
-    List<Admin> selectList();
-
-    int updateByPrimaryKeySelective(Admin record);
-
-    int updateByPrimaryKey(Admin record);
-
+    @Update("UPDATE sys_admin SET password = #{newPassword}, update_by = #{updateBy} WHERE id = #{id} AND password = #{oldPassword}")
+    int updateByPassword(@Param("id") Integer id, @Param("oldPassword") String oldPassword, @Param("newPassword") String newPassword, @Param("updateBy") String updateBy);
 }

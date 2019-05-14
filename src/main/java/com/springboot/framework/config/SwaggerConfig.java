@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -26,7 +25,6 @@ public class SwaggerConfig {
 
     @Bean
     public Docket platformApi() {
-
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).forCodeGeneration(true)
                 .select().apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .apis(RequestHandlerSelectors.any())
@@ -34,8 +32,6 @@ public class SwaggerConfig {
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
-
-
     }
 
     private List<ApiKey> securitySchemes() {
@@ -64,7 +60,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("黄鹏飞-API").description("©2019 Copyright. Powered By 黄鹏飞.")
+        return new ApiInfoBuilder().title("Spring boot 2019 API").description("©2019 Copyright. Powered By 黄鹏飞.")
                 // .termsOfServiceUrl("")
                 .contact(new Contact("黄鹏飞", "", "641655770@qq.com")).license("Apache License Version 2.0")
                 .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE").version("2.0").build();

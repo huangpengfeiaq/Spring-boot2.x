@@ -1,12 +1,16 @@
 package com.springboot.framework.dao.entity;
 
+import com.springboot.framework.dto.AdminDTO;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
+@Table(name = "sys_admin")
 public class Admin implements Serializable {
-    /*登录Token*/
-    private String accessToken;
-
+    @Id
     private Integer id;
 
     private String account;
@@ -27,15 +31,23 @@ public class Admin implements Serializable {
 
     private Byte status;
 
+    @Transient
+    private String accessToken;
+
     public Admin() {
     }
 
-    public Admin(String account, String password, String phone, String name, String createBy) {
-        this.account = account;
-        this.password = password;
-        this.phone = phone;
-        this.name = name;
-        this.createBy = createBy;
+    public Admin(AdminDTO adminDTO) {
+        this.id = adminDTO.getId();
+        this.account = adminDTO.getAccount();
+        this.password = adminDTO.getPassword();
+        this.phone = adminDTO.getPhone();
+        this.name = adminDTO.getName();
+        this.createBy = adminDTO.getCreateBy();
+        this.createDate = adminDTO.getCreateDate();
+        this.updateBy = adminDTO.getUpdateBy();
+        this.updateDate = adminDTO.getUpdateDate();
+        this.status = adminDTO.getStatus();
     }
 
     public String getAccessToken() {

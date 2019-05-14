@@ -37,7 +37,9 @@
         </sqlMapGenerator>
 
 
-        <javaClientGenerator type="XMLMAPPER"
+        <!-- 1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
+              2，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；  -->
+        <javaClientGenerator type="ANNOTATEDMAPPER"
                              targetPackage="com.springboot.framework.dao.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

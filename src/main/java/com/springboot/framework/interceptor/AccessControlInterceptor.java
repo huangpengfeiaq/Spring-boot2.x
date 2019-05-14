@@ -1,16 +1,16 @@
 package com.springboot.framework.interceptor;
 
 import com.springboot.framework.annotation.ACS;
-import com.springboot.framework.contants.Errors;
+import com.springboot.framework.constant.Errors;
 import com.springboot.framework.dao.entity.Admin;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.util.ExceptionUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Component
 public class AccessControlInterceptor extends HandlerInterceptorAdapter {
-    @Autowired
+    @Resource
     protected RedisTokenService redisTokenService;
 
     private static final List<String> noLoginResources = new ArrayList<String>() {

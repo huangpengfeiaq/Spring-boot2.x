@@ -3,7 +3,7 @@ package com.springboot.framework.controller.request;
 import lombok.Data;
 
 @Data
-public class AdminInsertSelective {
+public class AdminInsert {
     private String account;
     private String password;
     private String phone;

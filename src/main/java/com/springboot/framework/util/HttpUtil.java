@@ -1,7 +1,7 @@
 package com.springboot.framework.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.springboot.framework.contants.Errors;
+import com.springboot.framework.constant.Errors;
 import org.apache.commons.codec.CharEncoding;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
