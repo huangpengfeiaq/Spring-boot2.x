@@ -1,6 +1,6 @@
 package com.springboot.framework.dao.mapper;
 
-import com.springboot.framework.dao.entity.Admin;
+import com.springboot.framework.dao.pojo.Admin;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

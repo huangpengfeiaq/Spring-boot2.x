@@ -1,6 +1,6 @@
 package com.springboot.framework.service;
 
-import com.springboot.framework.dao.entity.Admin;
+import com.springboot.framework.bo.UserBO;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +18,7 @@ public interface RedisTokenService {
     /**
      * 创建token
      */
-    String getToken(Admin userInfo);
+    String getToken(UserBO userBOInfo);
 
     /**
      * 刷新用户
@@ -28,7 +28,7 @@ public interface RedisTokenService {
     /**
      * 用户退出登陆
      */
-    void loginOff(Admin userInfo);
+    void loginOff(UserBO userBOInfo);
 
     /**
      * 用户退出登陆
@@ -38,12 +38,12 @@ public interface RedisTokenService {
     /**
      * 获取用户信息
      */
-    Admin getUserInfoByToken(String token);
+    UserBO getUserInfoByToken(String token);
 
     /**
      * 获取缓存用户，不为空，重新设置缓存中用户的过期时间
      */
-    Admin getSessionUser(HttpServletRequest request);
+    UserBO getSessionUser(HttpServletRequest request);
 
     /**
      * 获取真实ip

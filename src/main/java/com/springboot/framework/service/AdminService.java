@@ -1,27 +1,27 @@
 package com.springboot.framework.service;
 
 import com.springboot.framework.constant.Errors;
-import com.springboot.framework.controller.response.PageResponseBean;
-import com.springboot.framework.dao.entity.Admin;
+import com.springboot.framework.bo.PageResponseBO;
+import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dto.AdminDTO;
-import com.springboot.framework.util.ResponseEntity;
+import com.springboot.framework.bo.ResponseBO;
 
 public interface AdminService {
-    ResponseEntity<Errors> deleteByPrimaryKey(AdminDTO recordDTO);
+    ResponseBO<Errors> deleteByPrimaryKey(AdminDTO recordDTO);
 
-    ResponseEntity<Errors> insertSelective(AdminDTO recordDTO);
+    ResponseBO<Errors> insertSelective(AdminDTO recordDTO);
 
-    ResponseEntity<Admin> login(AdminDTO recordDTO);
+    ResponseBO<Admin> login(AdminDTO recordDTO);
 
-    ResponseEntity<Admin> selectByPrimaryKey(Integer id);
+    ResponseBO<Admin> selectByPrimaryKey(Integer id);
 
-    PageResponseBean selectList(Integer pageNum, Integer pageSize);
+    PageResponseBO selectList(Integer pageNum, Integer pageSize);
 
-    PageResponseBean selectListByPhone(String phone, Integer pageNum, Integer pageSize);
+    PageResponseBO selectListByPhone(String phone, Integer pageNum, Integer pageSize);
 
-    ResponseEntity<Integer> selectCount();
+    ResponseBO<Integer> selectCount();
 
-    ResponseEntity<Errors> updateByPrimaryKeySelective(AdminDTO recordDTO);
+    ResponseBO<Errors> updateByPrimaryKeySelective(AdminDTO recordDTO);
 
-    ResponseEntity<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy);
+    ResponseBO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy);
 }

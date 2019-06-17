@@ -1,5 +1,6 @@
-package com.springboot.framework.interceptor;
+package com.springboot.framework.config;
 
+import com.springboot.framework.interceptor.AccessControlInterceptor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

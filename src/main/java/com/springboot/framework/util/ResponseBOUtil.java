@@ -2,6 +2,7 @@ package com.springboot.framework.util;
 
 
 
+import com.springboot.framework.bo.ResponseBO;
 import com.springboot.framework.constant.Errors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author jzsong@uworks.cc
  */
-public class ResponseEntityUtil {
+public class ResponseBOUtil {
 
-  public static <T> ResponseEntity<T> success(T data) {
-    ResponseEntity<T> entity = new ResponseEntity<T>();
+  public static <T> ResponseBO<T> success(T data) {
+    ResponseBO<T> entity = new ResponseBO<T>();
     entity.setData(data);
     entity.setCode(Errors.SUCCESS.code);
     entity.setHttpStatus(HttpStatusCode.OK.value());
@@ -22,16 +23,16 @@ public class ResponseEntityUtil {
     return entity;
   }
 
-  public static <T> ResponseEntity<T> success() {
-    ResponseEntity<T> entity = new ResponseEntity<T>();
+  public static <T> ResponseBO<T> success() {
+    ResponseBO<T> entity = new ResponseBO<T>();
     entity.setTimestamp(Long.valueOf(System.currentTimeMillis()));
     entity.setCode(Errors.SUCCESS.code);
     entity.setHttpStatus(HttpStatusCode.OK.value());
     return entity;
   }
 
-  public static ResponseEntity<Void> fail(Integer httpStatus, Integer code, String message, HttpServletRequest request) {
-    ResponseEntity<Void> entity = build();
+  public static ResponseBO<Void> fail(Integer httpStatus, Integer code, String message, HttpServletRequest request) {
+    ResponseBO<Void> entity = build();
     entity.setCode(code);
     entity.setHttpStatus(httpStatus);
     entity.setException(message);
@@ -41,38 +42,38 @@ public class ResponseEntityUtil {
     return entity;
   }
 
-  public static <T> ResponseEntity<T> fail(Integer code, String message) {
-    ResponseEntity<T> entity = new ResponseEntity<T>();
+  public static <T> ResponseBO<T> fail(Integer code, String message) {
+    ResponseBO<T> entity = new ResponseBO<T>();
     entity.setTimestamp(Long.valueOf(System.currentTimeMillis()));
     entity.setCode(code);
     entity.setException(message);
     return entity;
   }
 
-  public static <T> ResponseEntity<T> fail(String message) {
-    ResponseEntity<T> entity = new ResponseEntity<T>();
+  public static <T> ResponseBO<T> fail(String message) {
+    ResponseBO<T> entity = new ResponseBO<T>();
     entity.setTimestamp(Long.valueOf(System.currentTimeMillis()));
     entity.setCode(Errors.SYSTEM_CUSTOM_ERROR.code);
     entity.setException(message);
     return entity;
   }
   
-  public static <T> ResponseEntity<T> fail(Errors errors) {
-	    ResponseEntity<T> entity = new ResponseEntity<T>();
+  public static <T> ResponseBO<T> fail(Errors errors) {
+	    ResponseBO<T> entity = new ResponseBO<T>();
 	    entity.setTimestamp(Long.valueOf(System.currentTimeMillis()));
 	    entity.setCode(errors.code);
 	    entity.setException(errors.label);
 	    return entity;
 	  }
 
-  private static ResponseEntity<Void> build() {
-    ResponseEntity<Void> entity = new ResponseEntity<Void>();
+  private static ResponseBO<Void> build() {
+    ResponseBO<Void> entity = new ResponseBO<Void>();
     entity.setTimestamp(Long.valueOf(System.currentTimeMillis()));
     return entity;
   }
 
-  public static ResponseEntity<Void> fail(Integer httpStatus, Integer code, String message, HttpServletRequest request, Exception e) {
-    ResponseEntity<Void> entity = build();
+  public static ResponseBO<Void> fail(Integer httpStatus, Integer code, String message, HttpServletRequest request, Exception e) {
+    ResponseBO<Void> entity = build();
     entity.setCode(code);
     entity.setHttpStatus(httpStatus);
     entity.setException(message);
@@ -83,27 +84,27 @@ public class ResponseEntityUtil {
     return entity;
   }
   
-  public static <T> ResponseEntity<T> addMessage(int num){
+  public static <T> ResponseBO<T> addMessage(int num){
 	  return num == 0 ?
-			  ResponseEntityUtil.fail(Errors.SYSTEM_INSERT_FAIL) : 
-			  ResponseEntityUtil.success();
+			  ResponseBOUtil.fail(Errors.SYSTEM_INSERT_FAIL) :
+			  ResponseBOUtil.success();
   }
   
-  public static <T> ResponseEntity<T> message(T data){
+  public static <T> ResponseBO<T> message(T data){
 	  return data == null ?
-			  ResponseEntityUtil.fail(Errors.SYSTEM_DATA_NOT_FOUND) : 
-			  ResponseEntityUtil.success(data);
+			  ResponseBOUtil.fail(Errors.SYSTEM_DATA_NOT_FOUND) :
+			  ResponseBOUtil.success(data);
   }
   
-  public static <T> ResponseEntity<T> updMessage(int num){
+  public static <T> ResponseBO<T> updMessage(int num){
 	  return num == 0 ?
-			  ResponseEntityUtil.fail(Errors.SYSTEM_UPDATE_ERROR) : 
-			  ResponseEntityUtil.success();
+			  ResponseBOUtil.fail(Errors.SYSTEM_UPDATE_ERROR) :
+			  ResponseBOUtil.success();
   }
   
-  public static <T> ResponseEntity<T> delMessage(int num){
+  public static <T> ResponseBO<T> delMessage(int num){
 	  return num == 0 ?
-			  ResponseEntityUtil.fail(Errors.SYSTEM_DELETE_FAIL) : 
-			  ResponseEntityUtil.success();
+			  ResponseBOUtil.fail(Errors.SYSTEM_DELETE_FAIL) :
+			  ResponseBOUtil.success();
   }
 }

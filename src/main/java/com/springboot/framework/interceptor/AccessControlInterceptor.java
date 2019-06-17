@@ -2,9 +2,9 @@ package com.springboot.framework.interceptor;
 
 import com.springboot.framework.annotation.ACS;
 import com.springboot.framework.constant.Errors;
-import com.springboot.framework.dao.entity.Admin;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.util.ExceptionUtil;
+import com.springboot.framework.bo.UserBO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,8 +65,8 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
             }
         }
         // 缓存获取验证
-        Admin user = redisTokenService.getSessionUser(request);
-        if (user == null) {
+        UserBO userBO = redisTokenService.getSessionUser(request);
+        if (userBO == null) {
             ExceptionUtil.throwException(Errors.SYSTEM_NOT_LOGIN);
         }
         return true;

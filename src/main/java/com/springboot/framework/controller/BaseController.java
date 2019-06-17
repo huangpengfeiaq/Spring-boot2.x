@@ -2,10 +2,10 @@ package com.springboot.framework.controller;
 
 import com.springboot.framework.constant.Const;
 import com.springboot.framework.constant.Errors;
-import com.springboot.framework.dao.entity.Admin;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.util.ExceptionUtil;
 import com.springboot.framework.util.StringUtil;
+import com.springboot.framework.bo.UserBO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author haungpengfei
  * @version 1.2
- * @since 2019/1/10
  * @date 2019/5/8
+ * @since 2019/1/10
  */
 @RestController
 @RequestMapping("/")
@@ -64,15 +64,15 @@ public abstract class BaseController {
     /**
      * 缓存用户信息
      */
-    protected void setSessionUser(HttpServletRequest request, Admin user) {
-        redisTokenService.getToken(user);
+    protected void setSessionUser(HttpServletRequest request, UserBO userBO) {
+        redisTokenService.getToken(userBO);
     }
 
-    protected Admin getSessionUser(HttpServletRequest request) {
+    protected UserBO getSessionUser(HttpServletRequest request) {
         return redisTokenService.getSessionUser(request);
     }
 
-    protected Admin getSessionUser(String accessToken) {
+    protected UserBO getSessionUser(String accessToken) {
         return redisTokenService.getUserInfoByToken(accessToken);
     }
 

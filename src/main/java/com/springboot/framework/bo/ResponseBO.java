@@ -1,4 +1,4 @@
-package com.springboot.framework.util;
+package com.springboot.framework.bo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import java.io.Serializable;
  * API请求的返回结果
  * </pre>
  */
-public class ResponseEntity<T> implements Serializable {
+public class ResponseBO<T> implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -75,7 +75,7 @@ public class ResponseEntity<T> implements Serializable {
    * @param request request对象
    * @return 响应体
    */
-  public static <E> ResponseEntity<E> build(Integer httpStatus, Integer code, HttpServletRequest request) {
+  public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, HttpServletRequest request) {
     return build(httpStatus, code, null, null, request);
   }
 
@@ -86,7 +86,7 @@ public class ResponseEntity<T> implements Serializable {
    * @param request request对象
    * @return 响应体
    */
-  public static <E> ResponseEntity<E> build(Integer httpStatus, Integer code, E data, HttpServletRequest request) {
+  public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, E data, HttpServletRequest request) {
     return build(httpStatus, code, null, data, request);
   }
 
@@ -97,8 +97,8 @@ public class ResponseEntity<T> implements Serializable {
    * @param request request对象
    * @return 响应体
    */
-  public static <E> ResponseEntity<E> build(Integer httpStatus, Integer code, Exception exception,
-                                            HttpServletRequest request) {
+  public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, Exception exception,
+                                        HttpServletRequest request) {
     return build(httpStatus, code, exception, null, request);
   }
 
@@ -113,9 +113,9 @@ public class ResponseEntity<T> implements Serializable {
    * @param request request对象
    * @return 响应体
    */
-  public static <E> ResponseEntity<E> build(Integer httpStatus, Integer code, Exception exception, E data,
-                                            HttpServletRequest request) {
-    ResponseEntity<E> response = new ResponseEntity<E>();
+  public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, Exception exception, E data,
+                                        HttpServletRequest request) {
+    ResponseBO<E> response = new ResponseBO<E>();
     response.data = data;
     if (null != exception) {
       response.exception = exception.getClass().getCanonicalName();

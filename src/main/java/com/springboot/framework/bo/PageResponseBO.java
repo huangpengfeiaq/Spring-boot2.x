@@ -1,4 +1,4 @@
-package com.springboot.framework.controller.response;
+package com.springboot.framework.bo;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModel;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Title: PageResponseBean.java
+ * @Title: PageResponseBO.java
  * @Package cc.uworks.library.controller.response
  * @author liyuchang
  * @Description: 分页查询返回数据
@@ -16,7 +16,7 @@ import java.util.List;
  * @version V1.0
  */
 @ApiModel
-public class PageResponseBean<T> implements Serializable {
+public class PageResponseBO<T> implements Serializable {
 
   private static final long serialVersionUID = 6887389993060457824L;
   
@@ -65,9 +65,9 @@ public class PageResponseBean<T> implements Serializable {
   @ApiModelProperty(value = "httpStatus")
   private int httpStatus;
 
-  public PageResponseBean() {}
+  public PageResponseBO() {}
 
-  public PageResponseBean(List<T> content, long totalElements, int pageNum, int pageSize) {
+  public PageResponseBO(List<T> content, long totalElements, int pageNum, int pageSize) {
     super();
     this.content = content;
     this.totalElements = totalElements;
@@ -75,7 +75,7 @@ public class PageResponseBean<T> implements Serializable {
     this.pageSize = pageSize;
   }
 
-  public PageResponseBean(PageInfo<T> pageInfo) {
+  public PageResponseBO(PageInfo<T> pageInfo) {
     this.totalElements = pageInfo.getTotal();
     this.pageNum = pageInfo.getPageNum();
     this.pageSize = pageInfo.getPageSize();
