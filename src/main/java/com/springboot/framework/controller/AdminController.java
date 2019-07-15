@@ -56,10 +56,10 @@ public class AdminController extends BaseController {
             throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
         }
         //验证码校验：验证码会在控制台显示，前端可通过CommonController获取验证码。若有自定义验证码工具，注释以下56-59行代码即可
-        Boolean flag = verifyCode(bean.getVerifyCode());
-        if (!flag) {
-            return ResponseBOUtil.fail("验证码错误");
-        }
+//        Boolean flag = verifyCode(bean.getVerifyCode());
+//        if (!flag) {
+//            return ResponseBOUtil.fail("验证码错误");
+//        }
         AdminDTO recordDTO = new AdminDTO(bean.getLoginKey(), bean.getLoginPwd());
         ResponseBO<Admin> response = adminService.login(recordDTO);
         if (response.isSuccess()) {
