@@ -30,10 +30,10 @@
 | update_date | timestamp | 0| 0 |  | |  | 修改时间|
 | status | tinyint | 1| 0 | √ | |  | 状态，-1删除，0禁用，1正常|
 > 特别注意：
->> 1. id->√自动递增
->> 2. create_date->默认：CURRENT_TIMESTAMP
->> 3. update_date->默认：CURRENT_TIMESTAMP√根据当前时间戳更新
->> 4. status->默认：1
+> + id->√自动递增
+> + create_date->默认：CURRENT_TIMESTAMP
+> + update_date->默认：CURRENT_TIMESTAMP√根据当前时间戳更新
+> + status->默认：1
 ------------------------------------
 > 若使用SQL查询语句创建admin表，如下：
 ```
