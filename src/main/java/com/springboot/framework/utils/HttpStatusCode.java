@@ -158,8 +158,16 @@ public enum HttpStatusCode {
 
 
     public static enum Series {
-
-        INFORMATIONAL(1), SUCCESSFUL(2), REDIRECTION(3), CLIENT_ERROR(4), SERVER_ERROR(5);
+        //信息
+        INFORMATIONAL(1),
+        //成功的
+        SUCCESSFUL(2),
+        //重定向
+        REDIRECTION(3),
+        //客户端错误
+        CLIENT_ERROR(4),
+        //服务器错误
+        SERVER_ERROR(5);
 
         private final int value;
 

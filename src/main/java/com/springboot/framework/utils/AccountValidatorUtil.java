@@ -97,7 +97,7 @@ public class AccountValidatorUtil {
      * @param idCard 身份证
      * @return 校验通过返回true，否则返回false
      */
-    public static boolean isIDCard(String idCard) {
+    public static boolean isIdCard(String idCard) {
         return Pattern.matches(REGEX_ID_CARD, idCard);
     }
 
@@ -117,7 +117,7 @@ public class AccountValidatorUtil {
      * @param ipAddress IP地址
      * @return 校验通过返回true，否则返回false
      */
-    public static boolean isIPAddress(String ipAddress) {
+    public static boolean isIpAddress(String ipAddress) {
         return Pattern.matches(REGEX_IP_ADDR, ipAddress);
     }
 }

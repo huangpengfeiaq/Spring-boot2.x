@@ -1,16 +1,16 @@
 package com.springboot.framework.controller;
 
 import com.springboot.framework.annotation.ACS;
-import com.springboot.framework.bo.UserBO;
+import com.springboot.framework.vo.PageResponseVO;
+import com.springboot.framework.vo.ResponseVO;
+import com.springboot.framework.vo.UserVO;
 import com.springboot.framework.constant.Const;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.controller.request.*;
-import com.springboot.framework.bo.PageResponseBO;
 import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
 import com.springboot.framework.service.RedisService;
-import com.springboot.framework.bo.ResponseBO;
 import com.springboot.framework.utils.ResponseBOUtil;
 import com.springboot.framework.utils.StringUtil;
 import io.swagger.annotations.Api;
@@ -36,14 +36,14 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value = "删除管理员", notes = "")
     @DeleteMapping(value = "deleteByPrimaryKey")
-    public ResponseBO<Errors> deleteByPrimaryKey(@RequestParam Integer id, HttpServletRequest request) {
+    public ResponseVO<Errors> deleteByPrimaryKey(@RequestParam Integer id, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO(id, super.getSessionUser(request).getName());
         return adminService.deleteByPrimaryKey(recordDTO);
     }
 
     @ApiOperation(value = "新增超级管理员", notes = "")
     @PostMapping(value = "insertSelective")
-    public ResponseBO<Errors> insertSelective(@RequestBody AdminInsert bean, HttpServletRequest request) {
+    public ResponseVO<Errors> insertSelective(@RequestBody AdminInsert bean, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO(bean.getAccount(), bean.getPassword(), bean.getPhone(), bean.getName(), super.getSessionUser(request).getName());
         return adminService.insertSelective(recordDTO);
     }
@@ -51,7 +51,7 @@ public class AdminController extends BaseController {
     @ACS(allowAnonymous = true)
     @ApiOperation(value = "登陆", notes = "")
     @PostMapping(value = "login")
-    public ResponseBO<UserBO> login(@Valid @RequestBody AdminLogin bean, BindingResult bindingResult, HttpServletRequest request) {
+    public ResponseVO<UserVO> login(@Valid @RequestBody AdminLogin bean, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
         }
@@ -61,25 +61,25 @@ public class AdminController extends BaseController {
 //            return ResponseBOUtil.fail("验证码错误");
 //        }
         AdminDTO recordDTO = new AdminDTO(bean.getLoginKey(), bean.getLoginPwd());
-        ResponseBO<Admin> response = adminService.login(recordDTO);
+        ResponseVO<Admin> response = adminService.login(recordDTO);
         if (response.isSuccess()) {
-            UserBO userBO = new UserBO(response.getData());
-            return accessToken(userBO, request);
+            UserVO userVO = new UserVO(response.getData());
+            return accessToken(userVO, request);
         }
         return ResponseBOUtil.fail(response.getException());
     }
 
     @ApiOperation(value = "退出登录", notes = "")
     @PostMapping(value = "logout")
-    public ResponseBO<Void> logout(HttpServletRequest request) {
+    public ResponseVO<Void> logout(HttpServletRequest request) {
         deleteSessionUser(request);
         return ResponseBOUtil.success();
     }
 
     @ApiOperation(value = "查看个人信息", notes = "")
     @GetMapping(value = "selectBySession")
-    public ResponseBO<UserBO> selectBySession(HttpServletRequest request) {
-        UserBO admin = super.getSessionUser(request);
+    public ResponseVO<UserVO> selectBySession(HttpServletRequest request) {
+        UserVO admin = super.getSessionUser(request);
         if (admin != null) {
             return ResponseBOUtil.success(admin);
         }
@@ -88,44 +88,44 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value = "查看管理员", notes = "")
     @GetMapping(value = "selectByPrimaryKey")
-    public ResponseBO<Admin> selectByPrimaryKey(@RequestParam Integer id) {
+    public ResponseVO<Admin> selectByPrimaryKey(@RequestParam Integer id) {
         return adminService.selectByPrimaryKey(id);
     }
 
     @ApiOperation(value = "查看管理员列表", notes = "")
     @GetMapping(value = "selectList")
-    public PageResponseBO selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public PageResponseVO selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.selectList(pageNum, pageSize);
     }
 
     @ApiOperation(value = "查看管理员总数", notes = "")
     @GetMapping(value = "selectCount")
-    public ResponseBO<Integer> selectCount() {
+    public ResponseVO<Integer> selectCount() {
         return adminService.selectCount();
     }
 
     @ApiOperation(value = "根据手机号码查看管理员列表", notes = "")
     @GetMapping(value = "selectListByPhone")
-    public PageResponseBO selectListByPhone(@RequestParam String phone, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public PageResponseVO selectListByPhone(@RequestParam String phone, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.selectListByPhone(phone, pageNum, pageSize);
     }
 
     @ApiOperation(value = "更新管理员信息", notes = "")
     @PutMapping(value = "updateByPrimaryKeySelective")
-    public ResponseBO<Errors> updateByPrimaryKeySelective(@RequestBody AdminUpdateByPrimaryKey bean, HttpServletRequest request) {
+    public ResponseVO<Errors> updateByPrimaryKeySelective(@RequestBody AdminUpdateByPrimaryKey bean, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO(bean.getId(), bean.getPassword(), bean.getPhone(), bean.getName(), super.getSessionUser(request).getName(), bean.getStatus());
         return adminService.updateByPrimaryKeySelective(recordDTO);
     }
 
     @ApiOperation(value = "更新个人密码", notes = "")
     @PutMapping(value = "updateByPassword")
-    public ResponseBO<Errors> updateByPassword(@RequestBody AdminUpdateByPassword bean, HttpServletRequest request) {
+    public ResponseVO<Errors> updateByPassword(@RequestBody AdminUpdateByPassword bean, HttpServletRequest request) {
         return adminService.updateByPassword(super.getSessionUser(request).getId(), bean.getOldPassword(), bean.getNewPassword(), super.getSessionUser(request).getName());
     }
 
     @ApiOperation(value = "更新个人手机号", notes = "")
     @PutMapping(value = "updateByPhone")
-    public ResponseBO<Errors> updateByPhone(@RequestParam String phone, HttpServletRequest request) {
+    public ResponseVO<Errors> updateByPhone(@RequestParam String phone, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO();
         recordDTO.setId(super.getSessionUser(request).getId());
         recordDTO.setPhone(phone);
@@ -135,7 +135,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value = "更新管理员状态", notes = "")
     @PutMapping(value = "updateByStatus")
-    public ResponseBO<Errors> updateByStatus(@RequestBody UpdateByStatus bean, HttpServletRequest request) {
+    public ResponseVO<Errors> updateByStatus(@RequestBody UpdateByStatus bean, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO();
         recordDTO.setId(bean.getId());
         recordDTO.setUpdateBy(super.getSessionUser(request).getName());
@@ -154,13 +154,13 @@ public class AdminController extends BaseController {
         return false;
     }
 
-    private ResponseBO<UserBO> accessToken(UserBO userBO, HttpServletRequest request) {
+    private ResponseVO<UserVO> accessToken(UserVO userVO, HttpServletRequest request) {
         //session.setAttribute(Const.CURRENT_USER, response.getData());
         // 创建访问token
         String accessToken = super.generateAccessToken(request);
-        userBO.setAccessToken(accessToken);
+        userVO.setAccessToken(accessToken);
         super.setAccessTokenAttribute(request, accessToken);
-        super.setSessionUser(request, userBO);
-        return ResponseBOUtil.success(userBO);
+        super.setSessionUser(request, userVO);
+        return ResponseBOUtil.success(userVO);
     }
 }

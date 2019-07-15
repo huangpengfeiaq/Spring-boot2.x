@@ -4,7 +4,7 @@ import com.springboot.framework.annotation.ACS;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.utils.ExceptionUtil;
-import com.springboot.framework.bo.UserBO;
+import com.springboot.framework.vo.UserVO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +26,7 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
     @Resource
     protected RedisTokenService redisTokenService;
 
-    private static final List<String> noLoginResources = new ArrayList<String>() {
+    private static final List<String> NO_LOGIN_RESOURCES = new ArrayList<String>() {
         private static final long serialVersionUID = 1L;
 
         {
@@ -52,7 +52,7 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 不需要进行访问控制的资源过滤
         String uri = request.getRequestURI();
-        for (String resource : noLoginResources) {
+        for (String resource : NO_LOGIN_RESOURCES) {
             if (uri.startsWith(resource)) {
                 return true;
             }
@@ -65,8 +65,8 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
             }
         }
         // 缓存获取验证
-        UserBO userBO = redisTokenService.getSessionUser(request);
-        if (userBO == null) {
+        UserVO userVO = redisTokenService.getSessionUser(request);
+        if (userVO == null) {
             ExceptionUtil.throwException(Errors.SYSTEM_NOT_LOGIN);
         }
         return true;

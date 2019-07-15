@@ -1,11 +1,11 @@
 package com.springboot.framework.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.springboot.framework.vo.UserVO;
 import com.springboot.framework.constant.Const;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.utils.RedisUtil;
 import com.springboot.framework.utils.StringUtil;
-import com.springboot.framework.bo.UserBO;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -27,12 +27,12 @@ public class RedisTokenServiceImpl implements RedisTokenService {
      * 创建token
      */
     @Override
-    public String getToken(UserBO userBOInfo) {
+    public String getToken(UserVO userVO) {
         //1.使用adminId作为源token
-        String adminId = Const.SERVER_USER_KEY + userBOInfo.getId();
+        String adminId = Const.SERVER_USER_KEY + userVO.getId();
         //2.使用uuid作为源token
 //        String token = UUID.randomUUID().toString().replace("-", "");
-        String token = userBOInfo.getAccessToken();
+        String token = userVO.getAccessToken();
         //判断用户是否存在
         if (redisUtils.hasKey(adminId)) {
             redisUtils.del((String) redisUtils.get(adminId));
@@ -40,7 +40,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
         redisUtils.set(adminId, token, Const.SERVER_USER_EXP_KEY);
 
         // JSON格式
-        String userJson = JSON.toJSONString(userBOInfo);
+        String userJson = JSON.toJSONString(userVO);
 //        String token_format = String.format(Const.SERVER_USER_KEY, token);
         redisUtils.set(token, userJson, Const.SERVER_USER_EXP_KEY);
         return token;
@@ -61,10 +61,10 @@ public class RedisTokenServiceImpl implements RedisTokenService {
      * 用户退出登陆
      */
     @Override
-    public void loginOff(UserBO userBOInfo) {
+    public void loginOff(UserVO userVO) {
 //        token = String.format(Const.SERVER_USER_KEY, token);
-        redisUtils.del(Const.SERVER_USER_KEY + userBOInfo.getId());
-        redisUtils.del(userBOInfo.getAccessToken());
+        redisUtils.del(Const.SERVER_USER_KEY + userVO.getId());
+        redisUtils.del(userVO.getAccessToken());
     }
 
     /**
@@ -81,12 +81,12 @@ public class RedisTokenServiceImpl implements RedisTokenService {
      * 获取用户信息
      */
     @Override
-    public UserBO getUserInfoByToken(String token) {
+    public UserVO getUserInfoByToken(String token) {
 //        token = String.format(Const.SERVER_USER_KEY, token);
         if (redisUtils.hasKey(token)) {
             String jsonStr = (String) redisUtils.get(token);
-            UserBO userBO = JSON.parseObject(jsonStr, UserBO.class);
-            return userBO;
+            UserVO userVO = JSON.parseObject(jsonStr, UserVO.class);
+            return userVO;
         }
         return null;
     }
@@ -95,7 +95,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
      * 获取登录用户
      */
     @Override
-    public UserBO getSessionUser(HttpServletRequest request) {
+    public UserVO getSessionUser(HttpServletRequest request) {
         String key = getUserSessionKey(request);
         return getUserInfoByToken(key);
 //        String jsonStr = (String) redisUtils.get(key);
@@ -103,7 +103,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
 //        if (StringUtil.isBlank(jsonStr)) {
 //            ExceptionUtil.throwException(Errors.SYSTEM_NOT_LOGIN);
 //        }
-//        UserBO user = JSON.parseObject(jsonStr, UserBO.class);
+//        UserVO user = JSON.parseObject(jsonStr, UserVO.class);
 //        if (user != null) {
 //            memcachedService.set(key, Const.SERVER_USER_EXP_KEY, jsonStr);
 //            String accesskey = Const.SERVER_USER_KEY + user.getId();
@@ -116,7 +116,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
      * 获取真实ip
      */
     @Override
-    public String getRemoteIP(HttpServletRequest request) {
+    public String getRemoteIp(HttpServletRequest request) {
         if (request.getHeader("x-forwarded-for") == null) {
             return request.getRemoteAddr();
         }

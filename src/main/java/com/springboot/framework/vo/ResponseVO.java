@@ -1,4 +1,4 @@
-package com.springboot.framework.bo;
+package com.springboot.framework.vo;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author huangpengfei
  */
 @Data
-public class ResponseBO<T> implements Serializable {
+public class ResponseVO<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class ResponseBO<T> implements Serializable {
      * @param request    request对象
      * @return 响应体
      */
-    public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, HttpServletRequest request) {
+    public static <E> ResponseVO<E> build(Integer httpStatus, Integer code, HttpServletRequest request) {
         return build(httpStatus, code, null, null, request);
     }
 
@@ -43,7 +43,7 @@ public class ResponseBO<T> implements Serializable {
      * @param request    request对象
      * @return 响应体
      */
-    public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, E data, HttpServletRequest request) {
+    public static <E> ResponseVO<E> build(Integer httpStatus, Integer code, E data, HttpServletRequest request) {
         return build(httpStatus, code, null, data, request);
     }
 
@@ -54,7 +54,7 @@ public class ResponseBO<T> implements Serializable {
      * @param request    request对象
      * @return 响应体
      */
-    public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, Exception exception,
+    public static <E> ResponseVO<E> build(Integer httpStatus, Integer code, Exception exception,
                                           HttpServletRequest request) {
         return build(httpStatus, code, exception, null, request);
     }
@@ -69,9 +69,9 @@ public class ResponseBO<T> implements Serializable {
      * @param request    request对象
      * @return 响应体
      */
-    public static <E> ResponseBO<E> build(Integer httpStatus, Integer code, Exception exception, E data,
+    public static <E> ResponseVO<E> build(Integer httpStatus, Integer code, Exception exception, E data,
                                           HttpServletRequest request) {
-        ResponseBO<E> response = new ResponseBO<E>();
+        ResponseVO<E> response = new ResponseVO<E>();
         response.data = data;
         if (null != exception) {
             response.exception = exception.getClass().getCanonicalName();

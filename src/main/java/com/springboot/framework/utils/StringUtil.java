@@ -71,7 +71,7 @@ public class StringUtil {
     /**
      * 指定长度UUID
      */
-    public static String getUUID(int length) {
+    public static String getUuid(int length) {
         String uuid = UUID.randomUUID().toString();
         uuid = uuid.replace("-", "");
         if (uuid.length() > length) {
@@ -171,7 +171,7 @@ public class StringUtil {
     /**
      * 过滤不可见字符
      */
-    public static String stripNonValidXMLCharacters(String input) {
+    public static String stripNonValidXmlCharacters(String input) {
         if (input == null || ("".equals(input))) {
             return "";
         }
@@ -312,13 +312,13 @@ public class StringUtil {
     /**
      * 随机生成16位不重复的数字
      */
-    public static String getOrderSNByUUId() {
+    public static String getOrderSerialNumberByUuid() {
         int machineId = 1;
-        int hashCodeV = UUID.randomUUID().toString().hashCode();
-        if (hashCodeV < 0) {
-            hashCodeV = -hashCodeV;
+        int hashCode = UUID.randomUUID().toString().hashCode();
+        if (hashCode < 0) {
+            hashCode = -hashCode;
         }
-        return machineId + String.format("%015d", hashCodeV);
+        return machineId + String.format("%015d", hashCode);
     }
 
     public static String fixWithSingleQuotes(String values) {

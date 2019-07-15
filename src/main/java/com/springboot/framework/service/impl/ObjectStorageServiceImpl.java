@@ -174,9 +174,9 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
      * @return String
      */
     private String generateRelativeStoragePath(String suffixName) {
-        SimpleDateFormat yyyyMMddHH = new SimpleDateFormat("yyyyMMddHH");
-        String time = yyyyMMddHH.format(new Date());
-        String uuid = StringUtil.getUUID(8);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHH");
+        String time = simpleDateFormat.format(new Date());
+        String uuid = StringUtil.getUuid(8);
         StringBuilder sb = new StringBuilder();
         String storagePath = this.objectStorageConfig.getStoragePath();
         if (StringUtil.isNotBlank(storagePath)) {

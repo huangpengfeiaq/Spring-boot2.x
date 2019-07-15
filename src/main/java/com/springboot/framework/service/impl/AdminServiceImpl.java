@@ -1,9 +1,9 @@
 package com.springboot.framework.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.springboot.framework.bo.ResponseBO;
+import com.springboot.framework.vo.ResponseVO;
 import com.springboot.framework.constant.Errors;
-import com.springboot.framework.bo.PageResponseBO;
+import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dao.mapper.AdminMapper;
 import com.springboot.framework.dto.AdminDTO;
@@ -24,7 +24,7 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    public ResponseBO<Errors> deleteByPrimaryKey(AdminDTO recordDTO) {
+    public ResponseVO<Errors> deleteByPrimaryKey(AdminDTO recordDTO) {
         //2.创建entity
         Admin record = new Admin(recordDTO);
         record.setStatus((byte) -1);
@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseBO<Errors> insertSelective(AdminDTO recordDTO) {
+    public ResponseVO<Errors> insertSelective(AdminDTO recordDTO) {
         //1.请求校验
         Errors errors = validRequest(recordDTO, "insertSelective");
         if (errors.code != 0) {
@@ -53,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseBO<Admin> login(AdminDTO recordDTO) {
+    public ResponseVO<Admin> login(AdminDTO recordDTO) {
         //1.请求校验
         Errors errors = validRequest(recordDTO, "login");
         if (errors.code != 0) {
@@ -72,12 +72,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseBO<Admin> selectByPrimaryKey(Integer id) {
+    public ResponseVO<Admin> selectByPrimaryKey(Integer id) {
         return ResponseBOUtil.success(adminMapper.selectByPrimaryKey(id));
     }
 
     @Override
-    public PageResponseBO selectList(Integer pageNum, Integer pageSize) {
+    public PageResponseVO selectList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
 
         Example example = new Example(Admin.class);
@@ -90,7 +90,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageResponseBO selectListByPhone(String phone, Integer pageNum, Integer pageSize) {
+    public PageResponseVO selectListByPhone(String phone, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
 
         Example example = new Example(Admin.class);
@@ -104,14 +104,14 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseBO<Integer> selectCount() {
+    public ResponseVO<Integer> selectCount() {
         Admin record = new Admin();
         record.setStatus((byte) 1);
         return ResponseBOUtil.success(adminMapper.selectCount(record));
     }
 
     @Override
-    public ResponseBO<Errors> updateByPrimaryKeySelective(AdminDTO recordDTO) {
+    public ResponseVO<Errors> updateByPrimaryKeySelective(AdminDTO recordDTO) {
         //1.请求校验
         Errors errors = validRequest(recordDTO, "updateByPrimaryKeySelective");
         if (errors.code != 0) {
@@ -127,7 +127,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseBO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
+    public ResponseVO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
         int updateCount = adminMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
         if (updateCount == 0) {
             return ResponseBOUtil.fail(Errors.USER_OLD_PASSWORD_ERROR);

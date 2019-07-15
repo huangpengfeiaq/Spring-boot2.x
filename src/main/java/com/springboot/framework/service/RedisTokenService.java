@@ -1,6 +1,6 @@
 package com.springboot.framework.service;
 
-import com.springboot.framework.bo.UserBO;
+import com.springboot.framework.vo.UserVO;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,10 +17,10 @@ public interface RedisTokenService {
     /**
      * 创建token
      *
-     * @param userBO 缓存用户
-     * @return String token值
+     * @param userVO 缓存用户
+     * @return 缓存用户token值
      */
-    String getToken(UserBO userBO);
+    String getToken(UserVO userVO);
 
     /**
      * 刷新用户
@@ -32,9 +32,9 @@ public interface RedisTokenService {
     /**
      * 用户退出登陆
      *
-     * @param userBO 缓存用户
+     * @param userVO 缓存用户
      */
-    void loginOff(UserBO userBO);
+    void loginOff(UserVO userVO);
 
     /**
      * 用户退出登陆
@@ -47,22 +47,22 @@ public interface RedisTokenService {
      * 获取用户信息
      *
      * @param token 缓存用户token值
-     * @return UserBO
+     * @return 缓存用户信息
      */
-    UserBO getUserInfoByToken(String token);
+    UserVO getUserInfoByToken(String token);
 
     /**
      * 获取缓存用户，不为空，重新设置缓存中用户的过期时间
      *
      * @param request http请求
      */
-    UserBO getSessionUser(HttpServletRequest request);
+    UserVO getSessionUser(HttpServletRequest request);
 
     /**
      * 获取真实ip
      *
      * @param request http请求
-     * @return String
+     * @return IP地址
      */
-    String getRemoteIP(HttpServletRequest request);
+    String getRemoteIp(HttpServletRequest request);
 }

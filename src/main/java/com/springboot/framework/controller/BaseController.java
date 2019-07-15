@@ -5,7 +5,7 @@ import com.springboot.framework.constant.Errors;
 import com.springboot.framework.service.RedisTokenService;
 import com.springboot.framework.utils.ExceptionUtil;
 import com.springboot.framework.utils.StringUtil;
-import com.springboot.framework.bo.UserBO;
+import com.springboot.framework.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +32,7 @@ public abstract class BaseController {
     /**
      * 获取真实ip
      */
-    protected String getRemoteIP(HttpServletRequest request) {
+    protected String getRemoteIp(HttpServletRequest request) {
         if (request.getHeader("x-forwarded-for") == null) {
             return request.getRemoteAddr();
         }
@@ -64,15 +64,15 @@ public abstract class BaseController {
     /**
      * 缓存用户信息
      */
-    protected void setSessionUser(HttpServletRequest request, UserBO userBO) {
-        redisTokenService.getToken(userBO);
+    protected void setSessionUser(HttpServletRequest request, UserVO userVO) {
+        redisTokenService.getToken(userVO);
     }
 
-    protected UserBO getSessionUser(HttpServletRequest request) {
+    protected UserVO getSessionUser(HttpServletRequest request) {
         return redisTokenService.getSessionUser(request);
     }
 
-    protected UserBO getSessionUser(String accessToken) {
+    protected UserVO getSessionUser(String accessToken) {
         return redisTokenService.getUserInfoByToken(accessToken);
     }
 

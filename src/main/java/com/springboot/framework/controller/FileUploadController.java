@@ -1,8 +1,8 @@
 package com.springboot.framework.controller;
 
 import com.springboot.framework.annotation.ACS;
-import com.springboot.framework.bo.ImgUploadResponseBO;
-import com.springboot.framework.bo.ResponseBO;
+import com.springboot.framework.vo.ImgUploadResponseVO;
+import com.springboot.framework.vo.ResponseVO;
 import com.springboot.framework.config.ImageConfig;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.service.ObjectStorageService;
@@ -48,7 +48,7 @@ public class FileUploadController {
     @ACS(allowAnonymous = true)
     @ApiOperation(value = "上传图片", notes = "上传图片<br/>http://aligreen.alibaba.com/porn.html,在此检测rate超过80的为涉黄图片，会上传失败")
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-    public ResponseBO<String> uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+    public ResponseVO<String> uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         // 尺寸验证
         measurementValidation(file.getInputStream());
         return ResponseBOUtil.success(objectStorageService.upload(file));
@@ -59,11 +59,11 @@ public class FileUploadController {
      */
     @ApiOperation(value = "富文本内插入图片", notes = "")
     @RequestMapping(value = "/uploadImageEdit", method = RequestMethod.POST)
-    public ResponseBO<ImgUploadResponseBO> uploadImageEdit(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+    public ResponseVO<ImgUploadResponseVO> uploadImageEdit(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         // 尺寸验证
         measurementValidation(file.getInputStream());
         String filePath = objectStorageService.upload(file);
-        return ResponseBOUtil.success(new ImgUploadResponseBO(filePath));
+        return ResponseBOUtil.success(new ImgUploadResponseVO(filePath));
     }
 
 //  /**

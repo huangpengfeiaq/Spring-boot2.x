@@ -1,4 +1,4 @@
-package com.springboot.framework.bo;
+package com.springboot.framework.vo;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModel;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Data
 @ApiModel
-public class PageResponseBO<T> implements Serializable {
+public class PageResponseVO<T> implements Serializable {
 
     private static final long serialVersionUID = 6887389993060457824L;
 
@@ -65,10 +65,10 @@ public class PageResponseBO<T> implements Serializable {
     @ApiModelProperty(value = "httpStatus")
     private int httpStatus;
 
-    public PageResponseBO() {
+    public PageResponseVO() {
     }
 
-    public PageResponseBO(List<T> content, long totalElements, int pageNum, int pageSize) {
+    public PageResponseVO(List<T> content, long totalElements, int pageNum, int pageSize) {
         super();
         this.content = content;
         this.totalElements = totalElements;
@@ -76,7 +76,7 @@ public class PageResponseBO<T> implements Serializable {
         this.pageSize = pageSize;
     }
 
-    public PageResponseBO(PageInfo<T> pageInfo) {
+    public PageResponseVO(PageInfo<T> pageInfo) {
         this.totalElements = pageInfo.getTotal();
         this.pageNum = pageInfo.getPageNum();
         this.pageSize = pageInfo.getPageSize();

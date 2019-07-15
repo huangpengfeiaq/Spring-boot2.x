@@ -1,4 +1,4 @@
-package com.springboot.framework.bo;
+package com.springboot.framework.vo;
 
 import com.springboot.framework.dao.pojo.Admin;
 import lombok.Data;
@@ -11,17 +11,17 @@ import lombok.Data;
  * @since 2019/6/17
  */
 @Data
-public class UserBO {
+public class UserVO {
     private Integer id;
     private String name;
     private String phone;
     private Byte status;
     private String accessToken;
 
-    public UserBO() {
+    public UserVO() {
     }
 
-    public UserBO(Admin record) {
+    public UserVO(Admin record) {
         this.id = record.getId();
         this.name = record.getName();
         this.phone = record.getPhone();
