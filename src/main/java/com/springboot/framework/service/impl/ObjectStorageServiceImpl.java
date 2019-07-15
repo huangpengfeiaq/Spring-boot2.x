@@ -36,16 +36,16 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
     public String upload(MultipartFile file) {
         String originFileName = file.getOriginalFilename();
         String suffixName = originFileName.substring(originFileName.indexOf(".") + 1);
-        String fileType = FileContentTypeUtil.getContentType(suffixName);
+//        String fileType = FileContentTypeUtil.getContentType(suffixName);
         // 设置文件名
         String filePathName = generateRelativeStoragePath(suffixName);
-        byte[] fileContent = null;
-        try {
-            fileContent = file.getBytes();
-        } catch (Exception e) {
-            logger.error("Cannot get file content from {}.", originFileName);
-            ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "不能读取" + originFileName + "内容");
-        }
+//        byte[] fileContent = null;
+//        try {
+//            fileContent = file.getBytes();
+//        } catch (Exception e) {
+//            logger.error("Cannot get file content from {}.", originFileName);
+//            ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "不能读取" + originFileName + "内容");
+//        }
         ObjectStorageObjectMetadata metadata = new ObjectStorageObjectMetadata();
         // 设置上传文件长度
         metadata.setContentLength(file.getSize());
@@ -65,7 +65,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
         } finally {
             uploadClient.shutdown();
         }
-//        String path = cosConfig.getDownloadEndpoint() + FileUtil.getFileSeparator() + filePathName;
+//        String path = objectStorageConfig.getDownloadEndpoint() + FileUtil.getFileSeparator() + filePathName;
         String path = objectStorageConfig.getDownloadEndpoint() + "/" + filePathName;
         if (FileUtil.isImg(suffixName)) {
             // 图片访问处理样式，可在oss自定义,缩放、裁剪、压缩、旋转、格式、锐化、水印等
@@ -93,6 +93,8 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
         } catch (Exception e) {
             logger.error("ObjectStorage error", e);
             ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "ObjectStorage exception");
+        } finally {
+            uploadClient.shutdown();
         }
         String path = objectStorageConfig.getDownloadEndpoint() + FileUtil.getFileSeparator() + filePathName;
         // 图片访问处理样式，可在oss自定义,缩放、裁剪、压缩、旋转、格式、锐化、水印等
@@ -127,6 +129,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
             logger.error("ObjectStorage error", e);
             ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "ObjectStorage exception");
         } finally {
+            uploadClient.shutdown();
             if (is != null) {
                 try {
                     is.close();
@@ -151,6 +154,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
             e.printStackTrace();
             ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "下载文件异常");
         } finally {
+            downloadClient.shutdown();
             if (is != null) {
                 try {
                     is.close();
