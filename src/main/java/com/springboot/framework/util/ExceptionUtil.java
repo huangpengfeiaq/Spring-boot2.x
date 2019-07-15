@@ -10,15 +10,11 @@ import com.springboot.framework.exception.BusinessException;
  * @author jzsong@uworks.cc
  */
 public class ExceptionUtil {
+    public static void throwException(int code, String codeLabel) {
+        throw new BusinessException(code, codeLabel, codeLabel);
+    }
 
-  public static void throwException(int code, String codeLabel) {
-    BusinessException e = new BusinessException(code, codeLabel, codeLabel);
-    throw e;
-  }
-
-  public static void throwException(Errors error) {
-    BusinessException e = new BusinessException(error, error.label);
-    throw e;
-  }
-
+    public static void throwException(Errors error) {
+        throw new BusinessException(error, error.label);
+    }
 }

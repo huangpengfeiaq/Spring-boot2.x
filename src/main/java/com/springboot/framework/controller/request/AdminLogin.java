@@ -5,6 +5,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author huangpengfei
+ */
 @Data
 public class AdminLogin {
     /**

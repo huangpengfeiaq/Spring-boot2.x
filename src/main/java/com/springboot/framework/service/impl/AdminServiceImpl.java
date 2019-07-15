@@ -15,6 +15,9 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author huangpengfei
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
     @Resource

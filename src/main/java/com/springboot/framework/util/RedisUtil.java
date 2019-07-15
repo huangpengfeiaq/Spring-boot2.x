@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author huangpengfei
+ */
 @Component
 public final class RedisUtil {
 
@@ -159,7 +162,7 @@ public final class RedisUtil {
         if (delta < 0) {
             throw new RuntimeException("递减因子必须大于0");
         }
-        return redisTemplate.opsForValue().increment(key, -delta);
+        return redisTemplate.opsForValue().decrement(key, delta);
     }
 
     // ================================Map=================================

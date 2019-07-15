@@ -16,14 +16,15 @@ import javax.annotation.Resource;
 @Configuration
 public class DefaultWebMvcConfigurerAdapter implements WebMvcConfigurer {
 
-  @Resource
-  private ApplicationContext applicationContext;
+    @Resource
+    private ApplicationContext applicationContext;
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    // 访问权限控制
-    AccessControlInterceptor accessControlInterceptor = applicationContext.getBean(AccessControlInterceptor.class);
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 访问权限控制
+        AccessControlInterceptor accessControlInterceptor = applicationContext.getBean(AccessControlInterceptor.class);
 
-    registry.addInterceptor(accessControlInterceptor);//.addPathPatterns("/html/**");;
-  }
+        registry.addInterceptor(accessControlInterceptor);
+        //registry.addInterceptor(accessControlInterceptor).addPathPatterns("/html/**");;
+    }
 }

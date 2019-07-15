@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 
+/**
+ * @author huangpengfei
+ */
 public interface AdminMapper extends Mapper<Admin> {
     @Select("SELECT * FROM sys_admin WHERE status != -1 AND (phone = #{loginKey} OR account = #{loginKey}) AND password = #{password}")
     Admin login(@Param("loginKey") String loginKey, @Param("password") String password);

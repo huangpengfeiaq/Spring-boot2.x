@@ -12,10 +12,10 @@ public interface RedisService {
      * 设置缓存
      *
      * @param key：关键字
-     * @param exprieTime：过期时间，单位秒（例如exprieTime=30，为30秒）
+     * @param expireTime：过期时间，单位秒（例如exprieTime=30，为30秒）
      * @param value：值
      */
-    void set(String key, int exprieTime, Object value);
+    void set(String key, int expireTime, Object value);
 
     /**
      * 删除缓存
@@ -36,8 +36,8 @@ public interface RedisService {
      * 获得缓存中的数据并重置其过期时间.
      *
      * @param key        键
-     * @param exprieTime 过期时间，单位秒（例如exprieTime=30，为30秒）
+     * @param expireTime 过期时间，单位秒（例如exprieTime=30，为30秒）
      * @return Object
      */
-    Object refresh(String key, int exprieTime);
+    Object refresh(String key, int expireTime);
 }

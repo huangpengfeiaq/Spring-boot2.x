@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
+ * 缓存业务
+ *
  * @author haungpengfei
  * @version 1.0.0326
  * @date 2019年3月26日
- * @Description: 缓存业务
  */
 @Service
 public class RedisServiceImpl implements RedisService {
@@ -23,13 +24,13 @@ public class RedisServiceImpl implements RedisService {
     /**
      * 设置缓存
      *
-     * @param key
-     * @param exprieTime：过期时间，单位秒（例如exprieTime=30，为30秒）
+     * @param key                                       key
+     * @param expireTime：过期时间，单位秒（例如exprieTime=30，为30秒）
      * @param value：值
      */
     @Override
-    public void set(String key, int exprieTime, Object value) {
-        redisUtils.set(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key, value, exprieTime);
+    public void set(String key, int expireTime, Object value) {
+        redisUtils.set(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key, value, expireTime);
     }
 
     /**
@@ -52,10 +53,10 @@ public class RedisServiceImpl implements RedisService {
      * 获得缓存中的数据并重置其过期时间.
      */
     @Override
-    public Object refresh(String key, int exprieTime) {
+    public Object refresh(String key, int expireTime) {
         Object value = redisUtils.get(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key);
         if (value != null) {
-            redisUtils.set(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key, value, exprieTime);
+            redisUtils.set(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key, value, expireTime);
         }
         return value;
     }
@@ -63,20 +64,20 @@ public class RedisServiceImpl implements RedisService {
     /**
      * 缓存值+1，返回+1之后的值
      *
-     * @param key
-     * @return
+     * @param key key
+     * @return 缓存值
      */
-    protected long incr(String key) {
+    protected long increment(String key) {
         return redisUtils.incr(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key, 1);
     }
 
     /**
      * 缓存值-1，返回-1之后的值
      *
-     * @param key
-     * @return
+     * @param key key
+     * @return 缓存值
      */
-    protected long decr(String key) {
+    protected long decrement(String key) {
         return redisUtils.decr(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key, 1);
     }
 }

@@ -22,6 +22,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+/**
+ * @author huangpengfei
+ */
 @Api(tags = {"管理员操作接口"}, produces = "application/json")
 @RestController
 @RequestMapping("/admin/")

@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 
 /**
  * 生成特殊bean的工厂bean, 有些第三方的Bean没有标注@component, 需要手工初始化.
+ *
+ * @author huangpengfei
  */
 @Configuration
 @EnableConfigurationProperties

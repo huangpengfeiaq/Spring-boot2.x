@@ -3,156 +3,149 @@ package com.springboot.framework.bo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Title: PageResponseBO.java
- * @Package cc.uworks.library.controller.response
+ * 分页查询返回数据
+ *
  * @author liyuchang
- * @Description: 分页查询返回数据
- * @date 2017年3月31日
  * @version V1.0
+ * @date 2017年3月31日
  */
+@Data
 @ApiModel
 public class PageResponseBO<T> implements Serializable {
 
-  private static final long serialVersionUID = 6887389993060457824L;
-  
-  /**
-   * 返回数据内容
-   */
-  @ApiModelProperty(value = "返回数据内容")
-  private List<T> content;
-  /**
-   * 总条目数
-   */
-  @ApiModelProperty(value = "总条数")
-  private long totalElements;
-  /**
-   * 总页数
-   */
-  @ApiModelProperty(value = "总页数")
-  private int totalPages;
-  /**
-   * 当前页
-   */
-  @ApiModelProperty(value = "当前页")
-  private int pageNum;
-  /**
-   * 当前页的条目数
-   */
-  @ApiModelProperty(value = "每页显示条数")
-  private int pageSize;
-//  private int pageNumOfElements;
-  
-  /**
-   * 是否是第一页
-   */
-  @ApiModelProperty(value = "是否是第一页")
-  private boolean first;
-  
-  /**
-   * 是否是最后一页
-   */
-  @ApiModelProperty(value = "是否是最后一页")
-  private boolean last;
+    private static final long serialVersionUID = 6887389993060457824L;
 
-  @ApiModelProperty(value = "code")
-  private int code;
+    /**
+     * 返回数据内容
+     */
+    @ApiModelProperty(value = "返回数据内容")
+    private List<T> content;
+    /**
+     * 总条目数
+     */
+    @ApiModelProperty(value = "总条数")
+    private long totalElements;
+    /**
+     * 总页数
+     */
+    @ApiModelProperty(value = "总页数")
+    private int totalPages;
+    /**
+     * 当前页
+     */
+    @ApiModelProperty(value = "当前页")
+    private int pageNum;
+    /**
+     * 当前页的条目数
+     */
+    @ApiModelProperty(value = "每页显示条数")
+    private int pageSize;
 
-  @ApiModelProperty(value = "httpStatus")
-  private int httpStatus;
+    /**
+     * 是否是第一页
+     */
+    @ApiModelProperty(value = "是否是第一页")
+    private boolean first;
 
-  public PageResponseBO() {}
+    /**
+     * 是否是最后一页
+     */
+    @ApiModelProperty(value = "是否是最后一页")
+    private boolean last;
 
-  public PageResponseBO(List<T> content, long totalElements, int pageNum, int pageSize) {
-    super();
-    this.content = content;
-    this.totalElements = totalElements;
-    this.pageNum = pageNum;
-    this.pageSize = pageSize;
-  }
+    @ApiModelProperty(value = "code")
+    private int code;
 
-  public PageResponseBO(PageInfo<T> pageInfo) {
-    this.totalElements = pageInfo.getTotal();
-    this.pageNum = pageInfo.getPageNum();
-    this.pageSize = pageInfo.getPageSize();
-    this.totalPages = pageInfo.getPages();
-    this.content = pageInfo.getList();
-  }
+    @ApiModelProperty(value = "httpStatus")
+    private int httpStatus;
 
-  public List<T> getContent() {
-    return content;
-  }
+    public PageResponseBO() {
+    }
 
-  public void setContent(List<T> content) {
-    this.content = content;
-  }
+    public PageResponseBO(List<T> content, long totalElements, int pageNum, int pageSize) {
+        super();
+        this.content = content;
+        this.totalElements = totalElements;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
 
-  public int getTotalPages() {
-    return (int) ((this.totalElements > 0 && this.pageSize > 0 && this.totalPages == 0)
-        ? (this.totalElements / this.pageSize + (this.totalElements % this.pageSize > 0 ? 1 : 0)) : totalPages);
-  }
+    public PageResponseBO(PageInfo<T> pageInfo) {
+        this.totalElements = pageInfo.getTotal();
+        this.pageNum = pageInfo.getPageNum();
+        this.pageSize = pageInfo.getPageSize();
+        this.totalPages = pageInfo.getPages();
+        this.content = pageInfo.getList();
+    }
 
-  public void setTotalPages(int totalPages) {
-    this.totalPages = totalPages;
-  }
+    public List<T> getContent() {
+        return content;
+    }
 
-  public long getTotalElements() {
-    return totalElements;
-  }
+    public void setContent(List<T> content) {
+        this.content = content;
+    }
 
-  public void setTotalElements(long totalElements) {
-    this.totalElements = totalElements;
-  }
+    public int getTotalPages() {
+        return (int) ((this.totalElements > 0 && this.pageSize > 0 && this.totalPages == 0)
+                ? (this.totalElements / this.pageSize + (this.totalElements % this.pageSize > 0 ? 1 : 0)) : totalPages);
+    }
 
-  public boolean isLast() {
-    return pageNum==totalPages;
-  }
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
 
-  public int getPageNum() {
-    return pageNum;
-  }
+    public long getTotalElements() {
+        return totalElements;
+    }
 
-  public void setPageNum(int pageNum) {
-    this.pageNum = pageNum;
-  }
+    public void setTotalElements(long totalElements) {
+        this.totalElements = totalElements;
+    }
 
-  public int getPageSize() {
-    return pageSize;
-  }
+    public boolean isLast() {
+        return pageNum == totalPages;
+    }
 
-  public void setPageSize(int pageSize) {
-    this.pageSize = pageSize;
-  }
+    public int getPageNum() {
+        return pageNum;
+    }
 
-//  public int getpageNumOfElements() {
-//    return pageNumOfElements;
-//  }
-//
-//  public void setpageNumOfElements(int pageNumOfElements) {
-//    this.pageNumOfElements = pageNumOfElements;
-//  }
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
 
-  public boolean isFirst() {
-    return pageNum==1;
-  }
+    public int getPageSize() {
+        return pageSize;
+    }
 
-  public int getCode(){
-    return this.code;
-  }
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
-  public void setCode(int code){
-    this.code=code;
-  }
+    public boolean isFirst() {
+        return pageNum == 1;
+    }
 
-  public int getHttpStatus(){
-    return this.httpStatus;
-  }
+    public int getCode() {
+        return this.code;
+    }
 
-  public void setHttpStatus(int httpStatus){
-    this.httpStatus = httpStatus;
-  }
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public int getHttpStatus() {
+        return this.httpStatus;
+    }
+
+    public void setHttpStatus(int httpStatus) {
+        this.httpStatus = httpStatus;
+    }
 }

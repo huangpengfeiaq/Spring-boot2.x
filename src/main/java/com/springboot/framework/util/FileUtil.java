@@ -9,6 +9,8 @@ import java.util.Map.Entry;
 
 /**
  * 文件工具类
+ *
+ * @author huangpengfei
  */
 public class FileUtil {
   private static Logger logger = LoggerFactory.getLogger(FileUtil.class);

@@ -6,6 +6,9 @@ import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.bo.ResponseBO;
 
+/**
+ * @author huangpengfei
+ */
 public interface AdminService {
     /**
      * 删除

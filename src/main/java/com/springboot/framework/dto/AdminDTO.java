@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author huangpengfei
+ */
 @Data
 public class AdminDTO {
     private Integer id;

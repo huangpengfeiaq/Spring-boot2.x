@@ -18,6 +18,9 @@ import java.util.List;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+/**
+ * @author huangpengfei
+ */
 @Configuration
 @EnableAutoConfiguration
 @EnableSwagger2
@@ -62,7 +65,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Spring boot 2019 API").description("©2019 Copyright. Powered By 黄鹏飞.")
                 // .termsOfServiceUrl("")
-                .contact(new Contact("黄鹏飞", "", "641655770@qq.com")).license("Apache License Version 2.0")
+                .contact(new Contact("黄鹏飞", "https://github.com/LoveClean", "641655770@qq.com")).license("Apache License Version 2.0")
                 .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE").version("2.0").build();
     }
 

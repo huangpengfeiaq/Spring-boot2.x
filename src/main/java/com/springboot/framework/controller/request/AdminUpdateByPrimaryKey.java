@@ -2,6 +2,9 @@ package com.springboot.framework.controller.request;
 
 import lombok.Data;
 
+/**
+ * @author huangpengfei
+ */
 @Data
 public class AdminUpdateByPrimaryKey {
     private Integer id;

@@ -9,6 +9,9 @@ import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author huangpengfei
+ */
 @Data
 @Table(name = "sys_admin")
 public class Admin implements Serializable {
