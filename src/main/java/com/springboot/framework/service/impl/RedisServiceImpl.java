@@ -21,37 +21,21 @@ public class RedisServiceImpl implements RedisService {
     @Resource
     private AppConfig appConfig;
 
-    /**
-     * 设置缓存
-     *
-     * @param key                                       key
-     * @param expireTime：过期时间，单位秒（例如exprieTime=30，为30秒）
-     * @param value：值
-     */
     @Override
     public void set(String key, int expireTime, Object value) {
         redisUtils.set(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key, value, expireTime);
     }
 
-    /**
-     * 删除
-     */
     @Override
     public void delete(String key) {
         redisUtils.del(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key);
     }
 
-    /**
-     * 获取缓存值
-     */
     @Override
     public Object get(String key) {
         return redisUtils.get(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key);
     }
 
-    /**
-     * 获得缓存中的数据并重置其过期时间.
-     */
     @Override
     public Object refresh(String key, int expireTime) {
         Object value = redisUtils.get(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + key);
