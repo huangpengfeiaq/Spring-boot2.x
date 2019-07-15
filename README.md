@@ -1,7 +1,7 @@
-# springboot模板（2019年度版）
+# Spring boot模板（2019年度版）
 
-## 0.前言
-此模板已集成的模块如下
+## 0.导读
+此模板已集成的模块如下：
 1. swagger（图形化测试工具）：
    > 项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
 2. tk.mybatis（通用mapper）：
