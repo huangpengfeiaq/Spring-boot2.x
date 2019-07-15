@@ -2,9 +2,9 @@
 
 ## 0.前言
 > 此模板已集成的模块如下
->> 1. swagger（图形化测试工具）：项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载
->> 2. tk.mybatis（通用mapper）：参考目录com.springboot.framework.dao.mapper下AdminMapper类
->> 3. redis（非关系型数据库）：
+>> 1. swagger（图形化测试工具）：项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
+>> 2. tk.mybatis（通用mapper）：简化dao/mapper层配置，参考目录com.springboot.framework.dao.mapper下AdminMapper类。
+>> 3. redis（非关系型数据库）：模板内用于储存用户token，参考目录com.springboot.framework.service下RedisService类。
 >> 4. ObjectStorage（对象存储服务）：ObjectStorage是一个统称（包含百度云bos、腾讯云cos、阿里云oss、华为云obs），此模板为简化各个厂商不同的sdk配置，特此优化为统一sdk。
 
 ## 1.开始使用
