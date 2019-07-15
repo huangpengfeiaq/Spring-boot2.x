@@ -21,7 +21,7 @@ public interface AdminMapper extends Mapper<Admin> {
     Admin login(@Param("loginKey") String loginKey, @Param("password") String password);
 
     /**
-     * 登陆
+     * 更新（密码）
      *
      * @param id          管理员id
      * @param oldPassword 旧密码
