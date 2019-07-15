@@ -55,6 +55,7 @@ public interface RedisTokenService {
      * 获取缓存用户，不为空，重新设置缓存中用户的过期时间
      *
      * @param request http请求
+     * @return 缓存用户信息
      */
     UserVO getSessionUser(HttpServletRequest request);
 
