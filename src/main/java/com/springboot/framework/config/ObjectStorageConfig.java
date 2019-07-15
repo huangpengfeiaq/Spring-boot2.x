@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
  * @date 2019/7/13 23:26
  */
 @Data
-@ConfigurationProperties(prefix = "ObjectStorage")
+@ConfigurationProperties(prefix = "object-storage")
 @Component
 public class ObjectStorageConfig {
     private static Logger logger = LoggerFactory.getLogger(ObjectStorageConfig.class);

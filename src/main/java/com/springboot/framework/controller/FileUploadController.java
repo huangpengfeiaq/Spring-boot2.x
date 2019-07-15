@@ -3,7 +3,10 @@ package com.springboot.framework.controller;
 import com.springboot.framework.annotation.ACS;
 import com.springboot.framework.bo.ImgUploadResponseBO;
 import com.springboot.framework.bo.ResponseBO;
+import com.springboot.framework.config.ImageConfig;
+import com.springboot.framework.constant.Errors;
 import com.springboot.framework.service.ObjectStorageService;
+import com.springboot.framework.utils.ExceptionUtil;
 import com.springboot.framework.utils.ResponseBOUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,8 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author huangpengfei
@@ -29,43 +35,33 @@ import java.io.IOException;
 public class FileUploadController {
     @Resource
     private ObjectStorageService objectStorageService;
-//    @Resource
-//    private ImageConfig imageConfig;
+    @Resource
+    private ImageConfig imageConfig;
 
     /**
      * 上传图片
-     * @param file 图片
+     *
+     * @param file    图片
      * @param request http请求
-     * @return ResponseBO<String>
+     * @return json包装的url
      */
     @ACS(allowAnonymous = true)
     @ApiOperation(value = "上传图片", notes = "上传图片<br/>http://aligreen.alibaba.com/porn.html,在此检测rate超过80的为涉黄图片，会上传失败")
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     public ResponseBO<String> uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         // 尺寸验证
+        measurementValidation(file.getInputStream());
         return ResponseBOUtil.success(objectStorageService.upload(file));
     }
-
-    /**
-     * 上传图片
-     * @param file 文件
-     * @param request http请求
-     * @return ResponseBO<String>
-     */
-    @ApiOperation(value = "上传图片", notes = "上传图片<br/>http://aligreen.alibaba.com/porn.html,在此检测rate超过80的为涉黄图片，会上传失败")
-    @RequestMapping(value = "/uploadImageJson", method = RequestMethod.POST)
-    public ResponseBO<String> uploadImageJson(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
-        // 尺寸验证
-        return ResponseBOUtil.success(objectStorageService.upload(file));
-    }
-    // TODO 需要封装成json返回格式的上传接口
 
     /**
      * 富文本内插入图片
      */
-    @ApiOperation(value = "富文本内插入图片", notes = "上传图片<br/>http://aligreen.alibaba.com/porn.html,在此检测rate超过80的为涉黄图片，会上传失败")
+    @ApiOperation(value = "富文本内插入图片", notes = "")
     @RequestMapping(value = "/uploadImageEdit", method = RequestMethod.POST)
     public ResponseBO<ImgUploadResponseBO> uploadImageEdit(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+        // 尺寸验证
+        measurementValidation(file.getInputStream());
         String filePath = objectStorageService.upload(file);
         return ResponseBOUtil.success(new ImgUploadResponseBO(filePath));
     }
@@ -127,20 +123,20 @@ public class FileUploadController {
 //    return ResponseEntityUtil.success(filePath);
 //  }
 
-//    /**
-//     * 图片尺寸校验
-//     */
-//    private void measurementValidation(InputStream is) {
-//        BufferedImage source = null;
-//        try {
-//            source = ImageIO.read(is);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        int owidth = source.getWidth();
-//        int oheight = source.getHeight();
-//        if (owidth > imageConfig.getWidth() || oheight > imageConfig.getHeight()) {
-//            //ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "图片尺寸过大");
-//        }
-//    }
+    /**
+     * 图片尺寸校验
+     */
+    private void measurementValidation(InputStream is) {
+        BufferedImage source = null;
+        try {
+            source = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int owidth = source.getWidth();
+        int oheight = source.getHeight();
+        if (owidth > imageConfig.getWidth() || oheight > imageConfig.getHeight()) {
+            ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "图片尺寸过大");
+        }
+    }
 }

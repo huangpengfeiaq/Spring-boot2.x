@@ -1,10 +1,9 @@
 package com.springboot.framework.service.impl;
 
-//import com.qcloud.cos.COSClient;
-//import com.qcloud.cos.model.COSObject;
-//import com.qcloud.cos.model.ObjectMetadata;
+import com.springboot.framework.model.ObjectStorageClient;
 import com.springboot.framework.config.ObjectStorageConfig;
 import com.springboot.framework.constant.Errors;
+import com.springboot.framework.model.ObjectStorageObjectMetadata;
 import com.springboot.framework.service.ObjectStorageService;
 import com.springboot.framework.utils.*;
 import org.slf4j.Logger;
@@ -29,16 +28,10 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
     @Resource
     private ObjectStorageConfig objectStorageConfig;
     @Resource
-    private COSClient uploadClient;
+    private ObjectStorageClient uploadClient;
     @Resource
-    private COSClient downloadClient;
+    private ObjectStorageClient downloadClient;
 
-    /**
-     * oss上传文件，返回文件访问路径
-     *
-     * @param file：文件
-     * @return String
-     */
     @Override
     public String upload(MultipartFile file) {
         String originFileName = file.getOriginalFilename();
@@ -53,7 +46,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
             logger.error("Cannot get file content from {}.", originFileName);
             ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "不能读取" + originFileName + "内容");
         }
-        ObjectMetadata metadata = new ObjectMetadata();
+        ObjectStorageObjectMetadata metadata = new ObjectStorageObjectMetadata();
         // 设置上传文件长度
         metadata.setContentLength(file.getSize());
 
@@ -81,18 +74,12 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
         return path;
     }
 
-    /**
-     * base64code方式上传
-     *
-     * @param imageBytes 文件流
-     * @return String
-     */
     @Override
     public String uploadImageBase64(byte[] imageBytes) {
         String fileType = "image/jpeg";
         // 设置文件名
         String filePathName = generateRelativeStoragePath("jpeg");
-        ObjectMetadata meta = new ObjectMetadata();
+        ObjectStorageObjectMetadata meta = new ObjectStorageObjectMetadata();
         // 设置上传文件长度
         meta.setContentLength((long) imageBytes.length);
         // 设置上传MD5校验
@@ -104,20 +91,14 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
         try {
             uploadClient.putObject(objectStorageConfig.getBucketName(), filePathName, new ByteArrayInputStream(imageBytes), meta);
         } catch (Exception e) {
-            logger.error("OBS storage error", e);
-            //ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "BOS storage exception");
+            logger.error("ObjectStorage error", e);
+            ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "ObjectStorage exception");
         }
         String path = objectStorageConfig.getDownloadEndpoint() + FileUtil.getFileSeparator() + filePathName;
         // 图片访问处理样式，可在oss自定义,缩放、裁剪、压缩、旋转、格式、锐化、水印等
         return path + (StringUtil.isNotBlank(objectStorageConfig.getStyleName()) ? "?x-oss-process=style/" + objectStorageConfig.getStyleName() : "");
     }
 
-    /**
-     * File方式上传
-     *
-     * @param file 文件
-     * @return String
-     */
     @Override
     public String uploadFile(File file) {
         // 存储
@@ -132,7 +113,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
             is = new FileInputStream(file);
             byte[] fileContent = new byte[is.available()];
             is.read(fileContent);
-            ObjectMetadata meta = new ObjectMetadata();
+            ObjectStorageObjectMetadata meta = new ObjectStorageObjectMetadata();
             // 设置上传文件长度
             meta.setContentLength(file.length());
             // 设置上传MD5校验
@@ -143,8 +124,8 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
             String path = objectStorageConfig.getDownloadEndpoint() + FileUtil.getFileSeparator() + filePathName;
             return path;
         } catch (Exception e) {
-            logger.error("OBS storage error", e);
-            //ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "OSS storage exception");
+            logger.error("ObjectStorage error", e);
+            ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "ObjectStorage exception");
         } finally {
             if (is != null) {
                 try {
@@ -157,25 +138,18 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
         return null;
     }
 
-    /**
-     * 下载文件
-     *
-     * @param url 路径
-     * @return String
-     */
     @Override
     public byte[] download(String url) {
         InputStream is = null;
         try {
             String key = url.split(objectStorageConfig.getDownloadEndpoint() + "/")[1];
-            COSObject object = downloadClient.getObject(objectStorageConfig.getBucketName(), key);
-            is = object.getObjectContent();
+            is = downloadClient.getObject(objectStorageConfig.getBucketName(), key).getObjectContent();
             byte[] data = IOUtils.readStreamAsByteArray(is);
             return data;
         } catch (Exception e) {
             logger.error("下载文件异常,url={}", url, e);
             e.printStackTrace();
-            // ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "下载文件异常");
+            ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "下载文件异常");
         } finally {
             if (is != null) {
                 try {

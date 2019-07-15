@@ -23,7 +23,7 @@ spring:
       force: true
   datasource:
     name: datasource
-    url: jdbc:mysql://localhost:3306/springboot2019?serverTimezone=GMT%2b8
+    url: jdbc:mysql://localhost:3306/mi?serverTimezone=GMT%2b8
     username: root
     password: 970512
     type: com.alibaba.druid.pool.DruidDataSource
@@ -46,7 +46,7 @@ app:
   env: dev
 
 # 对象存储配置
-ObjectStorage:
+object-storage:
   accessKeyId:
   accessKeySecret:
   upload-endpoint:
@@ -56,3 +56,8 @@ ObjectStorage:
   download-url-expiration: 1800000
   #样式
 #  styleName: resize,h_250
+
+# 图片尺寸限制
+img:
+  width: 2000
+  height: 2000

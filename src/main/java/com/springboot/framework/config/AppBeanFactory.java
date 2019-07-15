@@ -1,6 +1,7 @@
 package com.springboot.framework.config;
 
 import com.springboot.framework.interceptor.CrossDomainFilter;
+import com.springboot.framework.model.ObjectStorageClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +22,8 @@ public class AppBeanFactory {
     @Resource
     private ObjectStorageConfig objectStorageConfig;
 
-    private COSClient getClient(String endpoint) {
-        return new COSClient(objectStorageConfig.getAccessKeyId(), objectStorageConfig.getAccessKeySecret(), endpoint);
+    private ObjectStorageClient getClient(String endpoint) {
+        return new ObjectStorageClient(objectStorageConfig.getAccessKeyId(), objectStorageConfig.getAccessKeySecret(), endpoint);
     }
 
     /**
@@ -31,7 +32,7 @@ public class AppBeanFactory {
      * @return COSClient
      */
     @Bean(name = "downloadClient")
-    public COSClient downloadClient() {
+    public ObjectStorageClient downloadClient() {
         return getClient(objectStorageConfig.getDownloadEndpoint());
     }
 
@@ -41,7 +42,7 @@ public class AppBeanFactory {
      * @return COSClient
      */
     @Bean(name = "uploadClient")
-    public COSClient uploadClient() {
+    public ObjectStorageClient uploadClient() {
         return getClient(objectStorageConfig.getUploadEndpoint());
     }
 
