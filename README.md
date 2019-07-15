@@ -1,11 +1,11 @@
 # springboot模板（2019年度版）
 
 ## 0.前言
-> 此模板已集成的模块如下
->> 1. swagger（图形化测试工具）：项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载
->> 2. tk.mybatis（通用mapper）：参考目录com.springboot.framework.dao.mapper下AdminMapper类
->> 3. redis（非关系型数据库）：
->> 4. 对象存储（对象存储服务）：
+此模板已集成的模块如下
+> 1. swagger（图形化测试工具）：项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载
+> 2. tk.mybatis（通用mapper）：参考目录com.springboot.framework.dao.mapper下AdminMapper类
+> 3. redis（非关系型数据库）：
+> 4. 对象存储（对象存储服务）：
 
 ## 1.开始使用
 使用idea导入项目
