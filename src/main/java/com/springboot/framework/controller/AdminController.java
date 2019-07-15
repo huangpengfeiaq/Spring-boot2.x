@@ -15,6 +15,7 @@ import com.springboot.framework.util.ResponseBOUtil;
 import com.springboot.framework.util.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,18 +48,21 @@ public class AdminController extends BaseController {
     @ACS(allowAnonymous = true)
     @ApiOperation(value = "登陆", notes = "管理员登陆")
     @PostMapping(value = "login")
-    public ResponseBO<UserBO> login(@Valid @RequestBody AdminLogin bean, HttpServletRequest request) {
-//        Boolean flag = verifyCode(bean.getVerifyCode());
-//        if (!flag) {
-//            return ResponseBOUtil.fail("验证码错误");
-//        }
+    public ResponseBO<UserBO> login(@Valid @RequestBody AdminLogin bean, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            throw new RuntimeException(bindingResult.getFieldError().getDefaultMessage());
+        }
+        Boolean flag = verifyCode(bean.getVerifyCode());
+        if (!flag) {
+            return ResponseBOUtil.fail("验证码错误");
+        }
         AdminDTO recordDTO = new AdminDTO(bean.getLoginKey(), bean.getLoginPwd());
         ResponseBO<Admin> response = adminService.login(recordDTO);
         if (response.isSuccess()) {
             UserBO userBO = new UserBO(response.getData());
             return accessToken(userBO, request);
         }
-        return ResponseBOUtil.fail("登陆失败");
+        return ResponseBOUtil.fail(response.getException());
     }
 
     @ApiOperation(value = "退出登录", notes = "退出登录")
