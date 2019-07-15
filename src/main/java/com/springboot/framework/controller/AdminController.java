@@ -31,14 +31,14 @@ public class AdminController extends BaseController {
     @Resource
     private RedisService redisService;
 
-    @ApiOperation(value = "删除管理员", notes = "删除管理员")
+    @ApiOperation(value = "删除管理员", notes = "")
     @DeleteMapping(value = "deleteByPrimaryKey")
     public ResponseBO<Errors> deleteByPrimaryKey(@RequestParam Integer id, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO(id, super.getSessionUser(request).getName());
         return adminService.deleteByPrimaryKey(recordDTO);
     }
 
-    @ApiOperation(value = "新增超级管理员", notes = "新增超级管理员")
+    @ApiOperation(value = "新增超级管理员", notes = "")
     @PostMapping(value = "insertSelective")
     public ResponseBO<Errors> insertSelective(@RequestBody AdminInsert bean, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO(bean.getAccount(), bean.getPassword(), bean.getPhone(), bean.getName(), super.getSessionUser(request).getName());
@@ -46,7 +46,7 @@ public class AdminController extends BaseController {
     }
 
     @ACS(allowAnonymous = true)
-    @ApiOperation(value = "登陆", notes = "管理员登陆")
+    @ApiOperation(value = "登陆", notes = "")
     @PostMapping(value = "login")
     public ResponseBO<UserBO> login(@Valid @RequestBody AdminLogin bean, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
@@ -66,14 +66,14 @@ public class AdminController extends BaseController {
         return ResponseBOUtil.fail(response.getException());
     }
 
-    @ApiOperation(value = "退出登录", notes = "退出登录")
+    @ApiOperation(value = "退出登录", notes = "")
     @PostMapping(value = "logout")
     public ResponseBO<Void> logout(HttpServletRequest request) {
         deleteSessionUser(request);
         return ResponseBOUtil.success();
     }
 
-    @ApiOperation(value = "查看个人信息", notes = "查看个人信息")
+    @ApiOperation(value = "查看个人信息", notes = "")
     @GetMapping(value = "selectBySession")
     public ResponseBO<UserBO> selectBySession(HttpServletRequest request) {
         UserBO admin = super.getSessionUser(request);
@@ -83,54 +83,60 @@ public class AdminController extends BaseController {
         return ResponseBOUtil.fail("用户未登录，无法获取当前用户信息");
     }
 
-    @ApiOperation(value = "查看管理员", notes = "查看管理员")
+    @ApiOperation(value = "查看管理员", notes = "")
     @GetMapping(value = "selectByPrimaryKey")
     public ResponseBO<Admin> selectByPrimaryKey(@RequestParam Integer id) {
         return adminService.selectByPrimaryKey(id);
     }
 
-    @ApiOperation(value = "查看管理员列表", notes = "查看管理员列表")
+    @ApiOperation(value = "查看管理员列表", notes = "")
     @GetMapping(value = "selectList")
     public PageResponseBO selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.selectList(pageNum, pageSize);
     }
 
-    @ApiOperation(value = "查看管理员总数", notes = "查看管理员总数")
+    @ApiOperation(value = "查看管理员总数", notes = "")
     @GetMapping(value = "selectCount")
     public ResponseBO<Integer> selectCount() {
         return adminService.selectCount();
     }
 
-    @ApiOperation(value = "根据手机号码查看管理员列表", notes = "根据手机号码查看管理员列表")
+    @ApiOperation(value = "根据手机号码查看管理员列表", notes = "")
     @GetMapping(value = "selectListByPhone")
     public PageResponseBO selectListByPhone(@RequestParam String phone, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.selectListByPhone(phone, pageNum, pageSize);
     }
 
-    @ApiOperation(value = "更新管理员信息", notes = "更新管理员信息")
+    @ApiOperation(value = "更新管理员信息", notes = "")
     @PutMapping(value = "updateByPrimaryKeySelective")
     public ResponseBO<Errors> updateByPrimaryKeySelective(@RequestBody AdminUpdateByPrimaryKey bean, HttpServletRequest request) {
         AdminDTO recordDTO = new AdminDTO(bean.getId(), bean.getPassword(), bean.getPhone(), bean.getName(), super.getSessionUser(request).getName(), bean.getStatus());
         return adminService.updateByPrimaryKeySelective(recordDTO);
     }
 
-    @ApiOperation(value = "更新个人密码", notes = "更新个人密码")
+    @ApiOperation(value = "更新个人密码", notes = "")
     @PutMapping(value = "updateByPassword")
     public ResponseBO<Errors> updateByPassword(@RequestBody AdminUpdateByPassword bean, HttpServletRequest request) {
         return adminService.updateByPassword(super.getSessionUser(request).getId(), bean.getOldPassword(), bean.getNewPassword(), super.getSessionUser(request).getName());
     }
 
-    @ApiOperation(value = "更新个人手机号", notes = "更新管理员手机号")
+    @ApiOperation(value = "更新个人手机号", notes = "")
     @PutMapping(value = "updateByPhone")
     public ResponseBO<Errors> updateByPhone(@RequestParam String phone, HttpServletRequest request) {
-        AdminDTO recordDTO = new AdminDTO(super.getSessionUser(request).getId(), null, phone, null, super.getSessionUser(request).getName(), null);
+        AdminDTO recordDTO = new AdminDTO();
+        recordDTO.setId(super.getSessionUser(request).getId());
+        recordDTO.setPhone(phone);
+        recordDTO.setUpdateBy(super.getSessionUser(request).getName());
         return adminService.updateByPrimaryKeySelective(recordDTO);
     }
 
-    @ApiOperation(value = "更新管理员状态", notes = "更新管理员状态")
+    @ApiOperation(value = "更新管理员状态", notes = "")
     @PutMapping(value = "updateByStatus")
     public ResponseBO<Errors> updateByStatus(@RequestBody UpdateByStatus bean, HttpServletRequest request) {
-        AdminDTO recordDTO = new AdminDTO(bean.getId(), null, null, null, super.getSessionUser(request).getName(), bean.getStatus());
+        AdminDTO recordDTO = new AdminDTO();
+        recordDTO.setId(bean.getId());
+        recordDTO.setUpdateBy(super.getSessionUser(request).getName());
+        recordDTO.setStatus(bean.getStatus());
         return adminService.updateByPrimaryKeySelective(recordDTO);
     }
 
