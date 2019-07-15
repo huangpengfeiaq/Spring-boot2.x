@@ -3,7 +3,7 @@ package com.springboot.framework.interceptor;
 import com.springboot.framework.annotation.ACS;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.service.RedisTokenService;
-import com.springboot.framework.util.ExceptionUtil;
+import com.springboot.framework.utils.ExceptionUtil;
 import com.springboot.framework.bo.UserBO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

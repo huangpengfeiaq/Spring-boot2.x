@@ -1,4 +1,4 @@
-package com.springboot.framework.util;
+package com.springboot.framework.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;

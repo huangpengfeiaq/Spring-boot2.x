@@ -1,4 +1,4 @@
-package com.springboot.framework.util;
+package com.springboot.framework.utils;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;

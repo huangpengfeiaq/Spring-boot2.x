@@ -1,11 +1,10 @@
-package com.springboot.framework.util;
+package com.springboot.framework.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.springboot.framework.constant.Errors;
 import org.apache.commons.codec.CharEncoding;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -16,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 

@@ -2,7 +2,7 @@ package com.springboot.framework.service.impl;
 
 import com.springboot.framework.config.AppConfig;
 import com.springboot.framework.service.RedisService;
-import com.springboot.framework.util.RedisUtil;
+import com.springboot.framework.utils.RedisUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

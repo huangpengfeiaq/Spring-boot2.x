@@ -3,8 +3,8 @@ package com.springboot.framework.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.springboot.framework.constant.Const;
 import com.springboot.framework.service.RedisTokenService;
-import com.springboot.framework.util.RedisUtil;
-import com.springboot.framework.util.StringUtil;
+import com.springboot.framework.utils.RedisUtil;
+import com.springboot.framework.utils.StringUtil;
 import com.springboot.framework.bo.UserBO;
 import org.springframework.stereotype.Component;
 

@@ -8,7 +8,7 @@ import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dao.mapper.AdminMapper;
 import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
-import com.springboot.framework.util.*;
+import com.springboot.framework.utils.*;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -44,7 +44,7 @@ public class AdminServiceImpl implements AdminService {
         }
         //2.创建entity
         Admin record = new Admin(recordDTO);
-        record.setPassword(MD5Util.MD5(record.getPassword()));
+        record.setPassword(BinaryUtil.encodeMd5(record.getPassword()));
         //3.响应校验
         if (adminMapper.insertSelective(record) == 0) {
             return ResponseBOUtil.fail("添加失败");
@@ -60,7 +60,7 @@ public class AdminServiceImpl implements AdminService {
             return ResponseBOUtil.fail(errors);
         }
         //2.创建entity
-        Admin admin = adminMapper.login(recordDTO.getLoginKey(), MD5Util.MD5(recordDTO.getPassword()));
+        Admin admin = adminMapper.login(recordDTO.getLoginKey(), BinaryUtil.encodeMd5(recordDTO.getPassword()));
         //3.响应校验
         if (admin == null) {
             return ResponseBOUtil.fail(Errors.USER_LOGIN_ERROR);
@@ -128,7 +128,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ResponseBO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
-        int updateCount = adminMapper.updateByPassword(id, MD5Util.MD5(oldPassword), MD5Util.MD5(newPassword), updateBy);
+        int updateCount = adminMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
         if (updateCount == 0) {
             return ResponseBOUtil.fail(Errors.USER_OLD_PASSWORD_ERROR);
         }

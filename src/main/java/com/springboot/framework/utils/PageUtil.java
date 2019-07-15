@@ -1,4 +1,4 @@
-package com.springboot.framework.util;
+package com.springboot.framework.utils;
 
 import com.github.pagehelper.PageInfo;
 import com.springboot.framework.bo.PageResponseBO;

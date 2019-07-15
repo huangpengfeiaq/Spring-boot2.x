@@ -1,7 +1,7 @@
 package com.springboot.framework.interceptor;
 
 import com.springboot.framework.bo.ResponseBO;
-import com.springboot.framework.util.ResponseBOUtil;
+import com.springboot.framework.utils.ResponseBOUtil;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

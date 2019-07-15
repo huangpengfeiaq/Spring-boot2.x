@@ -1,4 +1,4 @@
-package com.springboot.framework.util;
+package com.springboot.framework.utils;
 
 import com.springboot.framework.bo.ResponseBO;
 import com.springboot.framework.constant.Errors;

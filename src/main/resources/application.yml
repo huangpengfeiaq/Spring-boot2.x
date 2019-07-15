@@ -44,3 +44,15 @@ app:
   allow-cross-domain-access: true
   # 开发dev 测试test  生产 master
   env: dev
+
+# 对象存储配置
+ObjectStorage:
+  accessKeyId:
+  accessKeySecret:
+  upload-endpoint:
+  download-endpoint:
+  bucketName:
+  # 下载地址的有效时长，单位为ms，默认为半小时
+  download-url-expiration: 1800000
+  #样式
+#  styleName: resize,h_250
