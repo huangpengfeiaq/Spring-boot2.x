@@ -14,7 +14,7 @@ import com.qcloud.cos.region.Region;
  */
 public class ObjectStorageClient extends COSClient {
     /**
-     * 自定义构造方法
+     * 自定义构造方法（腾讯云COS）
      */
     public ObjectStorageClient(String secretId, String secretKey, String endpoint) {
         this(new BasicCOSCredentials(secretId, secretKey), new ClientConfig(new Region(endpoint)));
