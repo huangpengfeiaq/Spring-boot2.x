@@ -50,7 +50,7 @@ com.springboot.framework
 ## 1.开始使用
 使用idea导入项目
 
-## 2.创建数据库
+## 2.创建数据表
 > 方式一：使用图形化工具创建（以Navicat为例）admin表，结构如下：
 
 | 名称 | 类型 | 长度| 小数点 | 不是null | 虚拟| 键 | 注释|
@@ -90,7 +90,7 @@ CREATE TABLE `sys_admin`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 ```
 
-## 3.安装redis
+## 3.配置redis
 > 此模板中redis仅用于保存用户登录token值和用户信息。
 > 1. 下载并安装redis到本地，浏览器输入[https://github.com/microsoftarchive/redis/releases](https://github.com/microsoftarchive/redis/releases)。选择最新版msi文件下载并安装。
 > 2. 启动redis服务
