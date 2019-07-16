@@ -62,8 +62,8 @@ CREATE TABLE `sys_admin`  (
 更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码50-54行）参数。参考如下：
 ```xml
 <!-- 管理员表（只需更改以下两个参数即可）：
-    1.tableName="MySQL数据库表名称"
-    2.domainObjectName="逆向生成的pojo类名"-->
+        1.tableName="MySQL数据库表名称"
+        2.domainObjectName="逆向生成的pojo类名"-->
 <table tableName="sys_admin" domainObjectName="Admin"
         enableCountByExample="false" enableUpdateByExample="false"
         enableDeleteByExample="false" enableSelectByExample="false"
