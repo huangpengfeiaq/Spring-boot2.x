@@ -61,7 +61,20 @@ CREATE TABLE `sys_admin`  (
 ## 6.逆向生成数据表
 更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码50-54行）参数。参考如下：
 ```xml
-<!-- 管理员表（只需更改以下两个参数即可）：
+<!-- JDBC 连接信息（需更改以下三个参数）：
+        1.connectionURL="数据库连接语句"
+        2.userId="数据库连接用户名"
+        3.password="数据库连接密码"-->
+<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:3306/springboot2019?serverTimezone=UTC&amp;tinyInt1isBit=false"
+                userId="root" password="970512">
+        <!-- 针对mysql数据库 -->
+        <property name="useInformationSchema" value="true"></property>
+</jdbcConnection>
+```
+更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码50-54行）参数。参考如下：
+```xml
+<!-- 管理员表（需更改以下两个参数）：
         1.tableName="MySQL数据库表名称"
         2.domainObjectName="逆向生成的pojo类名"-->
 <table tableName="sys_admin" domainObjectName="Admin"
@@ -70,7 +83,7 @@ CREATE TABLE `sys_admin`  (
         selectByExampleQueryId="false"></table>
 ```
 特别注意：
-+ 生成路径为com.springboot.framework.dao.pojo下（代码29行）
++ 默认pojo类生成路径为com.springboot.framework.dao.pojo包下（代码29行）
 
 ## 7.对象存储服务配置
 更新src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
