@@ -14,56 +14,37 @@
 目录结构如下：
 ```markdown
 com.springboot.framework
-├── annotation // 注解包
-|   └── ACS
-├── config // 配置类包
-|   ├── AppBeanFactory
-|   ├── AppConfig
-|   ├── DefaultWebMvcConfigurerAdapter
-|   ├── ImageConfig
-|   ├── ObjectStorageConfig
-|   └── SwaggerConfig
-├── constant // 常量包
-|   ├── Const
-|   └── Errors
-├── controller // 控制器层
+├── annotation //注解包
+|   └── ......
+├── config //配置类包
+|   └── ......
+├── constant //常量包
+|   └── ......
+├── controller //控制器层
 |   ├── request
 |   |    └── ......
-|   ├── AdminController
-|   ├── BaseController
-|   ├── CommonController
-|   └── FileUploadController
-├── dao // 数据访问对象层
+|   └── ......
+├── dao //数据访问对象层
 |   ├── mapper
-|   |    └── AdminMapper
+|   |    └── ......
 |   └── pojo
-|   |    └── Admin
-├── dto // 数据参数对象包
-|   └── AdminDTO
-├── exception // 异常处理包
-|   └── BusinessException
-├── interceptor // 拦截器包
-|   ├── AccessControlInterceptor
-|   ├── CrossDomainFilter
-|   └── ExceptionHandlerInterceptor
-├── model // 模型包
-|   ├── ObjectStorageClient
-|   ├── ObjectStorageObject
-|   └── ObjectStorageObjectMetadata
-├── service // 服务层
+|   |    └── ......
+├── dto //数据参数对象包
+|   └── ......
+├── exception //异常处理包
+|   └── ......
+├── interceptor //拦截器包
+|   └── ......
+├── model //模型包
+|   └── ......
+├── service //服务层
 |   ├── impl
 |   |    └── ......
-|   ├── AdminService
-|   ├── ObjectStorageService
-|   ├── RedisService
-|   └── RedisTokenService
-├── utils // 工具类包
 |   └── ......
-├── vo // 值对象包
-|   ├── ImgUploadResponseVO
-|   ├── PageResponseVO
-|   ├── ResponseVO
-|   └── UserVO
+├── utils //工具类包
+|   └── ......
+├── vo //值对象包
+|   └── ......
 └── ProjectApplication
 ```
 ## 1.开始使用
