@@ -14,63 +14,56 @@
 目录结构如下：
 ```markdown
 com.springboot.framework
-├── annotation
+├── annotation // 注解包
 |   └── ACS
-├── config
+├── config // 配置类包
 |   ├── AppBeanFactory
 |   ├── AppConfig
 |   ├── DefaultWebMvcConfigurerAdapter
 |   ├── ImageConfig
 |   ├── ObjectStorageConfig
 |   └── SwaggerConfig
-├── constant
+├── constant // 常量包
 |   ├── Const
 |   └── Errors
-├── controller
+├── controller // 控制器层
 |   ├── request
-|   |    ├── AdminInsert
-|   |    ├── AdminInsertSelective
-|   |    ├── AdminLogin
-|   |    ├── AdminUpdateByPassword
-|   |    ├── AdminUpdateByPrimaryKey
-|   |    └── UpdateByStatus
+|   |    └── ......
 |   ├── AdminController
 |   ├── BaseController
 |   ├── CommonController
 |   └── FileUploadController
-├── dao
+├── dao // 数据访问对象层
 |   ├── mapper
 |   |    └── AdminMapper
 |   └── pojo
 |   |    └── Admin
-├── dto
+├── dto // 数据参数对象包
 |   └── AdminDTO
-├── exception
+├── exception // 异常处理包
 |   └── BusinessException
-├── interceptor
+├── interceptor // 拦截器包
 |   ├── AccessControlInterceptor
 |   ├── CrossDomainFilter
 |   └── ExceptionHandlerInterceptor
-├── model
+├── model // 模型包
 |   ├── ObjectStorageClient
 |   ├── ObjectStorageObject
 |   └── ObjectStorageObjectMetadata
-├── service
+├── service // 服务层
 |   ├── impl
-|   |    ├── AdminServiceImpl
-|   |    ├── ObjectStorageServiceImpl
-|   |    ├── RedisServiceImpl
-|   |    └── RedisTokenServiceImpl
+|   |    └── ......
 |   ├── AdminService
 |   ├── ObjectStorageService
 |   ├── RedisService
 |   └── RedisTokenService
-├── model
-|   ├── ObjectStorageClient
-|   ├── ObjectStorageObject
-|   └── ObjectStorageObjectMetadata
-├── utils
+├── utils // 工具类包
 |   └── ......
+├── vo // 值对象包
+|   ├── ImgUploadResponseVO
+|   ├── PageResponseVO
+|   ├── ResponseVO
+|   └── UserVO
 └── ProjectApplication
 ```
 ## 1.开始使用
