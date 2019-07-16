@@ -119,13 +119,14 @@ CREATE TABLE `sys_admin`  (
 ```
 特别注意：
 + 默认pojo类生成路径为com.springboot.framework.dao.pojo包下（代码29行）
-#### 2.启动CreateUtil类：
+#### 2.启动CreateUtil类
 ```
 运行com.springboot.framework.utils下CreateUtil类
 ```
 特别注意：
 + 单独运行CreateUtil.main()方法后，注意把项目启动类更新回ProjectApplication
-#### 4.pojo类配置映射，参考如下：
+#### 3.配置pojo类
+> 目录为com.springboot.framework.dao.pojo，参考如下：
 ```java
 /**
  * 以下4个注解详解
@@ -152,10 +153,10 @@ public class Admin implements Serializable {
     private String accessToken;
 }
 ```
-#### 5.mapper类配置映射：
-在配置传统mybatis映射时，一般为mapper类与xml文件对应。此框架加入tk.mybatis插件，无需xml文件。
-1. 删除xml文件包（删除src/main/resources目录下mapper包）
-2. 配置mapper接口，参考如下：
+#### 4.配置mapper类
+> 在配置传统mybatis映射时，一般为mapper类与xml文件对应。此框架加入tk.mybatis插件，无需xml文件。
+> 1. 删除xml文件包（删除src/main/resources目录下mapper包）
+> 2. 配置mapper接口，目录为com.springboot.framework.dao.mapper，参考如下：
 ```java
 /**
  * 1.继承tk.mybatis.mapper.common.Mapper接口（extends Mapper<pojo类名>），
