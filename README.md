@@ -49,14 +49,16 @@ CREATE TABLE `sys_admin`  (
   `create_date` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改者',
   `update_date` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态，-1已删除，0禁用，1正常，8超级管理员',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态，-1已删除，0禁用，1正常',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 ```
 
 ## 3.启动项目
+运行com.springboot.framework包下启动类ProjectApplication
 
-
+## 4.测试接口
+项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
 
 ## 6.逆向生成数据表
 #### 1.更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码18-24行）参数。参考如下：
