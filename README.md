@@ -58,9 +58,19 @@ CREATE TABLE `sys_admin`  (
 
 
 
-## 7.逆向生成数据表
+## 6.逆向生成数据表
 
-
+## 7.对象存储服务配置
+在resource目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
+```
+# 对象存储配置
+object-storage:
+  accessKeyId: yourAccessKeyId
+  accessKeySecret: yourAccessKeySecret
+  upload-endpoint: yourEndpoint
+  download-endpoint: yourEndpoint
+  bucketName: yourBucketName
+```
 
 ## 9.关于
 截至目前最后的大版本更新时间为2019年7月16日。
