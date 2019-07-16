@@ -1,7 +1,69 @@
 # Spring boot模板（2019年度版）
 
 ## 0.导读
-此模板已集成的模块如下：
+目录结构如下：
+```markdown
+com.springboot.framework
+├── annotation
+|   └── ACS
+├── config
+|   ├── AppBeanFactory
+|   ├── AppConfig
+|   ├── DefaultWebMvcConfigurerAdapter
+|   ├── ImageConfig
+|   ├── ObjectStorageConfig
+|   └── SwaggerConfig
+├── constant
+|   ├── Const
+|   └── Errors
+├── controller
+|   ├── request
+|   |    ├── AdminInsert
+|   |    ├── AdminInsertSelective
+|   |    ├── AdminLogin
+|   |    ├── AdminUpdateByPassword
+|   |    ├── AdminUpdateByPrimaryKey
+|   |    └── UpdateByStatus
+|   ├── AdminController
+|   ├── BaseController
+|   ├── CommonController
+|   └── FileUploadController
+├── dao
+|   ├── mapper
+|   |    └── AdminMapper
+|   └── pojo
+|   |    └── Admin
+├── dto
+|   └── AdminDTO
+├── exception
+|   └── BusinessException
+├── interceptor
+|   ├── AccessControlInterceptor
+|   ├── CrossDomainFilter
+|   └── ExceptionHandlerInterceptor
+├── model
+|   ├── ObjectStorageClient
+|   ├── ObjectStorageObject
+|   └── ObjectStorageObjectMetadata
+├── service
+|   ├── impl
+|   |    ├── AdminServiceImpl
+|   |    ├── ObjectStorageServiceImpl
+|   |    ├── RedisServiceImpl
+|   |    └── RedisTokenServiceImpl
+|   ├── AdminService
+|   ├── ObjectStorageService
+|   ├── RedisService
+|   └── RedisTokenService
+├── model
+|   ├── ObjectStorageClient
+|   ├── ObjectStorageObject
+|   └── ObjectStorageObjectMetadata
+├── utils
+|   └── ......
+└── ProjectApplication
+```
+此模板目前已集成的模块如下：
 1. swagger（图形化测试工具）：
    > 项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
 2. tk.mybatis（通用mapper）：
@@ -184,6 +246,8 @@ public class ObjectStorageClient extends COSClient {
     }
 }
 ```
+#### 4.使用文件上传接口
+文件上传接口类为FileUploadController，完成配置后，直接调用即可，返回的url即对应云服务商返回的文件url。
 
 ## 9.关于
 截至目前最后的大版本更新时间为2019年7月16日。
@@ -195,6 +259,6 @@ public class ObjectStorageClient extends COSClient {
 欢迎各位使用此模板学习或是开发，欢迎各位提交分支参与此模板的优化。
 
 问题与建议请联系邮箱：641655770@qq.com
-其他联系方式：
+其他联系方式（欢迎咨询与探讨）：
 * WeChat：641655770
 * QQ：641655770
