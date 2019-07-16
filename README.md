@@ -115,7 +115,6 @@ public class Admin implements Serializable {
 }
 ```
 #### 5.mapper类配置映射：
-
 在配置传统mybatis映射时，一般为mapper类与xml文件对应。此框架加入tk.mybatis插件，无需xml文件。
 1. 删除xml文件包（删除src/main/resources目录下mapper包）
 2. 配置mapper接口，参考如下：
