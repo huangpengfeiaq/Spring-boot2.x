@@ -214,7 +214,7 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>${org.mybatis.generator.version}</version>
                 <configuration>
-                    <configurationFile>src/main/resources/mbgconfig.xml</configurationFile>
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
                     <overwrite>true</overwrite>
                 </configuration>
                 <dependencies>

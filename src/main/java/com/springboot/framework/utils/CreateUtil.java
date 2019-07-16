@@ -16,7 +16,7 @@ public class CreateUtil {
     private void generator() throws Exception {
         List<String> warnings = new ArrayList<>();
         boolean overwrite = true;
-        File configFile = new File("src/main/resources/mbgconfig.xml");
+        File configFile = new File("src/main/resources/generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

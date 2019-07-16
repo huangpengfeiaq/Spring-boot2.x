@@ -98,7 +98,8 @@ CREATE TABLE `sys_admin`  (
 > 端口号可在application.yaml文件中修改。
 
 ## 6.逆向生成数据表
-#### 1.更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码18-24行）参数。参考如下：
+#### 1.更新配置文件generatorConfig.xml
+> 在src/main/resources目录下，更新数据库连接配置。参考如下（代码18-24行）：
 ```xml
 <!-- JDBC 连接信息（需更新以下三个参数）：1.connectionURL 2.userId= 3.password -->
 <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
@@ -108,7 +109,7 @@ CREATE TABLE `sys_admin`  (
         <property name="useInformationSchema" value="true"></property>
 </jdbcConnection>
 ```
-#### 2.更新（代码50-54行）参数。参考如下：
+> 更新数据表配置，参考如下（代码50-54行）：
 ```xml
 <!-- 管理员表（需更新以下两个参数）：1.tableName 2.domainObjectName -->
 <table tableName="MySQL数据库表名称" domainObjectName="逆向生成的pojo类名"
@@ -118,7 +119,7 @@ CREATE TABLE `sys_admin`  (
 ```
 特别注意：
 + 默认pojo类生成路径为com.springboot.framework.dao.pojo包下（代码29行）
-#### 3.启动CreateUtil类：
+#### 2.启动CreateUtil类：
 ```
 运行com.springboot.framework.utils下CreateUtil类
 ```
