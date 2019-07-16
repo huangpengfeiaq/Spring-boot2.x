@@ -139,6 +139,17 @@ public interface AdminMapper extends Mapper<Admin> {
 ```
 
 ## 7.对象存储服务配置
+#### 1.引入依赖
+在pom.xml文件中引入对应服务商的对象存储依赖，参数如下（以腾讯cos为例，代码179-184行）：
+```xml
+<!-- 腾讯云COS对象存储 -->
+<dependency>
+    <groupId>com.qcloud</groupId>
+    <artifactId>cos_api</artifactId>
+    <version>5.5.7</version>
+</dependency>
+```
+#### 2.更新yaml配置文件
 更新src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
 ```yaml
 # 对象存储配置
@@ -148,6 +159,30 @@ object-storage:
   upload-endpoint: yourEndpoint
   download-endpoint: yourEndpoint
   bucketName: yourBucketName
+```
+#### 3.ObjectStorage继承对应厂商对象存储类
+更新com.springboot.framework.model目录下三个ObjectStorage开头的类，参考如下（以ObjectStorageClient为例）：
+```java
+/**
+ * 1.继承对应厂商对象存储客户机类（extends 对应厂商Client）
+ * 2.ObjectStorageObject与ObjectStorageObjectMetadata类也如此即可。
+ */
+public class ObjectStorageClient extends COSClient {
+    /**
+     * 自定义构造方法（腾讯云COS）
+     */
+    public ObjectStorageClient(String secretId, String secretKey, String endpoint) {
+        this(new BasicCOSCredentials(secretId, secretKey), new ClientConfig(new Region(endpoint)));
+    }
+
+    public ObjectStorageClient(COSCredentials cred, ClientConfig clientConfig) {
+        super(cred, clientConfig);
+    }
+    
+    public ObjectStorageClient(COSCredentialsProvider credProvider, ClientConfig clientConfig) {
+        super(credProvider, clientConfig);
+    }
+}
 ```
 
 ## 9.关于
