@@ -90,14 +90,21 @@ CREATE TABLE `sys_admin`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 ```
 
-## 3.启动项目
+## 3.安装redis
+> 此模板中redis仅用于保存用户登录token值和用户信息。
+> 1. 下载并安装redis到本地，浏览器输入[https://github.com/microsoftarchive/redis/releases](https://github.com/microsoftarchive/redis/releases)。选择最新版msi文件下载并安装。
+> 2. 启动redis服务
+特别注意：
++ redis非必需，若不需要做权限校验，可在拦截器中加入访问url，或在控制器中为对应方法添加@ACS注解（不建议）。
+
+## 4.启动项目
 运行com.springboot.framework包下启动类ProjectApplication
 
-## 4.测试接口
+## 5.测试接口
 项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
 > 端口号可在application.yaml文件中修改。
 
-## 6.逆向生成数据表
+## 6.mybatis逆向工程
 #### 1.更新配置文件generatorConfig.xml
 > 在src/main/resources目录下，更新数据库连接配置。参考如下（代码18-24行）：
 ```xml
