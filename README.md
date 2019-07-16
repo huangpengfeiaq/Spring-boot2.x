@@ -69,7 +69,7 @@ CREATE TABLE `sys_admin`  (
 ```
 特别注意：
 + tableName="MySQL数据库表名称"
-+ domainObjectName="逆向生成的pojo类名"。生成路径为com.springboot.framework.dao.pojo下（代码29行）。
++ domainObjectName="逆向生成的pojo类名"。*生成路径为com.springboot.framework.dao.pojo下（代码29行）。*
 
 ## 7.对象存储服务配置
 在src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
