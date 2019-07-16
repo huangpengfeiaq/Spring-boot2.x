@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author jzsong@uworks.cc
  */
-public class ResponseBOUtil {
+public class ResponseVOUtil {
 
     public static <T> ResponseVO<T> success(T data) {
         ResponseVO<T> entity = new ResponseVO<T>();
@@ -84,25 +84,25 @@ public class ResponseBOUtil {
 
     public static <T> ResponseVO<T> addMessage(int num) {
         return num == 0 ?
-                ResponseBOUtil.fail(Errors.SYSTEM_INSERT_FAIL) :
-                ResponseBOUtil.success();
+                ResponseVOUtil.fail(Errors.SYSTEM_INSERT_FAIL) :
+                ResponseVOUtil.success();
     }
 
     public static <T> ResponseVO<T> message(T data) {
         return data == null ?
-                ResponseBOUtil.fail(Errors.SYSTEM_DATA_NOT_FOUND) :
-                ResponseBOUtil.success(data);
+                ResponseVOUtil.fail(Errors.SYSTEM_DATA_NOT_FOUND) :
+                ResponseVOUtil.success(data);
     }
 
     public static <T> ResponseVO<T> updMessage(int num) {
         return num == 0 ?
-                ResponseBOUtil.fail(Errors.SYSTEM_UPDATE_ERROR) :
-                ResponseBOUtil.success();
+                ResponseVOUtil.fail(Errors.SYSTEM_UPDATE_ERROR) :
+                ResponseVOUtil.success();
     }
 
     public static <T> ResponseVO<T> delMessage(int num) {
         return num == 0 ?
-                ResponseBOUtil.fail(Errors.SYSTEM_DELETE_FAIL) :
-                ResponseBOUtil.success();
+                ResponseVOUtil.fail(Errors.SYSTEM_DELETE_FAIL) :
+                ResponseVOUtil.success();
     }
 }

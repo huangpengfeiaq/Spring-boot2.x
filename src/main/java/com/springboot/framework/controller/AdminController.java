@@ -1,6 +1,7 @@
 package com.springboot.framework.controller;
 
 import com.springboot.framework.annotation.ACS;
+import com.springboot.framework.utils.ResponseVOUtil;
 import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.vo.ResponseVO;
 import com.springboot.framework.vo.UserVO;
@@ -11,7 +12,6 @@ import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
 import com.springboot.framework.service.RedisService;
-import com.springboot.framework.utils.ResponseBOUtil;
 import com.springboot.framework.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,7 +58,7 @@ public class AdminController extends BaseController {
         //验证码校验：验证码会在控制台显示，前端可通过CommonController获取验证码。若有自定义验证码工具，注释以下56-59行代码即可
 //        Boolean flag = verifyCode(bean.getVerifyCode());
 //        if (!flag) {
-//            return ResponseBOUtil.fail("验证码错误");
+//            return ResponseVOUtil.fail("验证码错误");
 //        }
         AdminDTO recordDTO = new AdminDTO(bean.getLoginKey(), bean.getLoginPwd());
         ResponseVO<Admin> response = adminService.login(recordDTO);
@@ -66,14 +66,14 @@ public class AdminController extends BaseController {
             UserVO userVO = new UserVO(response.getData());
             return accessToken(userVO, request);
         }
-        return ResponseBOUtil.fail(response.getException());
+        return ResponseVOUtil.fail(response.getException());
     }
 
     @ApiOperation(value = "退出登录", notes = "")
     @PostMapping(value = "logout")
     public ResponseVO<Void> logout(HttpServletRequest request) {
         deleteSessionUser(request);
-        return ResponseBOUtil.success();
+        return ResponseVOUtil.success();
     }
 
     @ApiOperation(value = "查看个人信息", notes = "")
@@ -81,9 +81,9 @@ public class AdminController extends BaseController {
     public ResponseVO<UserVO> selectBySession(HttpServletRequest request) {
         UserVO admin = super.getSessionUser(request);
         if (admin != null) {
-            return ResponseBOUtil.success(admin);
+            return ResponseVOUtil.success(admin);
         }
-        return ResponseBOUtil.fail("用户未登录，无法获取当前用户信息");
+        return ResponseVOUtil.fail("用户未登录，无法获取当前用户信息");
     }
 
     @ApiOperation(value = "查看管理员", notes = "")
@@ -161,6 +161,6 @@ public class AdminController extends BaseController {
         userVO.setAccessToken(accessToken);
         super.setAccessTokenAttribute(request, accessToken);
         super.setSessionUser(request, userVO);
-        return ResponseBOUtil.success(userVO);
+        return ResponseVOUtil.success(userVO);
     }
 }

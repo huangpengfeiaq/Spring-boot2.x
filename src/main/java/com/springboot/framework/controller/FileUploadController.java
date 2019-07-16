@@ -1,13 +1,13 @@
 package com.springboot.framework.controller;
 
 import com.springboot.framework.annotation.ACS;
+import com.springboot.framework.utils.ResponseVOUtil;
 import com.springboot.framework.vo.ImgUploadResponseVO;
 import com.springboot.framework.vo.ResponseVO;
 import com.springboot.framework.config.ImageConfig;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.service.ObjectStorageService;
 import com.springboot.framework.utils.ExceptionUtil;
-import com.springboot.framework.utils.ResponseBOUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +51,7 @@ public class FileUploadController {
     public ResponseVO<String> uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         // 尺寸验证
         measurementValidation(file.getInputStream());
-        return ResponseBOUtil.success(objectStorageService.upload(file));
+        return ResponseVOUtil.success(objectStorageService.upload(file));
     }
 
     /**
@@ -63,7 +63,7 @@ public class FileUploadController {
         // 尺寸验证
         measurementValidation(file.getInputStream());
         String filePath = objectStorageService.upload(file);
-        return ResponseBOUtil.success(new ImgUploadResponseVO(filePath));
+        return ResponseVOUtil.success(new ImgUploadResponseVO(filePath));
     }
 
 //  /**

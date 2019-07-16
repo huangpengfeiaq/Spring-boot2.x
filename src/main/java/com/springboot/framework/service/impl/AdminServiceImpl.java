@@ -30,9 +30,9 @@ public class AdminServiceImpl implements AdminService {
         record.setStatus((byte) -1);
         //3.响应校验
         if (adminMapper.updateByPrimaryKeySelective(record) == 0) {
-            return ResponseBOUtil.fail("删除失败");
+            return ResponseVOUtil.fail("删除失败");
         }
-        return ResponseBOUtil.success(Errors.SUCCESS);
+        return ResponseVOUtil.success(Errors.SUCCESS);
     }
 
     @Override
@@ -40,16 +40,16 @@ public class AdminServiceImpl implements AdminService {
         //1.请求校验
         Errors errors = validRequest(recordDTO, "insertSelective");
         if (errors.code != 0) {
-            return ResponseBOUtil.fail(errors);
+            return ResponseVOUtil.fail(errors);
         }
         //2.创建entity
         Admin record = new Admin(recordDTO);
         record.setPassword(BinaryUtil.encodeMd5(record.getPassword()));
         //3.响应校验
         if (adminMapper.insertSelective(record) == 0) {
-            return ResponseBOUtil.fail("添加失败");
+            return ResponseVOUtil.fail("添加失败");
         }
-        return ResponseBOUtil.success(Errors.SUCCESS);
+        return ResponseVOUtil.success(Errors.SUCCESS);
     }
 
     @Override
@@ -57,23 +57,23 @@ public class AdminServiceImpl implements AdminService {
         //1.请求校验
         Errors errors = validRequest(recordDTO, "login");
         if (errors.code != 0) {
-            return ResponseBOUtil.fail(errors);
+            return ResponseVOUtil.fail(errors);
         }
         //2.创建entity
         Admin admin = adminMapper.login(recordDTO.getLoginKey(), BinaryUtil.encodeMd5(recordDTO.getPassword()));
         //3.响应校验
         if (admin == null) {
-            return ResponseBOUtil.fail(Errors.USER_LOGIN_ERROR);
+            return ResponseVOUtil.fail(Errors.USER_LOGIN_ERROR);
         }
         if (admin.getStatus() == 0) {
-            return ResponseBOUtil.fail(Errors.SYSTEM_NO_ACCESS);
+            return ResponseVOUtil.fail(Errors.SYSTEM_NO_ACCESS);
         }
-        return ResponseBOUtil.success(admin);
+        return ResponseVOUtil.success(admin);
     }
 
     @Override
     public ResponseVO<Admin> selectByPrimaryKey(Integer id) {
-        return ResponseBOUtil.success(adminMapper.selectByPrimaryKey(id));
+        return ResponseVOUtil.success(adminMapper.selectByPrimaryKey(id));
     }
 
     @Override
@@ -107,7 +107,7 @@ public class AdminServiceImpl implements AdminService {
     public ResponseVO<Integer> selectCount() {
         Admin record = new Admin();
         record.setStatus((byte) 1);
-        return ResponseBOUtil.success(adminMapper.selectCount(record));
+        return ResponseVOUtil.success(adminMapper.selectCount(record));
     }
 
     @Override
@@ -115,24 +115,24 @@ public class AdminServiceImpl implements AdminService {
         //1.请求校验
         Errors errors = validRequest(recordDTO, "updateByPrimaryKeySelective");
         if (errors.code != 0) {
-            return ResponseBOUtil.fail(errors);
+            return ResponseVOUtil.fail(errors);
         }
         //2.创建entity
         Admin admin = new Admin(recordDTO);
         //3.响应校验
         if (adminMapper.updateByPrimaryKeySelective(admin) == 0) {
-            return ResponseBOUtil.fail("更新失败");
+            return ResponseVOUtil.fail("更新失败");
         }
-        return ResponseBOUtil.success(Errors.SUCCESS);
+        return ResponseVOUtil.success(Errors.SUCCESS);
     }
 
     @Override
     public ResponseVO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
         int updateCount = adminMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
         if (updateCount == 0) {
-            return ResponseBOUtil.fail(Errors.USER_OLD_PASSWORD_ERROR);
+            return ResponseVOUtil.fail(Errors.USER_OLD_PASSWORD_ERROR);
         }
-        return ResponseBOUtil.success(Errors.SUCCESS);
+        return ResponseVOUtil.success(Errors.SUCCESS);
     }
 
     private Errors validRequest(AdminDTO recordDTO, String type) {
