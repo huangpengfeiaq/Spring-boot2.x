@@ -1,7 +1,7 @@
 package com.springboot.framework.config;
 
 import com.springboot.framework.interceptor.CrossDomainFilter;
-import com.springboot.framework.model.ObjectStorageClient;
+import com.springboot.framework.config.model.ObjectStorageClient;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

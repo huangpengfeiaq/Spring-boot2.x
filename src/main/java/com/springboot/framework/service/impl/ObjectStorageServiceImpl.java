@@ -1,9 +1,9 @@
 package com.springboot.framework.service.impl;
 
-import com.springboot.framework.model.ObjectStorageClient;
+import com.springboot.framework.config.model.ObjectStorageClient;
 import com.springboot.framework.config.ObjectStorageConfig;
 import com.springboot.framework.constant.Errors;
-import com.springboot.framework.model.ObjectStorageObjectMetadata;
+import com.springboot.framework.config.model.ObjectStorageObjectMetadata;
 import com.springboot.framework.service.ObjectStorageService;
 import com.springboot.framework.utils.*;
 import org.slf4j.Logger;

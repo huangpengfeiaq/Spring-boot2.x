@@ -1,4 +1,4 @@
-package com.springboot.framework.model;
+package com.springboot.framework.config.model;
 
 import com.qcloud.cos.model.COSObject;
 
