@@ -94,6 +94,8 @@ CREATE TABLE `sys_admin`  (
 > 此模板中redis仅用于保存用户登录token值和用户信息。
 > 1. 下载并安装redis到本地，浏览器输入[https://github.com/microsoftarchive/redis/releases](https://github.com/microsoftarchive/redis/releases)。选择最新版msi文件下载并安装。
 > 2. 启动redis服务
+> 3. （可选）下载redis图形化工具，方便查看记录。
+
 特别注意：
 + redis非必需，若不需要做权限校验，可在拦截器中加入访问url，或在控制器中为对应方法添加@ACS注解（不建议）。
 
