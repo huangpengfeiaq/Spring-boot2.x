@@ -59,7 +59,7 @@ CREATE TABLE `sys_admin`  (
 
 
 ## 6.逆向生成数据表
-### 1.更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码18-24行）参数。参考如下：
+#### 1.更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码18-24行）参数。参考如下：
 ```xml
 <!-- JDBC 连接信息（需更新以下三个参数）：1.connectionURL 2.userId= 3.password -->
 <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
@@ -69,7 +69,7 @@ CREATE TABLE `sys_admin`  (
         <property name="useInformationSchema" value="true"></property>
 </jdbcConnection>
 ```
-### 2.更新（代码50-54行）参数。参考如下：
+#### 2.更新（代码50-54行）参数。参考如下：
 ```xml
 <!-- 管理员表（需更新以下两个参数）：1.tableName 2.domainObjectName -->
 <table tableName="MySQL数据库表名称" domainObjectName="逆向生成的pojo类名"
@@ -79,13 +79,13 @@ CREATE TABLE `sys_admin`  (
 ```
 特别注意：
 + 默认pojo类生成路径为com.springboot.framework.dao.pojo包下（代码29行）
-### 3.启动CreateUtil类：
+#### 3.启动CreateUtil类：
 ```
 运行com.springboot.framework.utils下CreateUtil类
 ```
 特别注意：
 + 单独运行CreateUtil.main()方法后，注意把项目启动类更新回ProjectApplication
-### 4.pojo类配置映射，参考如下：
+#### 4.pojo类配置映射，参考如下：
 ```java
 /**
  * 以下4个注解详解
@@ -112,7 +112,7 @@ public class Admin implements Serializable {
     private String accessToken;
 }
 ```
-### 5.mapper类配置映射：
+#### 5.mapper类配置映射：
 
 在配置传统mybatis映射时，一般为mapper类与xml文件对应。此框架加入tk.mybatis插件，无需xml文件。
 1. 删除xml文件包（删除src/main/resources目录下mapper包）
