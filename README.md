@@ -59,7 +59,7 @@ CREATE TABLE `sys_admin`  (
 
 
 ## 6.逆向生成数据表
-更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码18-24行）参数。参考如下：
+> 1.更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码18-24行）参数。参考如下：
 ```xml
 <!-- JDBC 连接信息（需更新以下三个参数）：1.connectionURL 2.userId= 3.password -->
 <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
@@ -69,7 +69,7 @@ CREATE TABLE `sys_admin`  (
         <property name="useInformationSchema" value="true"></property>
 </jdbcConnection>
 ```
-更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码50-54行）参数。参考如下：
+> 2.更新（代码50-54行）参数。参考如下：
 ```xml
 <!-- 管理员表（需更新以下两个参数）：1.tableName 2.domainObjectName -->
 <table tableName="MySQL数据库表名称" domainObjectName="逆向生成的pojo类名"
