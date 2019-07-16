@@ -79,6 +79,63 @@ CREATE TABLE `sys_admin`  (
 ```
 特别注意：
 + 默认pojo类生成路径为com.springboot.framework.dao.pojo包下（代码29行）
+> 3.启动CreateUtil类：
+```
+运行com.springboot.framework.utils下CreateUtil类
+```
+特别注意：
++ 单独运行CreateUtil.main()方法后，注意把项目启动类更新回ProjectApplication
+> 4.pojo类配置映射，参考如下：
+```java
+/**
+ * 以下4个注解详解
+ * 1.@Data lombok插件，会在编译时自动生成get、set、toString方法（简化代码）
+ * 2.@Table(name = "数据库表名") 与数据表绑定，若类名与数据表名遵循驼峰规则对应，可省略此参数
+ * 3.@Id 与数据表主键绑定
+ * 4.@Transient 冗余字段，额外参数（即数据表不存在的字段）
+ */
+@Data
+@Table(name = "sys_admin")
+public class Admin implements Serializable {
+    @Id
+    private Integer id;
+    private String account;
+    private String password;
+    private String phone;
+    private String name;
+    private String createBy;
+    private Date createDate;
+    private String updateBy;
+    private Date updateDate;
+    private Byte status;
+    @Transient
+    private String accessToken;
+}
+```
+> 5.mapper类配置映射：
+
+在配置传统mybatis映射时，一般为mapper类与xml文件对应。此框架加入tk.mybatis插件，无需xml文件。
+1. 删除xml文件包（删除src/main/resources目录下mapper包）
+2. 配置mapper接口，参考如下：
+```java
+/**
+ * 1.继承tk.mybatis.mapper.common.Mapper接口（extends Mapper<pojo类名>），
+ *   此时已可以直接在Service层直接调用mapper方法，具体方法参考文档https://blog.csdn.net/sinat_38419207/article/details/82907387。
+ * 2.以注解方式自定义SQL语句（@Select、@Update、@Insert、@Delete），参考如下登陆接口。
+ */
+public interface AdminMapper extends Mapper<Admin> {
+    /**
+     * 登陆
+     *
+     * @param loginKey 管理员用户名或手机号
+     * @param password 密码
+     * @return 管理员
+     */
+    @Select("SELECT * FROM sys_admin WHERE status != -1 AND (phone = #{loginKey} OR account = #{loginKey}) AND password = #{password}")
+    Admin login(@Param("loginKey") String loginKey, @Param("password") String password);
+    //......
+   }
+```
 
 ## 7.对象存储服务配置
 更新src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
