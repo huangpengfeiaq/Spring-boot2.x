@@ -179,7 +179,7 @@ public interface AdminMapper extends Mapper<Admin> {
 
 ## 7.对象存储服务配置
 #### 1.引入依赖
-在pom.xml文件中引入对应服务商的对象存储依赖，参数如下（以腾讯cos为例，代码179-184行）：
+> 在pom.xml文件中引入对应服务商的对象存储依赖，参数如下（以腾讯cos为例，代码179-184行）：
 ```xml
 <!-- 腾讯云COS对象存储 -->
 <dependency>
@@ -189,7 +189,7 @@ public interface AdminMapper extends Mapper<Admin> {
 </dependency>
 ```
 #### 2.更新yaml配置文件
-更新src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
+> 更新src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
 ```yaml
 # 对象存储配置
 object-storage:
@@ -200,7 +200,7 @@ object-storage:
   bucketName: yourBucketName
 ```
 #### 3.ObjectStorage继承对应厂商对象存储类
-更新com.springboot.framework.model目录下三个ObjectStorage开头的类，参考如下（以ObjectStorageClient为例）：
+> 更新com.springboot.framework.model目录下三个ObjectStorage开头的类，参考如下（以ObjectStorageClient为例）：
 ```java
 /**
  * 1.继承对应厂商对象存储客户机类（extends 对应厂商Client）
@@ -224,7 +224,7 @@ public class ObjectStorageClient extends COSClient {
 }
 ```
 #### 4.使用文件上传接口
-文件上传接口类为FileUploadController，完成配置后，直接调用即可，返回的url即对应云服务商返回的文件url。
+> 文件上传接口类为FileUploadController，完成配置后，直接调用即可，返回的url即对应云服务商返回的文件url。
 
 ## 9.关于
 截至目前最后的大版本更新时间为2019年7月16日。
