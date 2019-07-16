@@ -101,7 +101,7 @@ CREATE TABLE `sys_admin`  (
 #### 1.更新配置文件generatorConfig.xml
 > 在src/main/resources目录下，更新数据库连接配置。参考如下（代码18-24行）：
 ```xml
-<!-- JDBC 连接信息（需更新以下三个参数）：1.connectionURL 2.userId= 3.password -->
+<!-- JDBC 连接信息（需更新以下三个参数）：1.connectionURL 2.userId 3.password -->
 <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                 connectionURL="数据库连接语句"
                 userId="数据库连接用户名" password="数据库连接密码">
@@ -111,7 +111,7 @@ CREATE TABLE `sys_admin`  (
 ```
 > 更新数据表配置，参考如下（代码50-54行）：
 ```xml
-<!-- 管理员表（需更新以下两个参数）：1.tableName 2.domainObjectName -->
+<!-- 数据表（需更新以下两个参数）：1.tableName 2.domainObjectName -->
 <table tableName="MySQL数据库表名称" domainObjectName="逆向生成的pojo类名"
         enableCountByExample="false" enableUpdateByExample="false"
         enableDeleteByExample="false" enableSelectByExample="false"
