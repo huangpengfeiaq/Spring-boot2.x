@@ -95,6 +95,7 @@ CREATE TABLE `sys_admin`  (
 
 ## 4.测试接口
 项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
+> 端口号可在application.yaml文件中修改。
 
 ## 6.逆向生成数据表
 #### 1.更新src/main/resources目录下mbgconfig.xml文件内配置数据表（代码18-24行）参数。参考如下：
