@@ -7,7 +7,7 @@
 2. tk.mybatis（通用mapper）：
    > 简化dao/mapper层配置，参考目录com.springboot.framework.dao.mapper下AdminMapper类。
 3. redis（非关系型数据库）：
-   > 模板内用于储存用户token，参考目录com.springboot.framework.service下RedisService类。
+   > 模板内用于储存登陆用户token和用户信息，参考目录com.springboot.framework.service下RedisService类。
 4. ObjectStorage（对象存储服务）：
    > ObjectStorage是一个统称（包含百度云bos、腾讯云cos、阿里云oss、华为云obs），此模板为简化各个厂商不同的sdk配置，特此优化为统一sdk。
 
@@ -237,14 +237,15 @@ public class ObjectStorageClient extends COSClient {
 
 ## 9.关于
 截至目前最后的大版本更新时间为2019年7月16日。
-上次大版本更新时间为2019年5月14日。
+
+最近一次大版本更新时间为2019年5月14日。
 
 发布于2019年2月份，使用此模板前请先导入数据库，目录下springboot2019.sql文件。
 若要用于个人学习或商用，请删除数据库中除sys_admin以外的所有数据表，以免干扰个人的使用。
 
 欢迎各位使用此模板学习或是开发，欢迎各位提交分支参与此模板的优化。
 
-问题与建议请联系邮箱：641655770@qq.com
-其他联系方式（欢迎咨询与探讨）：
-* WeChat：641655770
-* QQ：641655770
+#### 如果你想联系我
+* 微信: 17663083790
+* 邮箱: 17663083790@163.com
+* QQ: 3230452986
