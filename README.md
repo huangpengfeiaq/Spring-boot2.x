@@ -182,6 +182,7 @@ public interface AdminMapper extends Mapper<Admin> {
      */
     @Select("SELECT * FROM sys_admin WHERE status != -1 AND (phone = #{loginKey} OR account = #{loginKey}) AND password = #{password}")
     Admin login(@Param("loginKey") String loginKey, @Param("password") String password);
+    
     //......
    }
 ```
