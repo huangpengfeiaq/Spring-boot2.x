@@ -10,6 +10,7 @@ import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
 import com.springboot.framework.utils.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author huangpengfei
  */
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class AdminServiceImpl implements AdminService {
     @Resource
     private AdminMapper adminMapper;
