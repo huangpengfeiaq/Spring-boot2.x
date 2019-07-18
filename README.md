@@ -106,6 +106,8 @@ CREATE TABLE `sys_admin`  (
 项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
 > 端口号可在application.yaml文件中修改。
 
+此模板默认写好一套admin的基础接口，建议先对所有接口做一次数据测试，确认无误后即可开始真正的自定义项目。
+
 ## 6.mybatis逆向工程
 #### 1.更新配置文件generatorConfig.xml
 > 在src/main/resources目录下，更新数据库连接配置。参考如下（代码18-24行）：
