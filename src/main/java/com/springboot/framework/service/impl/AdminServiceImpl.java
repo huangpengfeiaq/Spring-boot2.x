@@ -161,10 +161,12 @@ public class AdminServiceImpl implements AdminService {
                 }
                 break;
             case "updateByPrimaryKeySelective":
-                criteria.andEqualTo("phone", recordDTO.getPhone());
-                validRequest = adminMapper.selectOneByExample(example);
-                if (validRequest != null && !validRequest.getId().equals(recordDTO.getId())) {
-                    return Errors.USER_MOBILE_EXISTS;
+                if (!StringUtil.isEmpty(recordDTO.getPhone())) {
+                    criteria.andEqualTo("phone", recordDTO.getPhone());
+                    validRequest = adminMapper.selectOneByExample(example);
+                    if (validRequest != null && !validRequest.getId().equals(recordDTO.getId())) {
+                        return Errors.USER_MOBILE_EXISTS;
+                    }
                 }
                 break;
             default:
