@@ -48,6 +48,9 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
         }
     };
 
+    /**
+     * 在业务之前执行
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 不需要进行访问控制的资源过滤
@@ -72,10 +75,16 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
         return true;
     }
 
+    /**
+     * 在业务之后执行
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
     }
 
+    /**
+     * 在生命周期完结后执行
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
     }
