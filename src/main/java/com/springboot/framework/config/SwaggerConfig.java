@@ -19,6 +19,8 @@ import java.util.List;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
+ * Swagger配置
+ *
  * @author huangpengfei
  */
 @Configuration

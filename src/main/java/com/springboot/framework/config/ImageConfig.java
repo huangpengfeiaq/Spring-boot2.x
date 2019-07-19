@@ -5,6 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * 图像处理
+ *
  * @author huangpengfei
  * @version 1.0
  * @date 2019/7/16 1:44
