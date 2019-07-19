@@ -1,17 +1,17 @@
 # Spring boot模板（2019年度版）
 
 ## 0.导读
-#### 此模板目前已集成的模块如下：
-1. Swagger（图形化测试工具）
-2. TK.Mybatis（Mybatis的增强工具）
-3. Redis（非关系型数据库）
-4. ObjectStorage（对象存储服务）
-5. Aop（切面）
-6. Transactional（事务）
-7. Scheduled（定时器）
-8. Interceptor（拦截器）
+此模板目前已集成的模块如下：
+* Swagger（图形化测试工具）
+* TK.Mybatis（Mybatis的增强工具）
+* Redis（非关系型数据库）
+* ObjectStorage（对象存储服务）
+* Aop（切面）
+* Transactional（事务）
+* Scheduled（定时器）
+* Interceptor（拦截器）
    
-#### 目录结构如下：
+目录结构如下：
 ```markdown
 com.springboot.framework
 ├── annotation //注解包
@@ -53,7 +53,7 @@ com.springboot.framework
 使用idea导入项目
 
 ## 2.创建数据表
-> 方式一：使用图形化工具创建（以Navicat为例）admin表，结构如下：
+* 方式一：使用图形化工具创建（以Navicat为例）admin表，结构如下：
 
 | 名称 | 类型 | 长度| 小数点 | 不是null | 虚拟| 键 | 注释|
 |:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
@@ -68,13 +68,13 @@ com.springboot.framework
 | update_date | timestamp | 0| 0 |  | |  | 修改时间|
 | status | tinyint | 1| 0 | √ | |  | 状态，-1删除，0禁用，1正常|
 
-特别注意：
-+ id->√自动递增
-+ create_date->默认：CURRENT_TIMESTAMP
-+ update_date->默认：CURRENT_TIMESTAMP√根据当前时间戳更新
-+ status->默认：1
+> 特别注意：
+> + id->√自动递增
+> + create_date->默认：CURRENT_TIMESTAMP
+> + update_date->默认：CURRENT_TIMESTAMP√根据当前时间戳更新
+> + status->默认：1
 ------------------------------------
-> 方式二：使用SQL查询语句创建admin表，如下：
+* 方式二：使用SQL查询语句创建admin表，如下：
 ```mysql
 DROP TABLE IF EXISTS `sys_admin`;
 CREATE TABLE `sys_admin`  (
@@ -94,26 +94,24 @@ CREATE TABLE `sys_admin`  (
 
 ## 3.配置redis
 此模板中redis仅用于保存用户登录token值和用户信息。
-> 1. 下载并安装redis到本地，浏览器输入[https://github.com/microsoftarchive/redis/releases](https://github.com/microsoftarchive/redis/releases)。选择最新版msi文件下载并安装。
-> 2. 启动redis服务
-> 3. （可选）下载redis图形化工具，方便查看记录。
-
-特别注意：
-+ redis非必需，若不需要做权限校验，可在拦截器中加入访问url，或在控制器中为对应方法添加@ACS注解（不建议）。
+1. 下载并安装redis到本地，浏览器输入[https://github.com/microsoftarchive/redis/releases](https://github.com/microsoftarchive/redis/releases)。选择最新版msi文件下载并安装。
+2. 启动redis服务
+3. （可选）下载redis图形化工具，方便查看记录。
+> redis非必需，若不需要做权限校验，可在拦截器中加入访问url，或在控制器中为对应方法添加@ACS注解（不建议）。
 
 ## 4.启动项目
 运行com.springboot.framework包下启动类ProjectApplication
 
 ## 5.测试接口
 项目启动后在浏览器输入[http://localhost:8088/swagger-ui.html](http://localhost:8088/swagger-ui.html)即可加载。
-> 端口号可在application.yaml文件中修改。
 
 此模板默认写好一套admin的基础接口，建议先对所有接口做一次数据测试，确认无误后即可开始真正的自定义项目。
+> 端口号可在application.yaml文件中修改。
 
 ## 6.配置tk.mybatis
 MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生，甚至连 XML 文件都不用编写！
 #### 1.更新配置文件generatorConfig.xml
-> 在src/main/resources目录下，更新数据库连接配置。参考如下（代码18-24行）：
+在src/main/resources目录下，更新数据库连接配置。参考如下（代码18-24行）：
 ```xml
 <!-- JDBC 连接信息（需更新以下三个参数）：1.connectionURL 2.userId 3.password -->
 <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
@@ -123,7 +121,7 @@ MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，为
         <property name="useInformationSchema" value="true"></property>
 </jdbcConnection>
 ```
-> 更新数据表配置，参考如下（代码50-54行）：
+更新数据表配置，参考如下（代码50-54行）：
 ```xml
 <!-- 数据表（需更新以下两个参数）：1.tableName 2.domainObjectName -->
 <table tableName="MySQL数据库表名称" domainObjectName="逆向生成的pojo类名"
@@ -131,16 +129,14 @@ MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，为
         enableDeleteByExample="false" enableSelectByExample="false"
         selectByExampleQueryId="false"></table>
 ```
-特别注意：
-+ 默认pojo类生成路径为com.springboot.framework.dao.pojo包下（代码29行）
+> 默认pojo类生成路径为com.springboot.framework.dao.pojo包下（代码29行）
 #### 2.启动CreateUtil类
 ```
 运行com.springboot.framework.utils下CreateUtil类
 ```
-特别注意：
-+ 单独运行CreateUtil.main()方法后，注意把项目启动类更新回ProjectApplication
+> 单独运行CreateUtil.main()方法后，切记把项目启动类更新回ProjectApplication
 #### 3.配置pojo类
-> 目录为com.springboot.framework.dao.pojo，参考如下：
+目录为com.springboot.framework.dao.pojo，参考如下：
 ```java
 /**
  * 以下4个注解详解
@@ -168,9 +164,9 @@ public class Admin implements Serializable {
 }
 ```
 #### 4.配置mapper类
-> 在配置传统mybatis映射时，一般为mapper类与xml文件对应。此框架加入tk.mybatis插件，无需xml文件。
-> 1. 删除xml文件包（删除src/main/resources目录下mapper包）
-> 2. 配置mapper接口，目录为com.springboot.framework.dao.mapper，参考如下：
+在配置传统mybatis映射时，一般为mapper类与xml文件对应。此框架加入tk.mybatis插件，无需xml文件。
+1. 删除xml文件包（删除src/main/resources目录下mapper包）
+2. 配置mapper接口，目录为com.springboot.framework.dao.mapper，参考如下：
 ```java
 /**
  * 1.继承tk.mybatis.mapper.common.Mapper接口（extends Mapper<pojo类名>），
@@ -195,7 +191,7 @@ public interface AdminMapper extends Mapper<Admin> {
 ## 7.配置ObjectStorage
 ObjectStorage是一个统称（包含百度云bos、腾讯云cos、阿里云oss、华为云obs），此模板为简化各个厂商不同的sdk配置，特此优化为统一sdk。
 #### 1.引入依赖
-> 在pom.xml文件中引入对应服务商的对象存储依赖，参数如下（以腾讯cos为例，代码179-184行）：
+在pom.xml文件中引入对应服务商的对象存储依赖，参数如下（以腾讯cos为例，代码179-184行）：
 ```xml
 <!-- 腾讯云COS对象存储 -->
 <dependency>
@@ -205,7 +201,7 @@ ObjectStorage是一个统称（包含百度云bos、腾讯云cos、阿里云oss�
 </dependency>
 ```
 #### 2.更新yaml配置文件
-> 更新src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
+更新src/main/resources目录下application.yml文件内配置object-storage（代码50-54行）参数。参考如下：
 ```yaml
 # 对象存储配置
 object-storage:
@@ -216,7 +212,7 @@ object-storage:
   bucketName: yourBucketName
 ```
 #### 3.ObjectStorage继承对应厂商对象存储类
-> 更新com.springboot.framework.model目录下三个ObjectStorage开头的类，参考如下（以ObjectStorageClient为例）：
+更新com.springboot.framework.model目录下三个ObjectStorage开头的类，参考如下（以ObjectStorageClient为例）：
 ```java
 /**
  * 1.继承对应厂商对象存储客户机类（extends 对应厂商Client）
@@ -240,7 +236,7 @@ public class ObjectStorageClient extends COSClient {
 }
 ```
 #### 4.使用文件上传接口
-> 文件上传接口类为FileUploadController，完成配置后，直接调用即可，返回的url即对应云服务商返回的文件url。
+文件上传接口类为FileUploadController，完成配置后，直接调用即可，返回的url即对应云服务商返回的文件url。
 
 ## 8.进阶配置
 * Aop（切面）：参考目录com.springboot.framework.aop下AdviceAop类。
