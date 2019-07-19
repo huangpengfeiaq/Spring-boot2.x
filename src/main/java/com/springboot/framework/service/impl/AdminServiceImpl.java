@@ -9,6 +9,8 @@ import com.springboot.framework.dao.mapper.AdminMapper;
 import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
 import com.springboot.framework.utils.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,8 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class AdminServiceImpl implements AdminService {
+    private static Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
+
     @Resource
     private AdminMapper adminMapper;
 
@@ -34,8 +38,8 @@ public class AdminServiceImpl implements AdminService {
      */
     @Scheduled(cron = "0 0 23 * * ?")
     public void customScheduled() {
-        System.out.println("---------------- 定时任务 ----------------");
-        System.out.println("customScheduled被执行了...");
+        log.info("---------------- 定时任务 ----------------");
+        log.info("customScheduled被执行了...");
     }
 
     @Override

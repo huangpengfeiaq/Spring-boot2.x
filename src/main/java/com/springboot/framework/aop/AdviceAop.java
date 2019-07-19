@@ -54,7 +54,7 @@ public class AdviceAop {
         Object obj = null;
         Object[] args = joinPoint.getArgs();
         long startTime = System.currentTimeMillis();
-        System.out.println("执行代码块/方法");
+        log.info("执行代码块/方法");
 
         try {
             obj = joinPoint.proceed(args);
@@ -76,16 +76,19 @@ public class AdviceAop {
      * 打印方法执行耗时的信息，如果超过了一定的时间，才打印
      *
      * @param methodName 方法名
-     * @param startTime 方法执行开始时间
-     * @param endTime 方法执行结束时间
+     * @param startTime  方法执行开始时间
+     * @param endTime    方法执行结束时间
      */
     private void printExecTime(String methodName, long startTime, long endTime) {
         long diffTime = endTime - startTime;
         //超过1秒的记录
         if (diffTime > 1000) {
-            log.info(methodName + ":" + diffTime + " :ms");
+            log.warn("方法： " + methodName);
+            log.warn("程序运行时间： " + diffTime + "ms");
+        } else {
+            log.info("方法： " + methodName);
+            log.info("程序运行时间： " + diffTime + "ms");
         }
-        System.out.println("程序运行时间： " + diffTime + "ms");
     }
 
 //    /**
