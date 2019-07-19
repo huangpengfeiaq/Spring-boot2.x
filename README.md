@@ -241,6 +241,12 @@ public class ObjectStorageClient extends COSClient {
 #### 4.使用文件上传接口
 > 文件上传接口类为FileUploadController，完成配置后，直接调用即可，返回的url即对应云服务商返回的文件url。
 
+## 8.进阶配置
+* Aop（切面）：参考目录com.springboot.framework.aop下AdviceAop类。
+* Transactional（事务）：参考目录com.springboot.framework.service.impl下AdminServiceImpl类。
+* Scheduled（定时器）：参考目录com.springboot.framework.service.impl下AdminServiceImpl类。
+* Interceptor（拦截器）：参考目录com.springboot.framework.interceptor下AdminServiceImpl类。
+
 ## 9.关于
 截至目前最后的大版本更新时间为2019年7月16日。
 
