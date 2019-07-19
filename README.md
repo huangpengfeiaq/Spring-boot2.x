@@ -110,7 +110,7 @@ CREATE TABLE `sys_admin`  (
 
 此模板默认写好一套admin的基础接口，建议先对所有接口做一次数据测试，确认无误后即可开始真正的自定义项目。
 
-## 6.tk.mybatis配置
+## 6.配置tk.mybatis
 MyBatis 的增强工具，在 MyBatis 的基础上只做增强不做改变，为简化开发、提高效率而生，甚至连 XML 文件都不用编写！
 #### 1.更新配置文件generatorConfig.xml
 > 在src/main/resources目录下，更新数据库连接配置。参考如下（代码18-24行）：
@@ -192,7 +192,7 @@ public interface AdminMapper extends Mapper<Admin> {
    }
 ```
 
-## 7.对象存储服务配置
+## 7.配置ObjectStorage
 ObjectStorage是一个统称（包含百度云bos、腾讯云cos、阿里云oss、华为云obs），此模板为简化各个厂商不同的sdk配置，特此优化为统一sdk。
 #### 1.引入依赖
 > 在pom.xml文件中引入对应服务商的对象存储依赖，参数如下（以腾讯cos为例，代码179-184行）：
