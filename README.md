@@ -93,7 +93,7 @@ CREATE TABLE `sys_admin`  (
 ```
 
 ## 3.配置redis
-> 此模板中redis仅用于保存用户登录token值和用户信息。
+此模板中redis仅用于保存用户登录token值和用户信息。
 > 1. 下载并安装redis到本地，浏览器输入[https://github.com/microsoftarchive/redis/releases](https://github.com/microsoftarchive/redis/releases)。选择最新版msi文件下载并安装。
 > 2. 启动redis服务
 > 3. （可选）下载redis图形化工具，方便查看记录。
@@ -192,6 +192,7 @@ public interface AdminMapper extends Mapper<Admin> {
 ```
 
 ## 7.对象存储服务配置
+ObjectStorage是一个统称（包含百度云bos、腾讯云cos、阿里云oss、华为云obs），此模板为简化各个厂商不同的sdk配置，特此优化为统一sdk。
 #### 1.引入依赖
 > 在pom.xml文件中引入对应服务商的对象存储依赖，参数如下（以腾讯cos为例，代码179-184行）：
 ```xml
