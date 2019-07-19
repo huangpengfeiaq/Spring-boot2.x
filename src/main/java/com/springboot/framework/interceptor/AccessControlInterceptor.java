@@ -30,7 +30,7 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
         private static final long serialVersionUID = 1L;
 
         {
-            // swagger相关资源不需要登
+            // swagger相关资源不需要拦截
             add("/swagger-ui.html");
             add("/configuration");
             add("/swagger-resources");
