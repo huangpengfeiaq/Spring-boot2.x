@@ -3,7 +3,7 @@
 ## 0.导读
 #### 此模板目前已集成的模块如下：
 1. Swagger（图形化测试工具）
-2. tk.mybatis（通用mapper）
+2. TK.Mybatis（Mybatis的增强工具）
 3. Redis（非关系型数据库）
 4. ObjectStorage（对象存储服务）
 5. Aop（切面）
