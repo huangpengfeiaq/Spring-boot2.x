@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * 权限控制拦截器.
  *
- * @author leihe@uworks.cc
+ * @author huangpengfei
  */
 @Component
 public class AccessControlInterceptor extends HandlerInterceptorAdapter {
