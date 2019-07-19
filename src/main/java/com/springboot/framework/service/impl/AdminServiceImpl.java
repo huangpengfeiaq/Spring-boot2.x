@@ -18,6 +18,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * 管理员业务处理类
+ * > @Transactional事务，@Scheduled定时器
+ *
  * @author huangpengfei
  */
 @Service
