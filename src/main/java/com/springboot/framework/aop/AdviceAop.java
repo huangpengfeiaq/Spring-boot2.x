@@ -3,6 +3,9 @@ package com.springboot.framework.aop;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -24,6 +27,8 @@ import java.util.Arrays;
 @Component
 @Aspect
 public class AdviceAop {
+    private static Logger log = LoggerFactory.getLogger(AdviceAop.class);
+
     private static final String AOP_POINTCUT_EXPRESSION = "execution(* com.springboot.framework.controller.AdminController.*(..))";
 
     /**
@@ -34,79 +39,104 @@ public class AdviceAop {
     public void pointCut() {
     }
 
+    /**
+     * 环绕通知：
+     * 注意:Spring AOP的环绕通知会影响到AfterThrowing通知的运行,不要同时使用
+     * <p>
+     * 环绕通知非常强大，可以决定目标方法是否执行，什么时候执行，执行时是否需要替换方法参数，执行完毕是否需要替换返回值。
+     * 环绕通知第一个参数必须是org.aspectj.lang.ProceedingJoinPoint类型
+     *
+     * @param joinPoint 切点
+     */
+    @Around(value = "pointCut()")
+    public Object process(ProceedingJoinPoint joinPoint) throws Throwable {
+        // 定义返回对象、得到方法需要的参数
+        Object obj = null;
+        Object[] args = joinPoint.getArgs();
+        long startTime = System.currentTimeMillis();
+        System.out.println("执行代码块/方法");
+
+        try {
+            obj = joinPoint.proceed(args);
+        } catch (Throwable e) {
+            log.error("统计某方法执行耗时环绕通知出错", e);
+        }
+
+        // 获取执行的方法名
+        long endTime = System.currentTimeMillis();
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        String methodName = signature.getDeclaringTypeName() + "." + signature.getName();
+
+        // 打印耗时的信息
+        this.printExecTime(methodName, startTime, endTime);
+        return obj;
+    }
+
+    /**
+     * 打印方法执行耗时的信息，如果超过了一定的时间，才打印
+     *
+     * @param methodName 方法名
+     * @param startTime 方法执行开始时间
+     * @param endTime 方法执行结束时间
+     */
+    private void printExecTime(String methodName, long startTime, long endTime) {
+        long diffTime = endTime - startTime;
+        //超过1秒的记录
+        if (diffTime > 1000) {
+            log.info(methodName + ":" + diffTime + " :ms");
+        }
+        System.out.println("程序运行时间： " + diffTime + "ms");
+    }
+
 //    /**
-//     * 环绕通知：
-//     * 注意:Spring AOP的环绕通知会影响到AfterThrowing通知的运行,不要同时使用
-//     * <p>
-//     * 环绕通知非常强大，可以决定目标方法是否执行，什么时候执行，执行时是否需要替换方法参数，执行完毕是否需要替换返回值。
-//     * 环绕通知第一个参数必须是org.aspectj.lang.ProceedingJoinPoint类型
+//     * 前置通知
 //     *
 //     * @param point 切点
 //     */
-//    @Around(value = "pointCut()")
-//    public Object process(ProceedingJoinPoint point) throws Throwable {
-//        System.out.println("@Around：执行目标方法之前...");
-//        //访问目标方法的参数：
-//        Object[] args = point.getArgs();
-//        if (args != null && args.length > 0 && args[0].getClass() == String.class) {
-//            args[0] = "改变后的参数1";
-//        }
-//        //用改变后的参数执行目标方法
-//        Object returnValue = point.proceed(args);
-//        System.out.println("@Around：执行目标方法之后...");
-//        System.out.println("@Around：被织入的目标对象为：" + point.getTarget());
-//        return "原返回值：" + returnValue + "，这是返回结果的后缀";
+//    @Before(value = "pointCut()")
+//    public void permissionCheck(JoinPoint point) {
+//        System.out.println("@Before：模拟权限检查...");
+//        System.out.println("@Before：目标方法为：" +
+//                point.getSignature().getDeclaringTypeName() +
+//                "." + point.getSignature().getName());
+//        System.out.println("@Before：参数为：" + Arrays.toString(point.getArgs()));
+//        System.out.println("@Before：被织入的目标对象为：" + point.getTarget());
 //    }
-
-    /**
-     * 前置通知
-     *
-     * @param point 切点
-     */
-    @Before(value = "pointCut()")
-    public void permissionCheck(JoinPoint point) {
-        System.out.println("@Before：模拟权限检查...");
-        System.out.println("@Before：目标方法为：" +
-                point.getSignature().getDeclaringTypeName() +
-                "." + point.getSignature().getName());
-        System.out.println("@Before：参数为：" + Arrays.toString(point.getArgs()));
-        System.out.println("@Before：被织入的目标对象为：" + point.getTarget());
-    }
-
-    /**
-     * 后置通知
-     *
-     * @param point 切点
-     */
-    @After(value = "pointCut()")
-    public void releaseResource(JoinPoint point) {
-        System.out.println("@After：模拟释放资源...");
-        System.out.println("@After：目标方法为：" +
-                point.getSignature().getDeclaringTypeName() +
-                "." + point.getSignature().getName());
-        System.out.println("@After：参数为：" + Arrays.toString(point.getArgs()));
-        System.out.println("@After：被织入的目标对象为：" + point.getTarget());
-    }
-
-    /**
-     * 后置返回
-     * 如果第一个参数为JoinPoint，则第二个参数为返回值的信息
-     * 如果第一个参数不为JoinPoint，则第一个参数为returning中对应的参数
-     * returning：限定了只有目标方法返回值与通知方法参数类型匹配时才能执行后置返回通知，否则不执行，
-     * 参数为Object类型将匹配任何目标返回值
-     *
-     * @param point       切点
-     * @param returnValue 返回值
-     */
-    @AfterReturning(value = "pointCut()", returning = "returnValue")
-    public void log(JoinPoint point, Object returnValue) {
-        System.out.println("@AfterReturning：模拟日志记录功能...");
-        System.out.println("@AfterReturning：目标方法为：" +
-                point.getSignature().getDeclaringTypeName() +
-                "." + point.getSignature().getName());
-        System.out.println("@AfterReturning：参数为：" +
-                Arrays.toString(point.getArgs()));
-        System.out.println("@AfterReturning：返回值为：" + returnValue);
-        System.out.println("@AfterReturning：被织入的目标对象为：" + point.getTarget());
-    }
+//
+//    /**
+//     * 后置通知
+//     *
+//     * @param point 切点
+//     */
+//    @After(value = "pointCut()")
+//    public void releaseResource(JoinPoint point) {
+//        System.out.println("@After：模拟释放资源...");
+//        System.out.println("@After：目标方法为：" +
+//                point.getSignature().getDeclaringTypeName() +
+//                "." + point.getSignature().getName());
+//        System.out.println("@After：参数为：" + Arrays.toString(point.getArgs()));
+//        System.out.println("@After：被织入的目标对象为：" + point.getTarget());
+//    }
+//
+//    /**
+//     * 后置返回
+//     * 如果第一个参数为JoinPoint，则第二个参数为返回值的信息
+//     * 如果第一个参数不为JoinPoint，则第一个参数为returning中对应的参数
+//     * returning：限定了只有目标方法返回值与通知方法参数类型匹配时才能执行后置返回通知，否则不执行，
+//     * 参数为Object类型将匹配任何目标返回值
+//     *
+//     * @param point       切点
+//     * @param returnValue 返回值
+//     */
+//    @AfterReturning(value = "pointCut()", returning = "returnValue")
+//    public void log(JoinPoint point, Object returnValue) {
+//        System.out.println("@AfterReturning：模拟日志记录功能...");
+//        System.out.println("@AfterReturning：目标方法为：" +
+//                point.getSignature().getDeclaringTypeName() +
+//                "." + point.getSignature().getName());
+//        System.out.println("@AfterReturning：参数为：" +
+//                Arrays.toString(point.getArgs()));
+//        System.out.println("@AfterReturning：返回值为：" + returnValue);
+//        System.out.println("@AfterReturning：被织入的目标对象为：" + point.getTarget());
+//    }
 }
