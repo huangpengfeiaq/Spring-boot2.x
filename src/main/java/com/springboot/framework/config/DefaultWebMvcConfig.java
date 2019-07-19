@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @author jzsong@uworks.cc
  */
 @Configuration
-public class DefaultWebMvcConfigurerAdapter implements WebMvcConfigurer {
+public class DefaultWebMvcConfig implements WebMvcConfigurer {
 
     @Resource
     private ApplicationContext applicationContext;
