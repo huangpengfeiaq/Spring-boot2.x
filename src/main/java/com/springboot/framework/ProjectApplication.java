@@ -8,6 +8,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
+ * > @MapperScan 扫描mapper映射包路径
+ * > @EnableTransactionManagement //开启事务管理
+ * > @EnableScheduling //开启定时任务
+ * > @EnableCaching //开启缓存管理
+ *
  * @author huangpengfei
  */
 @MapperScan(value = "com.springboot.framework.dao.mapper")

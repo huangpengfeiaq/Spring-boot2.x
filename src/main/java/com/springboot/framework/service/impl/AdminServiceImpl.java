@@ -9,6 +9,7 @@ import com.springboot.framework.dao.mapper.AdminMapper;
 import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
 import com.springboot.framework.utils.*;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -24,6 +25,15 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
     @Resource
     private AdminMapper adminMapper;
+
+    /**
+     * 自定义定时任务，每天23点执行一次
+     */
+    @Scheduled(cron = "0 0 23 * * ?")
+    public void customScheduled() {
+        System.out.println("---------------- 定时任务 ----------------");
+        System.out.println("customScheduled被执行了...");
+    }
 
     @Override
     public ResponseVO<Errors> deleteByPrimaryKey(AdminDTO recordDTO) {
