@@ -10,6 +10,7 @@
 * Transactional（事务）
 * Scheduled（定时器）
 * Interceptor（拦截器）
+* RabbitMq（消息中间件）
    
 目录结构如下：
 ```markdown
@@ -244,7 +245,14 @@ public class ObjectStorageClient extends COSClient {
 * Scheduled（定时器）：参考目录com.springboot.framework.service.impl下AdminServiceImpl类。
 * Interceptor（拦截器）：参考目录com.springboot.framework.interceptor下AdminServiceImpl类。
 
-## 9.关于
+## 9.高级配置
+以下配置属于适用于大项目，故不做详解，仅供参考。
+#### RabbitMq（消息中间件）
+* 配置：参考目录com.springboot.framework.config下RabbitMqConfig类。
+* 生产者示例：参考目录com.springboot.framework.rabbit下Sender类。
+* 消费者示例：参考目录com.springboot.framework.rabbit下Receiver类。
+
+## 10.关于
 截至目前最后的大版本更新时间为2019年7月16日。
 
 最近一次大版本更新时间为2019年5月14日。
