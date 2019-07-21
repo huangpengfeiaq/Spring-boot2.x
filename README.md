@@ -2,15 +2,18 @@
 
 ## 0.导读
 此模板目前已集成的模块如下：
-* Swagger（图形化测试工具）
-* TK.Mybatis（Mybatis的增强工具）
-* Redis（非关系型数据库）
-* ObjectStorage（对象存储服务）
-* Aop（切面）
-* Transactional（事务）
-* Scheduled（定时器）
-* Interceptor（拦截器）
-* RabbitMq（消息中间件）
+* 初级配置：
+    * Swagger（图形化测试工具）
+    * TK.Mybatis（Mybatis的增强工具）
+    * Redis（非关系型数据库）
+    * ObjectStorage（对象存储服务）
+* 中级配置：
+    * Aop（切面）
+    * Transactional（事务）
+    * Scheduled（定时器）
+    * Interceptor（拦截器）
+* 高级配置：
+    * RabbitMq（消息中间件）
    
 目录结构如下：
 ```markdown
@@ -247,11 +250,11 @@ public class ObjectStorageClient extends COSClient {
 
 ## 9.高级配置
 以下配置一般适用于中大型项目，故不做详解，仅供参考。
-#### RabbitMq（消息中间件）
-* 下载与安装：自行百度。
-* 配置：参考目录com.springboot.framework.config下RabbitMqConfig类。
-* 生产者示例：参考目录com.springboot.framework.rabbit下Sender类。
-* 消费者示例：参考目录com.springboot.framework.rabbit下Receiver类。
+* RabbitMq（消息中间件）
+    1. 下载与安装：自行百度。
+    2. 配置：参考目录com.springboot.framework.config下RabbitMqConfig类。
+    3. 生产者示例：参考目录com.springboot.framework.rabbit下Sender类。
+    4. 消费者示例：参考目录com.springboot.framework.rabbit下Receiver类。
 
 ## 10.关于
 截至目前最后的大版本更新时间为2019年7月16日。
