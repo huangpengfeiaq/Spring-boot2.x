@@ -3,7 +3,7 @@ package com.springboot.framework.datastructures.linkedlist;
 import java.util.Stack;
 
 /**
- * 单链表（以水浒传英雄举例）
+ * 单向链表（以水浒传英雄举例）
  *
  * @author huangpengfei
  * @version 1.0
@@ -338,8 +338,8 @@ class SingleLinkedList {
                 System.out.printf("要删除的%d 节点不存在\n", no);
                 break;
             }
+            //说明编号存在
             if (temp.next.no == no) {
-                //说明编号存在
                 temp.next = temp.next.next;
                 break;
             }
