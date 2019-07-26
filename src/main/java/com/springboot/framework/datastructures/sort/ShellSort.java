@@ -40,6 +40,20 @@ public class ShellSort {
      * 排序150000条的速度大概是1-2秒，速度比插入快
      */
     static void shellSort(int[] arr) {
-
+        for (int i = 1; i < arr.length; i++) {
+            // 定义待插入的数
+            int insertVal = arr[i];
+            // 获取前一个数的索引
+            int j = i - 1;
+            // 从当前i位置往前遍历
+            for (; j >= 0; j--) {
+                if (arr[j] > insertVal) {
+                    arr[j + 1] = arr[j];
+                } else {
+                    break;
+                }
+            }
+            arr[j + 1] = insertVal;
+        }
     }
 }

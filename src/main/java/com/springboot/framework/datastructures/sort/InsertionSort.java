@@ -41,20 +41,20 @@ public class InsertionSort {
      * 排序150000条的速度大概是1-2秒，速度比选择快
      */
     static void insertionSort(int[] arr) {
-        for (int j = 1; j < arr.length; j++) {
+        for (int i = 1; i < arr.length; i++) {
             // 定义待插入的数
-            int insertVal = arr[j];
+            int insertVal = arr[i];
             // 获取前一个数的索引
-            int i = j - 1;
+            int j = i - 1;
             // 从当前i位置往前遍历
-            for (; i >= 0; i--) {
-                if (arr[i] > insertVal) {
-                    arr[i + 1] = arr[i];
+            for (; j >= 0; j--) {
+                if (arr[j] > insertVal) {
+                    arr[j + 1] = arr[j];
                 } else {
                     break;
                 }
             }
-            arr[i + 1] = insertVal;
+            arr[j + 1] = insertVal;
         }
     }
 }
