@@ -17,9 +17,9 @@ public class BubbleSort {
 //        System.out.printf("排序前\n%s\n", Arrays.toString(arr));
 
         // 测试一下冒泡排序的速度O(n^2)，给80000个数据，测试
-        // 创建要给80000个的随机的数组
-        int[] arr = new int[80000];
-        for (int i = 0; i < 80000; i++) {
+        // 创建要给150000个的随机的数组
+        int[] arr = new int[150000];
+        for (int i = 0; i < 150000; i++) {
             // 生成一个[0,10000000) 数
             arr[i] = (int) (Math.random() * 10000000);
         }
@@ -42,7 +42,7 @@ public class BubbleSort {
 
     /**
      * 冒泡排序及优化，时间复杂度为O(n^2)
-     * 排序80000条的速度大概是9秒
+     * 排序150000条的速度大概是32-33秒，速度最慢
      */
     static void bubbleSort(int[] arr) {
         // 临时变量
