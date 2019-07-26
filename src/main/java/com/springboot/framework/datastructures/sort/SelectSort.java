@@ -19,8 +19,8 @@ public class SelectSort {
 
         // 测试一下选择排序的速度O(n^2)，给80000个数据，测试
         // 创建要给80000个的随机的数组
-        int[] arr = new int[80000];
-        for (int i = 0; i < 80000; i++) {
+        int[] arr = new int[150000];
+        for (int i = 0; i < 150000; i++) {
             // 生成一个[0,10000000) 数
             arr[i] = (int) (Math.random() * 10000000);
         }

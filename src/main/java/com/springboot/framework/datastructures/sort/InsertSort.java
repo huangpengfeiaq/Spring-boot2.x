@@ -15,8 +15,8 @@ public class InsertSort {
     public static void main(String[] args) {
 //        int[] arr = {34, 9, -1, 10, 2};
         // 创建要给80000个的随机的数组
-        int[] arr = new int[80000];
-        for (int i = 0; i < 80000; i++) {
+        int[] arr = new int[150000];
+        for (int i = 0; i < 150000; i++) {
             // 生成一个[0,10000000) 数
             arr[i] = (int) (Math.random() * 10000000);
         }
@@ -37,8 +37,8 @@ public class InsertSort {
     }
 
     /**
-     * 插入排序
-     * 排序80000条的速度大概是1秒
+     * 插入排序，时间复杂度为O(n^2)
+     * 排序150000条的速度大概是1-2秒
      */
     static void insertSort(int[] arr) {
         for (int j = 1; j < arr.length; j++) {
