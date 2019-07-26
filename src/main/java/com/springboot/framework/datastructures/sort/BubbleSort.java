@@ -42,7 +42,7 @@ public class BubbleSort {
 
     /**
      * 冒泡排序及优化，时间复杂度为O(n^2)
-     * 插入80000条的速度大概是9秒
+     * 排序80000条的速度大概是9秒
      */
     static void bubbleSort(int[] arr) {
         // 临时变量
