@@ -11,7 +11,7 @@ import java.util.Date;
  * @version 1.0
  * @date 2019/7/26 16:23
  */
-public class InsertSort {
+public class InsertionSort {
     public static void main(String[] args) {
 //        int[] arr = {34, 9, -1, 10, 2};
         // 创建要给150000个的随机的数组
@@ -27,7 +27,7 @@ public class InsertSort {
         System.out.println("排序前的时间是=" + dateStr);
 
         // 测试选择排序
-        insertSort(arr);
+        insertionSort(arr);
 //        System.out.println(Arrays.toString(arr));
 
         Date date2 = new Date();
@@ -40,7 +40,7 @@ public class InsertSort {
      * 插入排序，时间复杂度为O(n^2)
      * 排序150000条的速度大概是1-2秒，速度比选择快
      */
-    static void insertSort(int[] arr) {
+    static void insertionSort(int[] arr) {
         for (int j = 1; j < arr.length; j++) {
             // 定义待插入的数
             int insertVal = arr[j];
