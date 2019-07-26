@@ -14,7 +14,7 @@ import java.util.Date;
 public class InsertSort {
     public static void main(String[] args) {
 //        int[] arr = {34, 9, -1, 10, 2};
-        // 创建要给80000个的随机的数组
+        // 创建要给150000个的随机的数组
         int[] arr = new int[150000];
         for (int i = 0; i < 150000; i++) {
             // 生成一个[0,10000000) 数
