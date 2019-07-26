@@ -44,7 +44,9 @@ public class InsertSort {
         for (int j = 1; j < arr.length; j++) {
             // 定义待插入的数
             int insertVal = arr[j];
+            // 获取前一个数的索引
             int i = j - 1;
+            // 从当前i位置往前遍历
             for (; i >= 0; i--) {
                 if (arr[i] > insertVal) {
                     arr[i + 1] = arr[i];
