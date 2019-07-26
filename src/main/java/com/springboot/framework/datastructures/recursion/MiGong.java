@@ -66,7 +66,7 @@ public class MiGong {
      * @return 如果找到通路，就返回true，否则返回false
      */
     public static boolean setWay(int[][] map, int i, int j) {
-//        //我的思路
+//        //我的思路，有问题（当出现思路，无法回溯）
 //        map[i][j] = 2;
 //        if (map[1][3] == 2) {
 //            return true;
