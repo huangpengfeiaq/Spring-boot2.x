@@ -20,11 +20,16 @@ public class Queen8 {
      * 统计一共的解法
      */
     int count = 0;
+    /**
+     * 统计一共的解法
+     */
+    int judgeCount = 0;
 
     public static void main(String[] args) {
         Queen8 queen8 = new Queen8();
         queen8.check(0);
-        System.out.printf("一共有%d种解法", queen8.count);
+        System.out.printf("一共有%d种解法\n", queen8.count);
+        System.out.printf("一共判断冲突的次数为%d次\n", queen8.judgeCount);
     }
 
 
@@ -48,6 +53,7 @@ public class Queen8 {
             if (judge(index)) {
                 check(index + 1);
             }
+            // 直到i==max-1，会被抛弃
         }
     }
 
@@ -58,6 +64,7 @@ public class Queen8 {
      * @return 是否可放置
      */
     private boolean judge(int index) {
+        judgeCount++;
         // 遍历n之前的位置，判断是否在同一列或同一斜线
         for (int i = 0; i < index; i++) {
             if (array[index] == array[i] || Math.abs(index - i) == Math.abs(array[index] - array[i])) {
@@ -71,11 +78,11 @@ public class Queen8 {
      * 写一个方法，可以将皇后摆放的位置输出
      */
     private void print() {
+        count++;
         for (int i = 0; i < array.length; i++) {
 //            System.out.printf("array[%d]=%d ", i, array[i]);
             System.out.printf("第%d行第%d个。", i + 1, array[i] + 1);
         }
-        count++;
         System.out.println();
     }
 }
