@@ -47,23 +47,26 @@ public class SelectionSort {
      */
     static void selectionSort(int[] arr) {
         // 临时变量
-        int min = 0;
+        int min;
+        int minIndex;
         // 标识变量，表示是否进行交换
         boolean flag;
         for (int i = 0; i < arr.length; i++) {
+            min = arr[i];
+            minIndex = i;
             // 重置flag，进行下一次交换
             flag = false;
-            min = arr[i];
             for (int j = i + 1; j < arr.length; j++) {
                 if (min > arr[j]) {
                     min = arr[j];
+                    minIndex = j;
                     flag = true;
                 }
             }
-            if (!flag) {
+            if (flag) {
+                arr[minIndex] = arr[i];
                 arr[i] = min;
             }
-//            System.out.printf("第%d趟排序后的数组\n%s\n", i + 1, Arrays.toString(arr));
 //            System.out.println(Arrays.toString(arr));
         }
     }
