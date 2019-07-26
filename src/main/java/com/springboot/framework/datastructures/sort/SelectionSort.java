@@ -11,7 +11,7 @@ import java.util.Date;
  * @version 1.0
  * @date 2019/7/26 14:29
  */
-public class SelectSort {
+public class SelectionSort {
     public static void main(String[] args) {
 //        int[] arr = {3, 9, -1, 10, 20};
 //
@@ -31,7 +31,7 @@ public class SelectSort {
         System.out.println("排序前的时间是=" + dateStr);
 
         // 测试选择排序
-        selectSort(arr);
+        selectionSort(arr);
 
         Date date2 = new Date();
         String date2Str = simpleDateFormat.format(date2);
@@ -45,7 +45,7 @@ public class SelectSort {
      * 选择排序及优化，时间复杂度为O(n^2)，
      * 排序150000条的速度大概是5-6秒，速度比冒泡快
      */
-    static void selectSort(int[] arr) {
+    static void selectionSort(int[] arr) {
         // 临时变量
         int min = 0;
         // 标识变量，表示是否进行交换
