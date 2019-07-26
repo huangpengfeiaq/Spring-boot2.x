@@ -38,7 +38,7 @@ public class InsertSort {
 
     /**
      * 插入排序，时间复杂度为O(n^2)
-     * 排序150000条的速度大概是1-2秒
+     * 排序150000条的速度大概是1-2秒，速度比选择快
      */
     static void insertSort(int[] arr) {
         for (int j = 1; j < arr.length; j++) {
