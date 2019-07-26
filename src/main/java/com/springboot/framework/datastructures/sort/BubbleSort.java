@@ -29,8 +29,8 @@ public class BubbleSort {
         String dateStr = simpleDateFormat.format(date);
         System.out.println("排序前的时间是=" + dateStr);
 
-//        // 测试冒泡排序
-//        bubbleSort(arr);
+        // 测试冒泡排序
+        bubbleSort(arr);
 
         Date date2 = new Date();
         String date2Str = simpleDateFormat.format(date2);
