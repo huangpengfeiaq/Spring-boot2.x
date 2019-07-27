@@ -1,6 +1,8 @@
 package com.springboot.framework.datastructures.sort;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * 归并排序
@@ -11,13 +13,35 @@ import java.util.Arrays;
  */
 public class MergeSort {
     public static void main(String[] args) {
-        int[] arr = {8, 4, 5, 7, 1, 3, 6, 2};
+//        int[] arr = {8, 4, 5, 7, 1, 3, 6, 2};
+//        int[] temp = new int[arr.length];
+//        mergeSor(arr, 0, arr.length-1, temp);
+
+        // 创建要给150000个的随机的数组
+        int[] arr = new int[150000];
         int[] temp = new int[arr.length];
-        mergeSor(arr, 0, 7, temp);
+        for (int i = 0; i < 150000; i++) {
+            // 生成一个[0,10000000) 数
+            arr[i] = (int) (Math.random() * 10000000);
+        }
+
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateStr = simpleDateFormat.format(date);
+        System.out.println("排序前的时间是=" + dateStr);
+
+        // 测试排序
+        mergeSor(arr, 0, arr.length - 1, temp);
+//        System.out.println(Arrays.toString(arr));
+
+        Date date2 = new Date();
+        String date2Str = simpleDateFormat.format(date2);
+        System.out.println("排序后的时间是=" + date2Str);
     }
 
     /**
      * 归并排序
+     * 排序150000条的速度不到1秒，速度比快速排序快
      */
     static void mergeSor(int[] arr, int left, int right, int[] temp) {
         if (left < right) {
@@ -87,7 +111,7 @@ public class MergeSort {
             arr[tempLeft++] = temp[t++];
         }
 
-        System.out.println(Arrays.toString(temp));
-        System.out.println(Arrays.toString(arr));
+//        System.out.println("temp=" + Arrays.toString(temp));
+//        System.out.println("arr=" + Arrays.toString(arr));
     }
 }
