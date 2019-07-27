@@ -1,6 +1,8 @@
 package com.springboot.framework.datastructures.search;
 
 /**
+ * 线性查找
+ *
  * @author huangpengfei
  * @version 1.0
  * @date 2019/7/27 16:32
