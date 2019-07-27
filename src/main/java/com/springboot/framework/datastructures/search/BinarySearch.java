@@ -30,7 +30,7 @@ public class BinarySearch {
      */
     public static int binarySearch(int[] arr, int left, int right, int findValue) {
         // 当left>right 时，说明递归整个数组，但是没有找到
-        if (left > right || findValue < arr[0] || findValue > arr[arr.length - 1]) {
+        if (left > right) {
             return -1;
         }
 
