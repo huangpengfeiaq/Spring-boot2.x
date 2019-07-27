@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 二分查找法
+ * 二分查找算法
  * 要求：数组必须是有序的
  *
  * @author huangpengfei
