@@ -12,24 +12,24 @@ import java.util.Arrays;
 public class FibonacciSearch {
     public static void main(String[] args) {
         int[] arr = {1, 8, 10, 89, 1000, 1234};
-        System.out.println(Arrays.toString(fib()));
+        System.out.println(fibonacciSearch(arr, 1234));
 
     }
 
     /**
      * 这里我们实现的线性查找是找到一个满足条件的值，就返回
      *
-     * @param arr 原始数组
-     * @param key 要查找的值
+     * @param arr       原始数组
+     * @param findValue 要查找的值
      * @return 找到的数组下标
      */
-    public static int fibonacciSearch(int[] arr, int key) {
+    public static int fibonacciSearch(int[] arr, int findValue) {
         int low = 0;
         int high = arr.length - 1;
         // 表示斐波那契分割数值的下标
         int k = 0;
-        // 存放mis值
-        int mid = 0;
+        // 存放mid值
+        int mid;
         // 获取到斐波那契数列
         int[] f = fib();
         // 获取到斐波那契分割数值的下标
@@ -44,17 +44,28 @@ public class FibonacciSearch {
             temp[i] = lastValue;
         }
 
-        // 使用while循环处理，找到我们的key
-        mid = low + f[k - 1] - 1;
-        if (low < high) {
-            // 向左递归
-            return fibonacciSearch(arr, left, mid - 1, findValue);
-        } else if (low > high) {
-            // 向右递归
-            return insertValueSearch(arr, mid + 1, right, findValue);
-        } else {
-            return mid;
+        // 使用while循环处理，找到我们的findValue
+        while (low <= high) {
+            mid = low + f[k - 1] - 1;
+            int midValue = temp[mid];
+
+            if (findValue < midValue) {
+                // 向左查找
+                high = mid - 1;
+                k--;
+            } else if (findValue > midValue) {
+                // 向右查找
+                low = mid + 1;
+                k -= 2;
+            } else {
+                if (mid <= high) {
+                    return mid;
+                } else {
+                    return high;
+                }
+            }
         }
+        return -1;
     }
 
     private static int maxSize = 20;
