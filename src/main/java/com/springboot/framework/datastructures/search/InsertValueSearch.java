@@ -11,7 +11,7 @@ package com.springboot.framework.datastructures.search;
 public class InsertValueSearch {
     public static void main(String[] args) {
         int[] arr = {1, 8, 10, 89, 1000, 1000, 1234};
-        System.out.println(insertValueSearch(arr, 0, arr.length - 1, 1000));
+        System.out.println(insertValueSearch(arr, 0, arr.length - 1, 89));
 //        System.out.println(binarySearch2(arr, 0, arr.length - 1, 1000));
     }
 
@@ -26,11 +26,12 @@ public class InsertValueSearch {
      */
     public static int insertValueSearch(int[] arr, int left, int right, int findValue) {
         // 当left>right 时，说明递归整个数组，但是没有找到
+        // 注意：findValue < arr[0] || findValue > arr[arr.length - 1] 必须需要，否则我们得到的mid可能越界
         if (left > right || findValue < arr[0] || findValue > arr[arr.length - 1]) {
             return -1;
         }
 
-        int mid = (left + right) / 2;
+        int mid = left + (right - left) * (findValue - arr[left]) / (arr[right] - arr[left]);
         int midValue = arr[mid];
 
         if (findValue < midValue) {
