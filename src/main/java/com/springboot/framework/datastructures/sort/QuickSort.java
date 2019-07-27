@@ -14,28 +14,28 @@ import java.util.Date;
 public class QuickSort {
     public static void main(String[] args) {
 //        int[] arr = {-9, 78, 0, 23, -567, 70};
-//        int[] arr = {12, 3, 1, 7, 5, 7, 9, 8, 6};
-//        quickSort(arr, 0, 5);
+        int[] arr = {12, 3, 1, 7, 5, 7, 9, 8, 6};
+        quickSort(arr, 0, 8);
 
-        // 创建要给150000个的随机的数组
-        int[] arr = new int[150000];
-        for (int i = 0; i < 150000; i++) {
-            // 生成一个[0,10000000) 数
-            arr[i] = (int) (Math.random() * 10000000);
-        }
-
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateStr = simpleDateFormat.format(date);
-        System.out.println("排序前的时间是=" + dateStr);
-
-        // 测试排序
-        quickSort(arr, 0, arr.length - 1);
-//        System.out.println(Arrays.toString(arr));
-
-        Date date2 = new Date();
-        String date2Str = simpleDateFormat.format(date2);
-        System.out.println("排序后的时间是=" + date2Str);
+//        // 创建要给150000个的随机的数组
+//        int[] arr = new int[150000];
+//        for (int i = 0; i < 150000; i++) {
+//            // 生成一个[0,10000000) 数
+//            arr[i] = (int) (Math.random() * 10000000);
+//        }
+//
+//        Date date = new Date();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String dateStr = simpleDateFormat.format(date);
+//        System.out.println("排序前的时间是=" + dateStr);
+//
+//        // 测试排序
+//        quickSort(arr, 0, arr.length - 1);
+////        System.out.println(Arrays.toString(arr));
+//
+//        Date date2 = new Date();
+//        String date2Str = simpleDateFormat.format(date2);
+//        System.out.println("排序后的时间是=" + date2Str);
     }
 
     /**
@@ -68,7 +68,7 @@ public class QuickSort {
             arr[left] = arr[right];
             arr[right] = temp;
 
-            // 防止死循环（比较难理解，建议画图理解）
+            // 防止死循环（例如当left和right同时指向pivot时，比较难理解，建议画图理解）
             if (arr[left] == pivot) {
                 right--;
             }
@@ -84,13 +84,15 @@ public class QuickSort {
             right--;
         }
 
-        //Todo 不理解
+        //Todo 有点难理解，建议debug理解
         if (l < right) {
-//            System.out.println("left");
+//            System.out.println("向左递归");
+//            System.out.println(l);
             quickSort(arr, l, right);
         }
         if (r > left) {
-//            System.out.println("right");
+//            System.out.println("向右递归");
+//            System.out.println(r);
             quickSort(arr, left, r);
         }
     }
