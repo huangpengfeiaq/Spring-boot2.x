@@ -36,7 +36,7 @@ public class FibonacciSearch {
         while (high > f[k] - 1) {
             k++;
         }
-        // 因为f[k] 值 可能大于a的长度，因此我们需要使用Arrays类，构造一个新的数组，并指向a[]，不足的部分会使用0填充
+        // 因为f[k] 值 可能大于a的长度，因此我们需要使用Arrays类，构造一个新的数组，并指向temp[]，不足的部分会使用0填充
         int[] temp = Arrays.copyOf(arr, f[k]);
         // 实际上需求使用a数组最后的数填充temp
         int lastValue = arr[high];
