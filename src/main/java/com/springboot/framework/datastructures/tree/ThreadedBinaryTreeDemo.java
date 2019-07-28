@@ -60,7 +60,7 @@ class ThreadedBinaryTree {
     }
 
     /**
-     * 编写对二叉树线索化的方法
+     * 编写对二叉树进行中序线索化的方法
      *
      * @param node 就是当前需要线索化的结点
      */
