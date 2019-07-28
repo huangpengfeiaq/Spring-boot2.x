@@ -17,7 +17,7 @@ public class ThreadedBinaryTreeDemo {
         HeroNode2 node3 = new HeroNode2(6, "Smith");
         HeroNode2 node4 = new HeroNode2(8, "Mary");
         HeroNode2 node5 = new HeroNode2(10, "King");
-        HeroNode2 node6 = new HeroNode2(8, "Dim");
+        HeroNode2 node6 = new HeroNode2(14, "Dim");
 
         // 二叉树，后面要递归创建，现在简单处理使用手动创建
         root.setLeft(node2);
@@ -35,6 +35,9 @@ public class ThreadedBinaryTreeDemo {
         System.out.println(node5.getLeft());
         System.out.println("10号结点的后继结点是：");
         System.out.println(node5.getRight());
+
+        System.out.println("使用线索化的方式遍历 线索化二叉树");
+        threadedBinaryTree.threadedList();
     }
 }
 
@@ -85,13 +88,37 @@ class ThreadedBinaryTree {
             // 让前驱结点的右指针指向当前结点
             pre.setRight(node);
             // 修改前驱结点的右指针类型
-            node.setLeftType(1);
+            pre.setRightType(1);
         }
         // !!! 每处理一个节点后，让当前结点是下一个结点的前驱结点
         pre = node;
 
         //3.线索化右子树
         threadedNodes(node.getRight());
+    }
+
+    /**
+     * 遍历线索化二叉树的方法
+     */
+    public void threadedList() {
+        // 定义一个变量，存储当前遍历的结点，从root开始
+        HeroNode2 node = root;
+        while (node != null) {
+            // 循环的找到leftType == 1 的结点，第一个找到的就是首个遍历的结点
+            // 后面随着遍历而变化，因为当leftType == 1时，说明该结点时按照线索化处理的有效结点
+            while (node.getLeftType() == 0) {
+                node = node.getLeft();
+            }
+            // 打印当前结点
+            System.out.println(node);
+            // 如果当前结点的右指针指向的是后继结点，就一直输出
+            while (node.getRightType() == 1) {
+                node = node.getRight();
+                System.out.println(node);
+            }
+            // !!! 替换这个遍历的结点，再次从此往下循环找到一个leftType == 1 的结点
+            node = node.getRight();
+        }
     }
 
     /**
