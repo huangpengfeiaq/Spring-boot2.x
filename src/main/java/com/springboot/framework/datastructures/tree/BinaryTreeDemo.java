@@ -27,32 +27,41 @@ public class BinaryTreeDemo {
         node3.setRight(node4);
         node3.setLeft(node5);
 
-//        // 测试
-//        System.out.println("前序遍历");
-//        binaryTree.preOrder();
+        // 测试
+        System.out.println("前序遍历");
+        binaryTree.preOrder();
 //
 //        // 测试
 //        System.out.println("中序遍历");
 //        binaryTree.infixOrder();
 //
-        // 测试
-        System.out.println("后序遍历");
-        binaryTree.postOrder();
+//        // 测试
+//        System.out.println("后序遍历");
+//        binaryTree.postOrder();
+//
+//        // 测试
+//        System.out.println("前序查找，no=15");
+//        HeroNode heroNodex = binaryTree.preOrderSearch(15);
+//        System.out.println(heroNodex);
+//
+//        // 测试
+//        System.out.println("中序查找，no=5");
+//        HeroNode heroNodey = binaryTree.infixOrderSearch(5);
+//        System.out.println(heroNodey);
+//
+//        // 测试
+//        System.out.println("后序查找，no=5");
+//        HeroNode heroNodez = binaryTree.postOrderSearch(5);
+//        System.out.println(heroNodez);
 
         // 测试
-        System.out.println("前序查找，no=15");
-        HeroNode heroNodex = binaryTree.preOrderSearch(15);
-        System.out.println(heroNodex);
+        System.out.println("测试删除");
+//        binaryTree.delNode(5);
+        binaryTree.delNode(3);
 
         // 测试
-        System.out.println("中序查找，no=5");
-        HeroNode heroNodey = binaryTree.infixOrderSearch(5);
-        System.out.println(heroNodey);
-
-        // 测试
-        System.out.println("后序查找，no=5");
-        HeroNode heroNodez = binaryTree.postOrderSearch(5);
-        System.out.println(heroNodez);
+        System.out.println("前序遍历");
+        binaryTree.preOrder();
     }
 }
 
@@ -66,6 +75,21 @@ class BinaryTree {
 //    public BinaryTree(HeroNode root) {
 //        this.root = root;
 //    }
+
+    /**
+     * 删除结点
+     */
+    public void delNode(int no) {
+        if (this.root != null) {
+            if (root.getNo() == no) {
+                this.root = null;
+                return;
+            }
+            this.root.delNode(no);
+        } else {
+            System.out.println("二叉树为空，无法删除");
+        }
+    }
 
     /**
      * 前序遍历
@@ -155,6 +179,31 @@ class HeroNode {
                 "no=" + no +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    /**
+     * 递归删除结点
+     * 1.如果删除的结点是叶子结点，则删除该结点
+     * 2.如果删除的结点是非叶子结点，则删除该子树
+     */
+    public void delNode(int no) {
+        // 递归向左
+        if (this.left != null) {
+            if (this.left.no == no) {
+                this.left = null;
+                return;
+            } else {
+                this.left.delNode(no);
+            }
+        }
+        // 递归向右
+        if (this.right != null) {
+            if (this.right.no == no) {
+                this.right = null;
+            } else {
+                this.right.delNode(no);
+            }
+        }
     }
 
     /**
