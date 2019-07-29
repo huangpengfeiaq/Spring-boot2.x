@@ -25,7 +25,7 @@ public class HuffmanTree {
      * 创建哈夫曼树的方法
      *
      * @param arr 需要创建成哈夫曼树的数组
-     * @return 创建号后的哈夫曼树的root结点
+     * @return 创建好后的哈夫曼树的root结点
      */
     public static Node createHuffmanTree(int[] arr) {
         // 第一步，为了操作方便
