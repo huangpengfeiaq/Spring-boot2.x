@@ -25,9 +25,9 @@ public class HeapSort {
 
 
         // 测试一下冒泡排序的速度O(n^2)，给80000个数据，测试
-        // 创建要给150000个的随机的数组
-        int[] arr = new int[150000];
-        for (int i = 0; i < 150000; i++) {
+        // 创建要给10000000个的随机的数组
+        int[] arr = new int[10000000];
+        for (int i = 0; i < 10000000; i++) {
             // 生成一个[0,10000000) 数
             arr[i] = (int) (Math.random() * 10000000);
         }
@@ -62,7 +62,7 @@ public class HeapSort {
 
     /**
      * 编写一个堆排序的方法，时间复杂度为O(n*log2n)
-     * 排序150000条的速度大概是1秒内，速度很快
+     * 排序10000000条的速度大概是2-3秒，速度超级快
      */
     public static void heapSort(int[] arr) {
         System.out.println("堆排序");
