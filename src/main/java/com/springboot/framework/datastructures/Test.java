@@ -1,4 +1,4 @@
-package com.springboot.framework.datastructures.tree;
+package com.springboot.framework.datastructures;
 
 import java.util.ArrayList;
 
