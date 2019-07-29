@@ -19,6 +19,69 @@ public class HuffmanCode {
 
         List<Node> nodes = getNodes(contentBytes);
         System.out.println("nodes=" + nodes);
+
+        // 测试，创建的哈夫曼二叉树
+        System.out.print("哈夫曼树,");
+        Node root = createHuffmanTree(nodes);
+
+        // 前序遍历
+        System.out.println("前序遍历");
+        root.preOrder();
+
+        // 测试，创建的哈夫曼二叉树
+        System.out.println("哈夫曼编码表");
+        System.out.println(getCodes(root));
+    }
+
+    /**
+     * 生成哈夫曼树对应的哈夫曼编码
+     * 思路：
+     * 1.将哈夫曼编码表存放在Map<Byte,String> 形式
+     * 2.在生成哈夫曼编码表示，需要去拼接路径，定义一个StringBuilder 存储某个叶子结点的路径
+     */
+    static Map<Byte, String> huffmanCodes = new HashMap<>(16);
+    static StringBuilder stringBuilder = new StringBuilder();
+
+    /**
+     * 功能：将传入的node结点的所有叶子结点的哈夫曼编码，并放入到huffmanCodes集合
+     *
+     * @param root 根结点
+     */
+    private static Map<Byte, String> getCodes(Node root) {
+        if (root == null) {
+            return null;
+        }
+        // 处理root左子树
+        getCodes(root.leftNode, "0", stringBuilder);
+        // 处理root右子树
+        getCodes(root.rightNode, "1", stringBuilder);
+        return huffmanCodes;
+    }
+
+    /**
+     * 功能：将传入的node结点的所有叶子结点的哈夫曼编码，并放入到huffmanCodes集合
+     *
+     * @param node          传入结点
+     * @param code          路径：左子结点是 0，右子结点是1
+     * @param stringBuilder 用于拼接路径
+     */
+    private static void getCodes(Node node, String code, StringBuilder stringBuilder) {
+        StringBuilder stringBuilder2 = new StringBuilder(stringBuilder);
+        // 将code 加入到 stringBuilder2
+        stringBuilder2.append(code);
+        // 如果node == null 不处理
+        if (node != null) {
+            // 判断当前node 是非叶子结点，还是叶子结点
+            if (node.data == null) {
+                // 向左递归处理
+                getCodes(node.leftNode, "0", stringBuilder2);
+                // 向右递归处理
+                getCodes(node.rightNode, "1", stringBuilder2);
+            } else {
+                // 就表示找到某个叶子结点的最后
+                huffmanCodes.put(node.data, stringBuilder2.toString());
+            }
+        }
     }
 
     /**
@@ -99,6 +162,12 @@ class Node implements Comparable<Node> {
     public Node(Byte data, int weight) {
         this.data = data;
         this.weight = weight;
+    }
+
+    public Node(Node leftNode, Node rightNode) {
+        this.leftNode = leftNode;
+        this.rightNode = rightNode;
+        this.weight = leftNode.weight + rightNode.weight;
     }
 
     @Override
