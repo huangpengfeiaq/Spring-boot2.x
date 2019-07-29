@@ -1,4 +1,4 @@
-package com.springboot.framework.datastructures.huffmantree;
+package com.springboot.framework.datastructures.tree;
 
 import java.util.ArrayList;
 import java.util.Collections;
