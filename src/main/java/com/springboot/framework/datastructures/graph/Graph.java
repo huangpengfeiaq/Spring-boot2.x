@@ -31,6 +31,8 @@ public class Graph {
         graph.insertEdges(1, 4, 1);
         // 显示
         graph.showGraph();
+        // 遍历
+        graph.dfs();
     }
 
     /**
@@ -45,6 +47,10 @@ public class Graph {
      * 表示边的数目
      */
     private int numOfEdges;
+    /**
+     * 定义数组boolean[]，记录某个顶点是否被访问
+     */
+    private boolean[] isVisited;
 
     /**
      * 构造器
@@ -56,6 +62,38 @@ public class Graph {
         edges = new int[n][n];
         vertexList = new ArrayList<>(n);
         numOfEdges = 0;
+        isVisited = new boolean[5];
+    }
+
+    /**
+     * 得到第一个邻接顶点的下标w
+     */
+    public int first(int v1) {
+        for (int i = v1; i < getNumOfVertex(); i++) {
+            if (edges[v1][i] == 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void dfs() {
+        for (int i = 0; i < getNumOfVertex(); i++) {
+            if (!isVisited[i]) {
+                dfs(i);
+            }
+        }
+    }
+
+    private void dfs(int i) {
+        System.out.print(getValueByIndex(i) + " -> ");
+        isVisited[i] = true;
+        int w = first(i);
+        if (w != -1) {
+            if (!isVisited[w]) {
+                dfs(w);
+            }
+        }
     }
 
     /**
@@ -64,7 +102,7 @@ public class Graph {
     public void showGraph() {
         for (int[] i : edges) {
             for (int j : i) {
-                System.out.print(j+" ");
+                System.out.print(j + " ");
             }
             System.out.println();
         }
