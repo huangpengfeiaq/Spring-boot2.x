@@ -11,36 +11,37 @@ import java.util.Arrays;
  */
 public class KmpAlgorithm {
     public static void main(String[] args) {
-        String str1 = "BBC ABCDAB ABCDABCDABDE";
-        String str2 = "ABCDABD";
-        int[] next = kmpNext(str2);
+        String source = "BBC ABCDAB ABCDABCDABDE";
+        String target = "ABCDABD";
+        int[] next = kmpNext(target);
         System.out.println(Arrays.toString(next));
-        System.out.println(kmpSearch(str1, str2, next));
+        System.out.println(kmpSearch(source, target, next));
+        System.out.println(source.indexOf(target));
     }
 
     /**
      * 写出我们的kmp搜索算法
      *
-     * @param str1 源字符串
-     * @param str2 字串
+     * @param source 源字符串
+     * @param target 字串
      * @param next 部分匹配表，是字串对应的部分匹配表
      * @return 如果是-1就是没有匹配到，否则返回第一个匹配的位置
      */
-    public static int kmpSearch(String str1, String str2, int[] next) {
+    public static int kmpSearch(String source, String target, int[] next) {
         // 遍历
-        for (int i = 0, j = 0; i < str1.length(); i++) {
+        for (int i = 0, j = 0; i < source.length(); i++) {
             // 需要处理 str1.charAt(i) != str2.charAt(j)，去调整j的大小
             //todo KMP算法核心点
-            while (j > 0 && str1.charAt(i) != str2.charAt(j)) {
+            while (j > 0 && source.charAt(i) != target.charAt(j)) {
                 j = next[j - 1];
             }
 
             // 如果匹配到了
-            if (str1.charAt(i) == str2.charAt(j)) {
+            if (source.charAt(i) == target.charAt(j)) {
                 j++;
             }
             // 如果找到了
-            if (j == str2.length()) {
+            if (j == target.length()) {
                 return i - j + 1;
             }
         }
