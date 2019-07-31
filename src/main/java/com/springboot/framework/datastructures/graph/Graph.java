@@ -66,17 +66,8 @@ public class Graph {
     }
 
     /**
-     * 得到当前顶点的邻接顶点的下标w
+     * 重载深度优先遍历的方法
      */
-    public int nextIndex(int v1) {
-        for (int i = v1; i < getNumOfVertex(); i++) {
-            if (edges[v1][i] == 1) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public void dfs() {
         for (int i = 0; i < getNumOfVertex(); i++) {
 //            System.out.println(isVisited[i]);
@@ -86,6 +77,9 @@ public class Graph {
         }
     }
 
+    /**
+     * 深度优先遍历的方法
+     */
     private void dfs(int i) {
         System.out.print(getValueByIndex(i) + " -> ");
         isVisited[i] = true;
@@ -95,6 +89,18 @@ public class Graph {
                 dfs(w);
             }
         }
+    }
+
+    /**
+     * 得到当前顶点的邻接顶点的下标w
+     */
+    public int nextIndex(int v1) {
+        for (int i = v1; i < getNumOfVertex(); i++) {
+            if (edges[v1][i] == 1) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
