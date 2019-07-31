@@ -17,7 +17,7 @@ public class KmpAlgorithm {
     /**
      * 获取到一个字符串（字串）的部分匹配值表
      *
-     * @param dest
+     * @param dest 需要生成的String 字符串
      * @return 部分匹配值表
      */
     public static int[] kmpNext(String dest) {
