@@ -13,9 +13,9 @@ public class Graph {
     public static void main(String[] args) {
         // 测试
         // 顶点的个数
-        int n = 5;
+        int n = 8;
         // 顶点的值
-        String[] vertexValues = {"A", "B", "C", "D", "E"};
+        String[] vertexValues = {"1", "2", "3", "4", "5", "6", "7", "8"};
         // 创建图对象
         Graph graph = new Graph(n);
         // 插入顶点
@@ -26,12 +26,16 @@ public class Graph {
         // A-B、A-C、B-C、B-D、B-E
         graph.insertEdges(0, 1, 1);
         graph.insertEdges(0, 2, 1);
-        graph.insertEdges(1, 2, 1);
         graph.insertEdges(1, 3, 1);
         graph.insertEdges(1, 4, 1);
+        graph.insertEdges(3, 7, 1);
+        graph.insertEdges(4, 7, 1);
+        graph.insertEdges(2, 5, 1);
+        graph.insertEdges(2, 6, 1);
+        graph.insertEdges(5, 6, 1);
         // 显示
         graph.showGraph();
-        // 遍历
+        // 深度优先遍历（正确顺序应该是：1 -> 2 -> 4 -> 8 -> 5 -> 3 -> 6 -> 7）
         graph.dfs();
     }
 
@@ -62,7 +66,7 @@ public class Graph {
         edges = new int[n][n];
         vertexList = new ArrayList<>(n);
         numOfEdges = 0;
-        isVisited = new boolean[5];
+        isVisited = new boolean[n];
     }
 
     /**
@@ -79,6 +83,7 @@ public class Graph {
 
     /**
      * 深度优先遍历的方法
+     * todo 以下代码存在问题
      */
     private void dfs(int i) {
         System.out.print(getValueByIndex(i) + " -> ");
