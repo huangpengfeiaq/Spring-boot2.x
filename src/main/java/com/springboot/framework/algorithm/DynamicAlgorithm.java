@@ -7,7 +7,7 @@ package com.springboot.framework.algorithm;
  * @version 1.0
  * @date 2019/7/31 17:15
  */
-public class Dynamic {
+public class DynamicAlgorithm {
     public static void main(String[] args) {
         // 物品的重量（因为表格中第一行与第一列均留空，所以第一个数据用0填充）
         int[] weight = {0, 1, 4, 3};
