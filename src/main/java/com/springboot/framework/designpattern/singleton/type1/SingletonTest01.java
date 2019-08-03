@@ -1,7 +1,7 @@
 package com.springboot.framework.designpattern.singleton.type1;
 
 /**
- * 单例模式（饿汉式）
+ * 单例模式（饿汉式-静态常量）
  *
  * @author huangpengfei
  * @version 1.0
@@ -19,7 +19,7 @@ public class SingletonTest01 {
 }
 
 /**
- * 饿汉式（静态变量）
+ * 饿汉式（静态常量）
  */
 class Singleton {
     /**
