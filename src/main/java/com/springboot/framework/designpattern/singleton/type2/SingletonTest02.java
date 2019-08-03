@@ -2,6 +2,7 @@ package com.springboot.framework.designpattern.singleton.type2;
 
 /**
  * 单例模式（饿汉式-静态代码块）
+ * 未实现懒加载，可能会出现内存浪费
  *
  * @author huangpengfei
  * @version 1.0
