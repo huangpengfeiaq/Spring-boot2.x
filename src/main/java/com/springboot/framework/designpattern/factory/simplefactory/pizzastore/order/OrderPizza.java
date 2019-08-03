@@ -15,32 +15,55 @@ import java.io.InputStreamReader;
  * @date 2019/8/3 15:31
  */
 public class OrderPizza {
+//    /**
+//     * 构造器
+//     */
+//    public OrderPizza() {
+//        AbstractPizza pizza = null;
+//        // 订购披萨的类型
+//        String orderType;
+//        do {
+//            orderType = getType();
+//            if ("greek".equals(orderType)) {
+//                pizza = new GreekPizza();
+//                pizza.setName("希腊披萨");
+//            } else if ("cheese".equals(orderType)) {
+//                pizza = new CheesePizza();
+//                pizza.setName("奶酪披萨");
+//            } else if ("pepper".equals(orderType)) {
+//                pizza = new PepperPizza();
+//                pizza.setName("胡椒披萨");
+//            } else {
+//                break;
+//            }
+//            // 输出pizza 制作过程
+//            pizza.prepare();
+//            pizza.bake();
+//            pizza.cut();
+//            pizza.box();
+//        } while (true);
+//    }
+
     /**
      * 构造器
      */
     public OrderPizza() {
-        AbstractPizza pizza = null;
-        // 订购披萨的类型
+        AbstractPizza pizza;
+        // 用户输入
         String orderType;
         do {
             orderType = getType();
-            if ("greek".equals(orderType)) {
-                pizza = new GreekPizza();
-                pizza.setName("希腊披萨");
-            } else if ("cheese".equals(orderType)) {
-                pizza = new CheesePizza();
-                pizza.setName("奶酪披萨");
-            } else if ("pepper".equals(orderType)) {
-                pizza = new PepperPizza();
-                pizza.setName("胡椒披萨");
+            pizza = SimpleFactory.createPizza(orderType);
+            // 输出pizza 制作过程
+            if (pizza != null) {
+                pizza.prepare();
+                pizza.bake();
+                pizza.cut();
+                pizza.box();
             } else {
+                System.out.println(" 订购披萨失败 ");
                 break;
             }
-            // 输出pizza 制作过程
-            pizza.prepare();
-            pizza.bake();
-            pizza.cut();
-            pizza.box();
         } while (true);
     }
 

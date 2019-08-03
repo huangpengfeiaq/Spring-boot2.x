@@ -9,6 +9,10 @@ package com.springboot.framework.designpattern.factory.simplefactory.pizzastore.
  */
 public class PizzaStore {
     public static void main(String[] args) {
+//        new OrderPizza();
+
+        // 使用简单工厂模式
         new OrderPizza();
+        System.out.println("~退出程序~");
     }
 }
