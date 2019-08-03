@@ -1,4 +1,4 @@
-package com.springboot.framework.designpattern.factory.simplefactory.pizzastore.pizza;
+package com.springboot.framework.designpattern.abstractfactory.pizza;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2019/8/3 15:22
  */
 @Data
-public abstract class AbstractPizza {
+public abstract class BasePizza {
     protected String name;
 
     /**

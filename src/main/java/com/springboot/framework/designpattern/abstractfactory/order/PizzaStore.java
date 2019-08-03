@@ -1,4 +1,4 @@
-package com.springboot.framework.designpattern.factory.simplefactory.pizzastore.order;
+package com.springboot.framework.designpattern.abstractfactory.order;
 
 /**
  * 相当于一个客户端，符出订购任务
@@ -9,10 +9,10 @@ package com.springboot.framework.designpattern.factory.simplefactory.pizzastore.
  */
 public class PizzaStore {
     public static void main(String[] args) {
-//        new OrderPizza();
+        // 使用抽象工厂模式
+//        new OrderPizza(new BjFactory());
+        new OrderPizza(new LdFactory());
 
-        // 使用简单工厂模式
-        new OrderPizza();
         System.out.println("~退出程序~");
     }
 }
