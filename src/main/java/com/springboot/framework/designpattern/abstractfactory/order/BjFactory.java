@@ -17,12 +17,18 @@ public class BjFactory implements AbstractFactory {
     public BasePizza createPizza(String orderType) {
         System.out.println("~使用的是抽象工厂模式~");
         BasePizza pizza = null;
-        if ("greek".equals(orderType)) {
-            pizza = new GreekPizza();
-        } else if ("cheese".equals(orderType)) {
-            pizza = new CheesePizza();
-        } else if ("pepper".equals(orderType)) {
-            pizza = new PepperPizza();
+        switch (orderType) {
+            case "greek":
+                pizza = new GreekPizza();
+                break;
+            case "cheese":
+                pizza = new CheesePizza();
+                break;
+            case "pepper":
+                pizza = new PepperPizza();
+                break;
+            default:
+                break;
         }
         return pizza;
     }
