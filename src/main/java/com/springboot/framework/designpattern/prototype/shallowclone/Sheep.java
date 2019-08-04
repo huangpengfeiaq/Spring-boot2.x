@@ -1,4 +1,4 @@
-package com.springboot.framework.designpattern.prototype;
+package com.springboot.framework.designpattern.prototype.shallowclone;
 
 import lombok.Data;
 
@@ -15,6 +15,7 @@ public class Sheep implements Cloneable {
     private int age;
     private String color;
     private String address = "蒙古羊";
+    private Sheep friend;
 
     public Sheep(String name, int age, String color) {
         this.name = name;
