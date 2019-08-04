@@ -1,4 +1,4 @@
-package com.springboot.framework.designpattern.spring;
+package com.springboot.framework.designpattern.sourcecode.spring;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

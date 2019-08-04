@@ -1,4 +1,4 @@
-package com.springboot.framework.designpattern.jdksrc;
+package com.springboot.framework.designpattern.sourcecode.jdksrc;
 
 /**
  * @author huangpengfei
