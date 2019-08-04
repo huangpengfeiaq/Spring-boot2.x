@@ -1,4 +1,4 @@
-package com.springboot.framework.designpattern.sourcecode.jdksrc;
+package com.springboot.framework.designpattern.sourcecode.jdk;
 
 import java.util.Calendar;
 
