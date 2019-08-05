@@ -15,6 +15,7 @@ public class FlyWeight {
         // 小结：
         // 1.在valueOf 方法中，先判断是否在IntegerCache 中，如果不在，就创建新的Integer(new)，否则，就直接从缓冲池中返回
         // 2.valueOf 方法，就使用到享元模式
+        // 3.如果使用valueOf 方法得到一个Integer 实例，范围在 -128 --- 127 之间，执行速度比 new 快
 
         // 得到 x实例，类型Integer
         Integer x = Integer.valueOf(127);
