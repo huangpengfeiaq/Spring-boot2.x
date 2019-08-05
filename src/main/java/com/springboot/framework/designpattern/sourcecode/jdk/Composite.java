@@ -12,6 +12,12 @@ import java.util.Map;
  */
 public class Composite {
     public static void main(String[] args) {
+        // 说明
+        // 1.Map 就是一个抽象的构建（类似我们的Component）
+        // 2.HashMap是一个中间的构建（Composite），实现/继承了相关的方法（put，putAll）
+        // 3.Node 是 HashMap的静态内部类，类似Leaf叶子节点，这里没有put，putAll
+        // static class Node<K,V> implements Map.Entity<K,V>
+
         Map<Integer, String> hashMap = new HashMap<>(16);
         // 直接存放叶子节点（Node）
         hashMap.put(0, "东游记");
