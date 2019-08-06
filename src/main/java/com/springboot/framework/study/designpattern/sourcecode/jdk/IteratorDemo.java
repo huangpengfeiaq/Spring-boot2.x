@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class IteratorDemo {
     public static void main(String[] args) {
+        // List充当了聚合接口
         List<String> list = new ArrayList<>();
         list.add("jack");
         /// 获取到迭代器
