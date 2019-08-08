@@ -42,8 +42,21 @@ public class Strategy {
         //                TimSort.sort(a, 0, a.length, c, null, 0, 0);
         //        }
         //    }
+        // 方式1
         Arrays.sort(data, comparator);
 
         System.out.println(Arrays.toString(data));
+
+        //方式2 使用lambda 表达式实现
+        Integer[] data2 = {19, 11, 12, 18, 14, 13};
+        Arrays.sort(data2, (var1, var2) -> {
+            if (var1.compareTo(var2) > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+
+        System.out.println(Arrays.toString(data2));
     }
 }
