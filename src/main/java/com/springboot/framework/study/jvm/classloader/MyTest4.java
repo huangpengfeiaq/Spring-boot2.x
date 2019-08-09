@@ -23,6 +23,7 @@ public class MyTest4 {
         System.out.println(myParent4.getClass().getSuperclass());
         System.out.println(myParent4s1.getClass().getSuperclass());
 
+//        System.out.println(myParent4s1.getClass().getClassLoader());
         System.out.println("==========");
 
         int[] ints = new int[1];
