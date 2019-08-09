@@ -36,7 +36,7 @@
         <!-- aop 依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-aop</artifactId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <!-- jpa 依赖 -->
@@ -72,6 +72,7 @@
         </dependency>
 
         <!-- tk.mybatis依赖 -->
+        <!-- https://mvnrepository.com/artifact/tk.mybatis/mapper-spring-boot-starter -->
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
@@ -187,11 +188,11 @@
         </dependency>
 
         <!-- bce-java-sdk -->
-        <dependency>
-            <groupId>com.baidubce</groupId>
-            <artifactId>bce-java-sdk</artifactId>
-            <version>0.10.28</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.baidubce</groupId>-->
+<!--            <artifactId>bce-java-sdk</artifactId>-->
+<!--            <version>0.10.28</version>-->
+<!--        </dependency>-->
 
         <!-- 腾讯云COS对象存储 -->
         <dependency>
