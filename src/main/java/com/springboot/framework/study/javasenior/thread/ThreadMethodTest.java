@@ -1,4 +1,4 @@
-package com.springboot.framework.study.javasenior;
+package com.springboot.framework.study.javasenior.thread;
 
 /**
  * 测试Thread中的常用方法：

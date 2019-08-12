@@ -1,4 +1,4 @@
-package com.springboot.framework.study.javasenior;
+package com.springboot.framework.study.javasenior.thread;
 
 /**
  * 多线程的创建，方式一：继承于Thread类
