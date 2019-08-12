@@ -1,5 +1,8 @@
 package com.springboot.framework.study.javasenior.thread;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
+
 /**
  * 例子：创建三个窗口卖票，总票数为100张（方式二）
  * 存在线程的安全问题，待解决
@@ -32,11 +35,13 @@ class Window2 implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if (ticket > 0) {
-                System.out.println(Thread.currentThread().getName() + "：卖票，票号为：" + ticket);
-                ticket--;
-            } else {
-                break;
+            synchronized (Window2.class) {
+                if (ticket > 0) {
+                    System.out.println(Thread.currentThread().getName() + "：卖票，票号为：" + ticket);
+                    ticket--;
+                } else {
+                    break;
+                }
             }
         }
     }

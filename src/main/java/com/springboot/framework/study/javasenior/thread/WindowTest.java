@@ -30,11 +30,13 @@ class Window extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (ticket > 0) {
-                System.out.println(getName() + "：卖票，票号为：" + ticket);
-                ticket--;
-            } else {
-                break;
+            synchronized (Window.class) {
+                if (ticket > 0) {
+                    System.out.println(getName() + "：卖票，票号为：" + ticket);
+                    ticket--;
+                } else {
+                    break;
+                }
             }
         }
     }
