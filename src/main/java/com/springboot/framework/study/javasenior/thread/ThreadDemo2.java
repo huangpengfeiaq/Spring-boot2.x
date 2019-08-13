@@ -7,7 +7,7 @@ package com.springboot.framework.study.javasenior.thread;
  * @version 1.0
  * @date 2019/8/12 20:35
  */
-public class ThreadTest2 {
+public class ThreadDemo2 {
     public static void main(String[] args) {
         MyThread2 myThread2 = new MyThread2();
 

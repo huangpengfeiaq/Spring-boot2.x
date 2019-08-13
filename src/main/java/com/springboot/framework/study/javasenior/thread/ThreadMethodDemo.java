@@ -22,7 +22,7 @@ package com.springboot.framework.study.javasenior.thread;
  * @version 1.0
  * @date 2019/8/12 18:35
  */
-public class ThreadMethodTest {
+public class ThreadMethodDemo {
     public static void main(String[] args) {
         HelloThread thread = new HelloThread("Thread：1");
 //        thread.setName("线程一");

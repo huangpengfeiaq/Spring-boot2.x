@@ -1,18 +1,23 @@
 package com.springboot.framework.study.javasenior.thread;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
+
 /**
- * 例子：创建三个窗口卖票，总票数为100张
+ * 例子：创建三个窗口卖票，总票数为100张（方式二）
  * 存在线程的安全问题，待解决
  *
  * @author huangpengfei
  * @version 1.0
- * @date 2019/8/12 20:21
+ * @date 2019/8/12 20:44
  */
-public class WindowTest {
+public class WindowDemo2 {
     public static void main(String[] args) {
-        Window h1 = new Window();
-        Window h2 = new Window();
-        Window h3 = new Window();
+        Window2 window2 = new Window2();
+
+        Thread h1 = new Thread(window2);
+        Thread h2 = new Thread(window2);
+        Thread h3 = new Thread(window2);
 
         h1.setName("窗口1");
         h2.setName("窗口2");
@@ -24,15 +29,15 @@ public class WindowTest {
     }
 }
 
-class Window extends Thread {
-    private static int ticket = 100;
+class Window2 implements Runnable {
+    private int ticket = 100;
 
     @Override
     public void run() {
         while (true) {
-            synchronized (Window.class) {
+            synchronized (Window2.class) {
                 if (ticket > 0) {
-                    System.out.println(getName() + "：卖票，票号为：" + ticket);
+                    System.out.println(Thread.currentThread().getName() + "：卖票，票号为：" + ticket);
                     ticket--;
                 } else {
                     break;

@@ -9,7 +9,7 @@ package com.springboot.framework.study.javasenior.thread;
  * @version 1.0
  * @date 2019/8/12 23:26
  */
-public class ThreadLockTest {
+public class ThreadLockDemo {
     public static void main(String[] args) {
         StringBuffer s1 = new StringBuffer();
         StringBuffer s2 = new StringBuffer();

@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @version 1.0
  * @date 2019/8/12 23:46
  */
-public class WindowTest3 {
+public class WindowDemo3 {
     public static void main(String[] args) {
         Window3 window3 = new Window3();
 

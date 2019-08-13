@@ -13,7 +13,7 @@ package com.springboot.framework.study.javasenior.thread;
  * @version 1.0
  * @date 2019/8/12 17:49
  */
-public class ThreadTest {
+public class ThreadDemo {
     public static void main(String[] args) {
         // 3.创建Thread类的子类的对象
         MyThread t1 = new MyThread();
