@@ -2,6 +2,7 @@ package com.springboot.framework.study.javasenior.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 创建线程的方式四：使用线程池
@@ -13,7 +14,10 @@ import java.util.concurrent.Executors;
 public class ThreadPool {
     public static void main(String[] args) {
         // 1.提供指定数量的线程池
-        ExecutorService pool = Executors.newFixedThreadPool(10);
+//        ExecutorService pool = Executors.newFixedThreadPool(10);
+        ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
+        // 设置线程池的属性
+        pool.setCorePoolSize(15);
 
         // 2.执行指定的线程的操作
         // 适合适用于Runnable
