@@ -1,4 +1,4 @@
-package com.springboot.framework.study.javasenior.stringbufferbuilder;
+package com.springboot.framework.study.javasenior.string;
 
 /**
  * StringBuffer
