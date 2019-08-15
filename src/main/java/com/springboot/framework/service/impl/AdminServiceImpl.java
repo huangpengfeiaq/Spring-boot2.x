@@ -1,6 +1,7 @@
 package com.springboot.framework.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.springboot.framework.service.BaseService;
 import com.springboot.framework.vo.ResponseVO;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.vo.PageResponseVO;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl implements BaseService<Admin, AdminDTO>, AdminService {
     private static Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Resource

@@ -7,8 +7,12 @@ import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dto.AdminDTO;
 
 /**
+ * 新的使用方式为BaseService<POJO, DTO>接口（通用Service接口）
+ *
  * @author huangpengfei
+ * @deprecated 新的使用方式为BaseService<POJO, DTO>接口（通用Service接口）
  */
+@Deprecated
 public interface AdminService {
     /**
      * 删除
