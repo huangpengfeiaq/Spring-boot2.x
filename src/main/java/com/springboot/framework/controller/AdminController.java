@@ -1,6 +1,7 @@
 package com.springboot.framework.controller;
 
 import com.springboot.framework.annotation.ACS;
+import com.springboot.framework.utils.BinaryUtil;
 import com.springboot.framework.utils.ResponseVOUtil;
 import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.vo.ResponseVO;
@@ -37,15 +38,22 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "删除管理员", notes = "")
     @DeleteMapping(value = "deleteByPrimaryKey")
     public ResponseVO<Errors> deleteByPrimaryKey(@RequestParam Integer id, HttpServletRequest request) {
-        AdminDTO recordDTO = new AdminDTO(id, super.getSessionUser(request).getName());
-        return adminService.deleteByPrimaryKey(recordDTO);
+        Admin admin = new Admin();
+        admin.setId(id);
+        admin.setUpdateBy(super.getSessionUser(request).getName());
+        return adminService.deleteByPrimaryKey(admin);
     }
 
     @ApiOperation(value = "新增超级管理员", notes = "")
     @PostMapping(value = "insertSelective")
     public ResponseVO<Errors> insertSelective(@RequestBody AdminInsert bean, HttpServletRequest request) {
-        AdminDTO recordDTO = new AdminDTO(bean.getAccount(), bean.getPassword(), bean.getPhone(), bean.getName(), super.getSessionUser(request).getName());
-        return adminService.insertSelective(recordDTO);
+        Admin admin = new Admin();
+        admin.setAccount(bean.getAccount());
+        admin.setPassword(BinaryUtil.encodeMd5(bean.getPassword()));
+        admin.setPhone(bean.getPhone());
+        admin.setName(bean.getName());
+        admin.setCreateBy(super.getSessionUser(request).getName());
+        return adminService.insertSelective(admin);
     }
 
     @ACS(allowAnonymous = true)
@@ -60,8 +68,7 @@ public class AdminController extends BaseController {
 //        if (!flag) {
 //            return ResponseVOUtil.fail("验证码错误");
 //        }
-        AdminDTO recordDTO = new AdminDTO(bean.getLoginKey(), bean.getLoginPwd());
-        ResponseVO<Admin> response = adminService.login(recordDTO);
+        ResponseVO<Admin> response = adminService.login(bean.getLoginKey(), bean.getLoginPwd());
         if (response.isSuccess()) {
             UserVO userVO = new UserVO(response.getData());
             return accessToken(userVO, request);
@@ -101,7 +108,9 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "查看管理员总数", notes = "")
     @GetMapping(value = "selectCount")
     public ResponseVO<Integer> selectCount() {
-        return adminService.selectCount();
+        Admin admin = new Admin();
+        admin.setStatus((byte) 1);
+        return adminService.selectCount(admin);
     }
 
     @ApiOperation(value = "根据手机号码查看管理员列表", notes = "")
@@ -113,8 +122,14 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "更新管理员信息", notes = "")
     @PutMapping(value = "updateByPrimaryKeySelective")
     public ResponseVO<Errors> updateByPrimaryKeySelective(@RequestBody AdminUpdateByPrimaryKey bean, HttpServletRequest request) {
-        AdminDTO recordDTO = new AdminDTO(bean.getId(), bean.getPassword(), bean.getPhone(), bean.getName(), super.getSessionUser(request).getName(), bean.getStatus());
-        return adminService.updateByPrimaryKeySelective(recordDTO);
+        Admin admin = new Admin();
+        admin.setId(bean.getId());
+        admin.setPassword(BinaryUtil.encodeMd5(bean.getPassword()));
+        admin.setPhone(bean.getPhone());
+        admin.setName(bean.getName());
+        admin.setUpdateBy(super.getSessionUser(request).getName());
+        admin.setStatus(bean.getStatus());
+        return adminService.updateByPrimaryKeySelective(admin);
     }
 
     @ApiOperation(value = "更新个人密码", notes = "")
@@ -126,21 +141,21 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "更新个人手机号", notes = "")
     @PutMapping(value = "updateByPhone")
     public ResponseVO<Errors> updateByPhone(@RequestParam String phone, HttpServletRequest request) {
-        AdminDTO recordDTO = new AdminDTO();
-        recordDTO.setId(super.getSessionUser(request).getId());
-        recordDTO.setPhone(phone);
-        recordDTO.setUpdateBy(super.getSessionUser(request).getName());
-        return adminService.updateByPrimaryKeySelective(recordDTO);
+        Admin admin = new Admin();
+        admin.setId(super.getSessionUser(request).getId());
+        admin.setPhone(phone);
+        admin.setUpdateBy(super.getSessionUser(request).getName());
+        return adminService.updateByPrimaryKeySelective(admin);
     }
 
     @ApiOperation(value = "更新管理员状态", notes = "")
     @PutMapping(value = "updateByStatus")
     public ResponseVO<Errors> updateByStatus(@RequestBody UpdateByStatus bean, HttpServletRequest request) {
-        AdminDTO recordDTO = new AdminDTO();
-        recordDTO.setId(bean.getId());
-        recordDTO.setUpdateBy(super.getSessionUser(request).getName());
-        recordDTO.setStatus(bean.getStatus());
-        return adminService.updateByPrimaryKeySelective(recordDTO);
+        Admin admin = new Admin();
+        admin.setId(bean.getId());
+        admin.setUpdateBy(super.getSessionUser(request).getName());
+        admin.setStatus(bean.getStatus());
+        return adminService.updateByPrimaryKeySelective(admin);
     }
 
     private Boolean verifyCode(String verifyCode) {

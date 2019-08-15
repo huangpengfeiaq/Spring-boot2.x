@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
     private static Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Resource
@@ -43,34 +43,22 @@ public class AdminServiceImpl implements AdminService {
         log.info("customScheduled被执行了...");
     }
 
-    @Override
-    public ResponseVO<Errors> deleteByPrimaryKey(AdminDTO recordDTO) {
-        //2.创建entity
-        Admin record = new Admin(recordDTO);
-        record.setStatus((byte) -1);
-        //3.响应校验
-        if (adminMapper.updateByPrimaryKeySelective(record) == 0) {
-            return ResponseVOUtil.fail("删除失败");
-        }
-        return ResponseVOUtil.success(Errors.SUCCESS);
-    }
-
-    @Override
-    public ResponseVO<Errors> insertSelective(AdminDTO recordDTO) {
-        //1.请求校验
-        Errors errors = validRequest(recordDTO, "insertSelective");
-        if (errors.code != 0) {
-            return ResponseVOUtil.fail(errors);
-        }
-        //2.创建entity
-        Admin record = new Admin(recordDTO);
-        record.setPassword(BinaryUtil.encodeMd5(record.getPassword()));
-        //3.响应校验
-        if (adminMapper.insertSelective(record) == 0) {
-            return ResponseVOUtil.fail("添加失败");
-        }
-        return ResponseVOUtil.success(Errors.SUCCESS);
-    }
+//    @Override
+//    public ResponseVO<Errors> insertSelective(AdminDTO recordDTO) {
+//        //1.请求校验
+//        Errors errors = validRequest(recordDTO, "insertSelective");
+//        if (errors.code != 0) {
+//            return ResponseVOUtil.fail(errors);
+//        }
+//        //2.创建entity
+//        Admin record = new Admin(recordDTO);
+//        record.setPassword(BinaryUtil.encodeMd5(record.getPassword()));
+//        //3.响应校验
+//        if (adminMapper.insertSelective(record) == 0) {
+//            return ResponseVOUtil.fail("添加失败");
+//        }
+//        return ResponseVOUtil.success(Errors.SUCCESS);
+//    }
 
     @Override
     public ResponseVO<Admin> login(AdminDTO recordDTO) {
@@ -92,8 +80,22 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseVO<Admin> selectByPrimaryKey(Integer id) {
-        return ResponseVOUtil.success(adminMapper.selectByPrimaryKey(id));
+    public ResponseVO<Admin> login(String loginKey, String password) {
+        //1.请求校验
+//        Errors errors = validRequest(recordDTO, "login");
+//        if (errors.code != 0) {
+//            return ResponseVOUtil.fail(errors);
+//        }
+        //2.创建entity
+        Admin admin = adminMapper.login(loginKey, BinaryUtil.encodeMd5(password));
+        //3.响应校验
+        if (admin == null) {
+            return ResponseVOUtil.fail(Errors.USER_LOGIN_ERROR);
+        }
+        if (admin.getStatus() == 0) {
+            return ResponseVOUtil.fail(Errors.SYSTEM_NO_ACCESS);
+        }
+        return ResponseVOUtil.success(admin);
     }
 
     @Override
@@ -123,28 +125,21 @@ public class AdminServiceImpl implements AdminService {
         return PageUtil.page(adminList);
     }
 
-    @Override
-    public ResponseVO<Integer> selectCount() {
-        Admin record = new Admin();
-        record.setStatus((byte) 1);
-        return ResponseVOUtil.success(adminMapper.selectCount(record));
-    }
-
-    @Override
-    public ResponseVO<Errors> updateByPrimaryKeySelective(AdminDTO recordDTO) {
-        //1.请求校验
-        Errors errors = validRequest(recordDTO, "updateByPrimaryKeySelective");
-        if (errors.code != 0) {
-            return ResponseVOUtil.fail(errors);
-        }
-        //2.创建entity
-        Admin admin = new Admin(recordDTO);
-        //3.响应校验
-        if (adminMapper.updateByPrimaryKeySelective(admin) == 0) {
-            return ResponseVOUtil.fail("更新失败");
-        }
-        return ResponseVOUtil.success(Errors.SUCCESS);
-    }
+//    @Override
+//    public ResponseVO<Errors> updateByPrimaryKeySelective(AdminDTO recordDTO) {
+//        //1.请求校验
+//        Errors errors = validRequest(recordDTO, "updateByPrimaryKeySelective");
+//        if (errors.code != 0) {
+//            return ResponseVOUtil.fail(errors);
+//        }
+//        //2.创建entity
+//        Admin admin = new Admin(recordDTO);
+//        //3.响应校验
+//        if (adminMapper.updateByPrimaryKeySelective(admin) == 0) {
+//            return ResponseVOUtil.fail("更新失败");
+//        }
+//        return ResponseVOUtil.success(Errors.SUCCESS);
+//    }
 
     @Override
     public ResponseVO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {

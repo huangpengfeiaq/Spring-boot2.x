@@ -11,14 +11,25 @@ import com.springboot.framework.dto.AdminDTO;
  *
  * @author huangpengfei
  */
-public interface AdminService extends BaseService<Admin, AdminDTO> {
+public interface AdminService extends BaseService<Admin> {
     /**
-     * 登陆
+     * 登陆（遗留的接口，将在后续版本删除）
      *
      * @param adminDTO 管理员传输对象
      * @return ResponseVO<Admin>
+     * @deprecated 遗留的接口，将在后续版本删除
      */
+    @Deprecated
     ResponseVO<Admin> login(AdminDTO adminDTO);
+
+    /**
+     * 登陆
+     *
+     * @param loginKey 用户名或手机号
+     * @param password 密码
+     * @return ResponseVO<Admin>
+     */
+    ResponseVO<Admin> login(String loginKey, String password);
 
     /**
      * 列表查询（根据手机号）

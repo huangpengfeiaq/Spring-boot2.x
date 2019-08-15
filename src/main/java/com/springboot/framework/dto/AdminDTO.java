@@ -7,6 +7,7 @@ import java.util.Date;
 /**
  * @author huangpengfei
  */
+@Deprecated
 @Data
 public class AdminDTO {
     private Integer id;
@@ -28,41 +29,10 @@ public class AdminDTO {
     }
 
     /**
-     * 删除
-     */
-    public AdminDTO(Integer id, String updateBy) {
-        this.id = id;
-        this.updateBy = updateBy;
-    }
-
-    /**
-     * 新增
-     */
-    public AdminDTO(String account, String password, String phone, String name, String createBy) {
-        this.account = account;
-        this.password = password;
-        this.phone = phone;
-        this.name = name;
-        this.createBy = createBy;
-    }
-
-    /**
      * 登陆
      */
     public AdminDTO(String loginKey, String password) {
         this.password = password;
         this.loginKey = loginKey;
-    }
-
-    /**
-     * 更新
-     */
-    public AdminDTO(Integer id, String password, String phone, String name, String updateBy, Byte status) {
-        this.id = id;
-        this.password = password;
-        this.phone = phone;
-        this.name = name;
-        this.updateBy = updateBy;
-        this.status = status;
     }
 }
