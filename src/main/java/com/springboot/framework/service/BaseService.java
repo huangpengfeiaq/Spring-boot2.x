@@ -15,23 +15,23 @@ import com.springboot.framework.vo.ResponseVO;
  */
 public interface BaseService<POJO, DTO> {
     /**
-     * 删除
+     * 删除一个对象（根据主键）
      *
-     * @param tDTO 数据传输对象
+     * @param pojoDTO 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> deleteByPrimaryKey(DTO tDTO);
+    ResponseVO<Errors> deleteByPrimaryKey(DTO pojoDTO);
 
     /**
-     * 新增
+     * 新增一个对象
      *
-     * @param tDTO 数据传输对象
+     * @param pojoDTO 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> insertSelective(DTO tDTO);
+    ResponseVO<Errors> insertSelective(DTO pojoDTO);
 
     /**
-     * 查询
+     * 查询一个对象（根据主键）
      *
      * @param primaryKey 主键
      * @return ResponseVO<Order>
@@ -55,10 +55,10 @@ public interface BaseService<POJO, DTO> {
     ResponseVO<Integer> selectCount();
 
     /**
-     * 更新
+     * 更新一个对象（根据主键）
      *
-     * @param tDTO 数据传输对象
+     * @param pojoDTO 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> updateByPrimaryKeySelective(DTO tDTO);
+    ResponseVO<Errors> updateByPrimaryKeySelective(DTO pojoDTO);
 }
