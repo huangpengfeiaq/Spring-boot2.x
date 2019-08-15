@@ -7,29 +7,11 @@ import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dto.AdminDTO;
 
 /**
- * 新的使用方式为BaseService<POJO, DTO>接口（通用Service接口）
+ * 管理员操作
  *
  * @author huangpengfei
- * @deprecated 新的使用方式为BaseService<POJO, DTO>接口（通用Service接口）
  */
-@Deprecated
-public interface AdminService {
-    /**
-     * 删除
-     *
-     * @param adminDTO 管理员传输对象
-     * @return ResponseVO<Errors>
-     */
-    ResponseVO<Errors> deleteByPrimaryKey(AdminDTO adminDTO);
-
-    /**
-     * 新增
-     *
-     * @param adminDTO 管理员传输对象
-     * @return ResponseVO<Errors>
-     */
-    ResponseVO<Errors> insertSelective(AdminDTO adminDTO);
-
+public interface AdminService extends BaseService<Admin, AdminDTO> {
     /**
      * 登陆
      *
@@ -37,23 +19,6 @@ public interface AdminService {
      * @return ResponseVO<Admin>
      */
     ResponseVO<Admin> login(AdminDTO adminDTO);
-
-    /**
-     * 查询
-     *
-     * @param id 商品主键
-     * @return ResponseVO<Admin>
-     */
-    ResponseVO<Admin> selectByPrimaryKey(Integer id);
-
-    /**
-     * 列表查询
-     *
-     * @param pageNum  页码
-     * @param pageSize 页面大小
-     * @return PageResponseVO
-     */
-    PageResponseVO selectList(Integer pageNum, Integer pageSize);
 
     /**
      * 列表查询（根据手机号）
@@ -64,21 +29,6 @@ public interface AdminService {
      * @return PageResponseVO
      */
     PageResponseVO selectListByPhone(String phone, Integer pageNum, Integer pageSize);
-
-    /**
-     * 总数查询
-     *
-     * @return ResponseVO<Integer>
-     */
-    ResponseVO<Integer> selectCount();
-
-    /**
-     * 更新
-     *
-     * @param adminDTO 管理员传输对象
-     * @return ResponseVO<Errors>
-     */
-    ResponseVO<Errors> updateByPrimaryKeySelective(AdminDTO adminDTO);
 
     /**
      * 更新（密码）

@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class AdminServiceImpl implements BaseService<Admin, AdminDTO>, AdminService {
+public class AdminServiceImpl implements AdminService {
     private static Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Resource
