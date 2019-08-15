@@ -7,28 +7,27 @@ import com.springboot.framework.vo.ResponseVO;
 /**
  * 通用Service接口
  *
- * @param <POJO> 对应的POJO类
- * @param <DTO>  对应的DTO类
+ * @param <T> 对应的POJO类
  * @author huangpengfei
  * @version 1.0
  * @date 2019/8/15 20:55
  */
-public interface BaseService<POJO, DTO> {
+public interface BaseService<T> {
     /**
      * 删除一个对象（根据主键）
      *
-     * @param pojoDTO 数据传输对象
+     * @param entity 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> deleteByPrimaryKey(DTO pojoDTO);
+    ResponseVO<Errors> deleteByPrimaryKey(T entity);
 
     /**
      * 新增一个对象
      *
-     * @param pojoDTO 数据传输对象
+     * @param entity 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> insertSelective(DTO pojoDTO);
+    ResponseVO<Errors> insertSelective(T entity);
 
     /**
      * 查询一个对象（根据主键）
@@ -36,7 +35,7 @@ public interface BaseService<POJO, DTO> {
      * @param primaryKey 主键
      * @return ResponseVO<Order>
      */
-    ResponseVO<POJO> selectByPrimaryKey(Integer primaryKey);
+    ResponseVO<T> selectByPrimaryKey(Integer primaryKey);
 
     /**
      * 列表查询
@@ -50,15 +49,16 @@ public interface BaseService<POJO, DTO> {
     /**
      * 总数查询
      *
+     * @param entity 数据传输对象
      * @return ResponseVO<Integer>
      */
-    ResponseVO<Integer> selectCount();
+    ResponseVO<Integer> selectCount(T entity);
 
     /**
      * 更新一个对象（根据主键）
      *
-     * @param pojoDTO 数据传输对象
+     * @param entity 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> updateByPrimaryKeySelective(DTO pojoDTO);
+    ResponseVO<Errors> updateByPrimaryKeySelective(T entity);
 }
