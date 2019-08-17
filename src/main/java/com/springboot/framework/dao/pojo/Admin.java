@@ -15,6 +15,8 @@ import java.util.Date;
 @Data
 @Table(name = "sys_admin")
 public class Admin implements Serializable {
+    public static final long serialVersionUID = 641655770L;
+
     @Id
     private Integer id;
     private String account;
