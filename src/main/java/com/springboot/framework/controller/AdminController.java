@@ -42,6 +42,7 @@ public class AdminController extends BaseController {
     public ResponseVO<Errors> deleteByPrimaryKey(@RequestParam Integer id, HttpServletRequest request) {
         Admin admin = new Admin();
         admin.setId(id);
+        admin.setStatus((byte) -1);
         admin.setUpdateBy(super.getSessionUser(request).getName());
         try {
             Errors errors = adminService.deleteByPrimaryKey(admin);
