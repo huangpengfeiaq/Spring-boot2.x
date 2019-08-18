@@ -30,20 +30,4 @@ public class Admin implements Serializable {
     private Byte status;
     @Transient
     private String accessToken;
-
-    public Admin() {
-    }
-
-    public Admin(AdminDTO adminDTO) {
-        this.id = adminDTO.getId();
-        this.account = adminDTO.getAccount();
-        this.password = adminDTO.getPassword();
-        this.phone = adminDTO.getPhone();
-        this.name = adminDTO.getName();
-        this.createBy = adminDTO.getCreateBy();
-        this.createDate = adminDTO.getCreateDate();
-        this.updateBy = adminDTO.getUpdateBy();
-        this.updateDate = adminDTO.getUpdateDate();
-        this.status = adminDTO.getStatus();
-    }
 }
