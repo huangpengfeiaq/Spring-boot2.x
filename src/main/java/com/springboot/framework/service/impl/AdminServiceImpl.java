@@ -2,13 +2,10 @@ package com.springboot.framework.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.springboot.framework.constant.BaseServiceMethodsEnum;
-import com.springboot.framework.service.BaseService;
-import com.springboot.framework.vo.ResponseVO;
+import com.springboot.framework.exception.BusinessException;
 import com.springboot.framework.constant.Errors;
-import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dao.mapper.AdminMapper;
-import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
 import com.springboot.framework.utils.*;
 import org.slf4j.Logger;
@@ -47,7 +44,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     }
 
     @Override
-    public ResponseVO<Admin> login(String loginKey, String password) {
+    public Admin login(String loginKey, String password) {
         //1.请求校验
 //        Errors errors = validRequest(recordDTO, CUSTOM);
 //        if (errors.code != 0) {
@@ -57,29 +54,25 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         Admin admin = adminMapper.login(loginKey, BinaryUtil.encodeMd5(password));
         //3.响应校验
         if (admin == null) {
-            return ResponseVOUtil.fail(USER_LOGIN_ERROR);
+            throw new BusinessException(USER_LOGIN_ERROR);
         }
         if (admin.getStatus() == 0) {
-            return ResponseVOUtil.fail(SYSTEM_NO_ACCESS);
+            throw new BusinessException(SYSTEM_NO_ACCESS);
         }
-        return ResponseVOUtil.success(admin);
+        return admin;
     }
 
     @Override
-    public PageResponseVO selectList(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-
+    protected Example selectListByExample() {
         Example example = new Example(Admin.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("status", 1);
         example.orderBy("createDate").desc();
-
-        List<Admin> adminList = adminMapper.selectByExample(example);
-        return PageUtil.page(adminList);
+        return example;
     }
 
     @Override
-    public PageResponseVO selectListByPhone(String phone, Integer pageNum, Integer pageSize) {
+    public List<Admin> selectListByPhone(String phone, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
 
         Example example = new Example(Admin.class);
@@ -88,17 +81,16 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         criteria.andLike("createBy", "%" + phone + "%");
         example.orderBy("createDate").desc();
 
-        List<Admin> adminList = adminMapper.selectByExample(example);
-        return PageUtil.page(adminList);
+        return adminMapper.selectByExample(example);
     }
 
     @Override
-    public ResponseVO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
+    public Errors updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
         int updateCount = adminMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
         if (updateCount == 0) {
-            return ResponseVOUtil.fail(USER_OLD_PASSWORD_ERROR);
+            throw new BusinessException(USER_OLD_PASSWORD_ERROR);
         }
-        return ResponseVOUtil.success(SUCCESS);
+        return SUCCESS;
     }
 
     @Override
@@ -120,7 +112,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
                     return USER_USERNAME_SAME;
                 }
                 break;
-            case CUSTOM :
+            case CUSTOM:
 //                if (StringUtil.isEmpty(recordDTO.getLoginKey()) || StringUtil.isEmpty(recordDTO.getPassword())) {
 //                    return Errors.SYSTEM_REQUEST_PARAM_ERROR;
 //                }

@@ -6,6 +6,8 @@ import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.dao.pojo.Admin;
 import com.springboot.framework.dto.AdminDTO;
 
+import java.util.List;
+
 /**
  * 管理员操作
  *
@@ -19,7 +21,7 @@ public interface AdminService extends BaseService<Admin> {
      * @param password 密码
      * @return ResponseVO<Admin>
      */
-    ResponseVO<Admin> login(String loginKey, String password);
+    Admin login(String loginKey, String password);
 
     /**
      * 列表查询（根据手机号）
@@ -29,7 +31,7 @@ public interface AdminService extends BaseService<Admin> {
      * @param pageSize 页面大小
      * @return PageResponseVO
      */
-    PageResponseVO selectListByPhone(String phone, Integer pageNum, Integer pageSize);
+    List<Admin> selectListByPhone(String phone, Integer pageNum, Integer pageSize);
 
     /**
      * 更新（密码）
@@ -40,5 +42,5 @@ public interface AdminService extends BaseService<Admin> {
      * @param updateBy    更新人
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy);
+    Errors updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy);
 }

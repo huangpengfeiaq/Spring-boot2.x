@@ -1,7 +1,9 @@
 package com.springboot.framework.controller;
 
 import com.springboot.framework.annotation.ACS;
+import com.springboot.framework.exception.BusinessException;
 import com.springboot.framework.utils.BinaryUtil;
+import com.springboot.framework.utils.PageUtil;
 import com.springboot.framework.utils.ResponseVOUtil;
 import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.vo.ResponseVO;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author huangpengfei
@@ -41,7 +44,12 @@ public class AdminController extends BaseController {
         Admin admin = new Admin();
         admin.setId(id);
         admin.setUpdateBy(super.getSessionUser(request).getName());
-        return adminService.deleteByPrimaryKey(admin);
+        try {
+            Errors errors = adminService.deleteByPrimaryKey(admin);
+            return ResponseVOUtil.success(errors);
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     @ApiOperation(value = "新增超级管理员", notes = "")
@@ -53,7 +61,12 @@ public class AdminController extends BaseController {
         admin.setPhone(bean.getPhone());
         admin.setName(bean.getName());
         admin.setCreateBy(super.getSessionUser(request).getName());
-        return adminService.insertSelective(admin);
+        try {
+            Errors errors = adminService.insertSelective(admin);
+            return ResponseVOUtil.success(errors);
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     @ACS(allowAnonymous = true)
@@ -68,12 +81,14 @@ public class AdminController extends BaseController {
 //        if (!flag) {
 //            return ResponseVOUtil.fail("验证码错误");
 //        }
-        ResponseVO<Admin> response = adminService.login(bean.getLoginKey(), bean.getLoginPwd());
-        if (response.isSuccess()) {
-            UserVO userVO = new UserVO(response.getData());
-            return accessToken(userVO, request);
+        try {
+            Admin admin = adminService.login(bean.getLoginKey(), bean.getLoginPwd());
+            UserVO userVO = new UserVO(admin);
+            return ResponseVOUtil.success(accessToken(userVO, request));
+        } catch (BusinessException e) {
+            System.out.println(e.getLabel());
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
         }
-        return ResponseVOUtil.fail(response.getException());
     }
 
     @ApiOperation(value = "退出登录", notes = "")
@@ -96,13 +111,19 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "查看管理员", notes = "")
     @GetMapping(value = "selectByPrimaryKey")
     public ResponseVO<Admin> selectByPrimaryKey(@RequestParam Integer id) {
-        return adminService.selectByPrimaryKey(id);
+        try {
+            Admin admin = adminService.selectByPrimaryKey(id);
+            return ResponseVOUtil.success(admin);
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     @ApiOperation(value = "查看管理员列表", notes = "")
     @GetMapping(value = "selectList")
     public PageResponseVO selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return adminService.selectList(pageNum, pageSize);
+        List list = adminService.selectList(pageNum, pageSize);
+        return PageUtil.page(list);
     }
 
     @ApiOperation(value = "查看管理员总数", notes = "")
@@ -110,13 +131,18 @@ public class AdminController extends BaseController {
     public ResponseVO<Integer> selectCount() {
         Admin admin = new Admin();
         admin.setStatus((byte) 1);
-        return adminService.selectCount(admin);
+        try {
+            return ResponseVOUtil.success(adminService.selectCount(admin));
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     @ApiOperation(value = "根据手机号码查看管理员列表", notes = "")
     @GetMapping(value = "selectListByPhone")
     public PageResponseVO selectListByPhone(@RequestParam String phone, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return adminService.selectListByPhone(phone, pageNum, pageSize);
+        List list = adminService.selectListByPhone(phone, pageNum, pageSize);
+        return PageUtil.page(list);
     }
 
     @ApiOperation(value = "更新管理员信息", notes = "")
@@ -129,13 +155,21 @@ public class AdminController extends BaseController {
         admin.setName(bean.getName());
         admin.setUpdateBy(super.getSessionUser(request).getName());
         admin.setStatus(bean.getStatus());
-        return adminService.updateByPrimaryKeySelective(admin);
+        try {
+            return ResponseVOUtil.success(adminService.updateByPrimaryKeySelective(admin));
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     @ApiOperation(value = "更新个人密码", notes = "")
     @PutMapping(value = "updateByPassword")
     public ResponseVO<Errors> updateByPassword(@RequestBody AdminUpdateByPassword bean, HttpServletRequest request) {
-        return adminService.updateByPassword(super.getSessionUser(request).getId(), bean.getOldPassword(), bean.getNewPassword(), super.getSessionUser(request).getName());
+        try {
+            return ResponseVOUtil.success(adminService.updateByPassword(super.getSessionUser(request).getId(), bean.getOldPassword(), bean.getNewPassword(), super.getSessionUser(request).getName()));
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     @ApiOperation(value = "更新个人手机号", notes = "")
@@ -145,7 +179,11 @@ public class AdminController extends BaseController {
         admin.setId(super.getSessionUser(request).getId());
         admin.setPhone(phone);
         admin.setUpdateBy(super.getSessionUser(request).getName());
-        return adminService.updateByPrimaryKeySelective(admin);
+        try {
+            return ResponseVOUtil.success(adminService.updateByPrimaryKeySelective(admin));
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     @ApiOperation(value = "更新管理员状态", notes = "")
@@ -155,7 +193,20 @@ public class AdminController extends BaseController {
         admin.setId(bean.getId());
         admin.setUpdateBy(super.getSessionUser(request).getName());
         admin.setStatus(bean.getStatus());
-        return adminService.updateByPrimaryKeySelective(admin);
+        try {
+            return ResponseVOUtil.success(adminService.updateByPrimaryKeySelective(admin));
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
+    }
+
+    @Deprecated
+    private ResponseVO tryService(Object obj) {
+        try {
+            return ResponseVOUtil.success(obj);
+        } catch (BusinessException e) {
+            return ResponseVOUtil.fail(e.getCode(), e.getLabel());
+        }
     }
 
     private Boolean verifyCode(String verifyCode) {
@@ -169,13 +220,13 @@ public class AdminController extends BaseController {
         return false;
     }
 
-    private ResponseVO<UserVO> accessToken(UserVO userVO, HttpServletRequest request) {
+    private UserVO accessToken(UserVO userVO, HttpServletRequest request) {
         //session.setAttribute(Const.CURRENT_USER, response.getData());
         // 创建访问token
         String accessToken = super.generateAccessToken(request);
         userVO.setAccessToken(accessToken);
         super.setAccessTokenAttribute(request, accessToken);
         super.setSessionUser(request, userVO);
-        return ResponseVOUtil.success(userVO);
+        return userVO;
     }
 }

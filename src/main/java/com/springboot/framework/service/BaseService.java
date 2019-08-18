@@ -5,6 +5,8 @@ import com.springboot.framework.constant.Errors;
 import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.vo.ResponseVO;
 
+import java.util.List;
+
 /**
  * 通用Service接口
  *
@@ -20,7 +22,7 @@ public interface BaseService<T> {
      * @param entity 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> deleteByPrimaryKey(T entity);
+    Errors deleteByPrimaryKey(T entity);
 
     /**
      * 新增一个对象
@@ -28,7 +30,7 @@ public interface BaseService<T> {
      * @param entity 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> insertSelective(T entity);
+    Errors insertSelective(T entity);
 
     /**
      * 查询一个对象（根据主键）
@@ -36,7 +38,7 @@ public interface BaseService<T> {
      * @param primaryKey 主键
      * @return ResponseVO<Order>
      */
-    ResponseVO<T> selectByPrimaryKey(Integer primaryKey);
+    T selectByPrimaryKey(Integer primaryKey);
 
     /**
      * 列表查询
@@ -45,7 +47,7 @@ public interface BaseService<T> {
      * @param pageSize 页面大小
      * @return PageResponseVO
      */
-    PageResponseVO selectList(Integer pageNum, Integer pageSize);
+    List<T> selectList(Integer pageNum, Integer pageSize);
 
     /**
      * 总数查询
@@ -53,7 +55,7 @@ public interface BaseService<T> {
      * @param entity 数据传输对象
      * @return ResponseVO<Integer>
      */
-    ResponseVO<Integer> selectCount(T entity);
+    Integer selectCount(T entity);
 
     /**
      * 更新一个对象（根据主键）
@@ -61,14 +63,5 @@ public interface BaseService<T> {
      * @param entity 数据传输对象
      * @return ResponseVO<Errors>
      */
-    ResponseVO<Errors> updateByPrimaryKeySelective(T entity);
-
-    /**
-     * 参数校验
-     *
-     * @param entity 数据传输对象
-     * @param type   校验类型
-     * @return 成功则返回Errors.SUCCESS，否则返回错误信息
-     */
-    Errors validRequest(T entity, BaseServiceMethodsEnum type);
+    Errors updateByPrimaryKeySelective(T entity);
 }

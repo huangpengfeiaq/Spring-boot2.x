@@ -257,7 +257,9 @@ public class ObjectStorageClient extends COSClient {
     4. 消费者示例：参考目录com.springboot.framework.rabbit下Receiver类。
 
 ## 10.关于
-第3版：截至目前最后的大版本更新时间为2019年7月16日。
+第4版：截至目前最后的大版本更新时间为2019年8月18日。
+
+第3版：更新时间为2019年7月16日。
 
 第2版：更新时间为2019年5月14日。
 
