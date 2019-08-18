@@ -16,7 +16,7 @@ public interface AdminService extends BaseService<Admin> {
      *
      * @param loginKey 用户名或手机号
      * @param password 密码
-     * @return ResponseVO<Admin>
+     * @return 登陆管理员
      */
     Admin login(String loginKey, String password);
 
@@ -26,7 +26,7 @@ public interface AdminService extends BaseService<Admin> {
      * @param phone    手机号
      * @param pageNum  页码
      * @param pageSize 页面大小
-     * @return PageResponseVO
+     * @return 管理员列表
      */
     List<Admin> selectListByPhone(String phone, Integer pageNum, Integer pageSize);
 
@@ -37,7 +37,7 @@ public interface AdminService extends BaseService<Admin> {
      * @param oldPassword 旧密码
      * @param newPassword 新密码
      * @param updateBy    更新人
-     * @return ResponseVO<Errors>
+     * @return 成功：1，失败：0
      */
     Errors updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy);
 }

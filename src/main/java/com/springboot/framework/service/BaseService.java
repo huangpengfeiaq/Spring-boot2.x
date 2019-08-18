@@ -17,7 +17,7 @@ public interface BaseService<T> {
      * 删除一个对象（根据主键）
      *
      * @param entity 数据传输对象
-     * @return ResponseVO<Errors>
+     * @return 成功：1，失败：0
      */
     Errors deleteByPrimaryKey(T entity);
 
@@ -25,7 +25,7 @@ public interface BaseService<T> {
      * 新增一个对象
      *
      * @param entity 数据传输对象
-     * @return ResponseVO<Errors>
+     * @return 成功：1，失败：0
      */
     Errors insertSelective(T entity);
 
@@ -33,7 +33,7 @@ public interface BaseService<T> {
      * 查询一个对象（根据主键）
      *
      * @param primaryKey 主键
-     * @return ResponseVO<Order>
+     * @return 对象实体
      */
     T selectByPrimaryKey(Integer primaryKey);
 
@@ -42,7 +42,7 @@ public interface BaseService<T> {
      *
      * @param pageNum  页码
      * @param pageSize 页面大小
-     * @return PageResponseVO
+     * @return 此对象所有数据列表
      */
     List<T> selectList(Integer pageNum, Integer pageSize);
 
@@ -50,7 +50,7 @@ public interface BaseService<T> {
      * 总数查询
      *
      * @param entity 数据传输对象
-     * @return ResponseVO<Integer>
+     * @return 查询到的数量
      */
     Integer selectCount(T entity);
 
@@ -58,7 +58,7 @@ public interface BaseService<T> {
      * 更新一个对象（根据主键）
      *
      * @param entity 数据传输对象
-     * @return ResponseVO<Errors>
+     * @return 成功：1，失败：0
      */
     Errors updateByPrimaryKeySelective(T entity);
 }
