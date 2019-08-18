@@ -12,7 +12,6 @@ import com.springboot.framework.constant.Const;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.controller.request.*;
 import com.springboot.framework.dao.pojo.Admin;
-import com.springboot.framework.dto.AdminDTO;
 import com.springboot.framework.service.AdminService;
 import com.springboot.framework.service.RedisService;
 import com.springboot.framework.utils.StringUtil;
