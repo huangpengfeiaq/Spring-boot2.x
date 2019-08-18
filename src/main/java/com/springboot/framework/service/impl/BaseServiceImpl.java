@@ -1,15 +1,20 @@
 package com.springboot.framework.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.service.BaseService;
+import com.springboot.framework.utils.PageUtil;
 import com.springboot.framework.utils.ResponseVOUtil;
 import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.vo.ResponseVO;
 import tk.mybatis.mapper.common.Mapper;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
+ * 通用业务处理实现类
+ *
  * @author huangpengfei
  * @version 1.0
  * @date 2019/8/15 23:23
@@ -40,7 +45,12 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public abstract PageResponseVO selectList(Integer pageNum, Integer pageSize);
+    public PageResponseVO selectList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        List<T> list = entityMapper.selectAll();
+        return PageUtil.page(list);
+    }
 
     @Override
     public ResponseVO<Integer> selectCount(T entity) {
