@@ -21,7 +21,7 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.util.List;
 
-import static com.springboot.framework.constant.Errors.SUCCESS;
+import static com.springboot.framework.constant.Errors.*;
 
 /**
  * 管理员业务处理类
@@ -49,7 +49,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     @Override
     public ResponseVO<Admin> login(String loginKey, String password) {
         //1.请求校验
-//        Errors errors = validRequest(recordDTO, "login");
+//        Errors errors = validRequest(recordDTO, CUSTOM);
 //        if (errors.code != 0) {
 //            return ResponseVOUtil.fail(errors);
 //        }
@@ -57,10 +57,10 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         Admin admin = adminMapper.login(loginKey, BinaryUtil.encodeMd5(password));
         //3.响应校验
         if (admin == null) {
-            return ResponseVOUtil.fail(Errors.USER_LOGIN_ERROR);
+            return ResponseVOUtil.fail(USER_LOGIN_ERROR);
         }
         if (admin.getStatus() == 0) {
-            return ResponseVOUtil.fail(Errors.SYSTEM_NO_ACCESS);
+            return ResponseVOUtil.fail(SYSTEM_NO_ACCESS);
         }
         return ResponseVOUtil.success(admin);
     }
@@ -96,7 +96,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public ResponseVO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
         int updateCount = adminMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
         if (updateCount == 0) {
-            return ResponseVOUtil.fail(Errors.USER_OLD_PASSWORD_ERROR);
+            return ResponseVOUtil.fail(USER_OLD_PASSWORD_ERROR);
         }
         return ResponseVOUtil.success(SUCCESS);
     }
@@ -112,12 +112,12 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
                 criteria.andEqualTo("phone", recordDTO.getPhone());
                 validRequest = adminMapper.selectOneByExample(example);
                 if (validRequest != null) {
-                    return Errors.USER_MOBILE_EXISTS;
+                    return USER_MOBILE_EXISTS;
                 }
                 criteria.orEqualTo("account", recordDTO.getAccount());
                 validRequest = adminMapper.selectOneByExample(example);
                 if (validRequest != null) {
-                    return Errors.USER_USERNAME_SAME;
+                    return USER_USERNAME_SAME;
                 }
                 break;
             case CUSTOM :
@@ -130,7 +130,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
                     criteria.andEqualTo("phone", recordDTO.getPhone());
                     validRequest = adminMapper.selectOneByExample(example);
                     if (validRequest != null && !validRequest.getId().equals(recordDTO.getId())) {
-                        return Errors.USER_MOBILE_EXISTS;
+                        return USER_MOBILE_EXISTS;
                     }
                 }
                 break;
