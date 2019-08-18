@@ -1,5 +1,6 @@
 package com.springboot.framework.service;
 
+import com.springboot.framework.constant.BaseServiceMethodsEnum;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.vo.PageResponseVO;
 import com.springboot.framework.vo.ResponseVO;
@@ -9,7 +10,7 @@ import com.springboot.framework.vo.ResponseVO;
  *
  * @param <T> 对应的POJO类
  * @author huangpengfei
- * @version 1.0
+ * @version 1.1.190818
  * @date 2019/8/15 20:55
  */
 public interface BaseService<T> {
@@ -61,4 +62,13 @@ public interface BaseService<T> {
      * @return ResponseVO<Errors>
      */
     ResponseVO<Errors> updateByPrimaryKeySelective(T entity);
+
+    /**
+     * 参数校验
+     *
+     * @param entity 数据传输对象
+     * @param type   校验类型
+     * @return 成功则返回Errors.SUCCESS，否则返回错误信息
+     */
+    Errors validRequest(T entity, BaseServiceMethodsEnum type);
 }

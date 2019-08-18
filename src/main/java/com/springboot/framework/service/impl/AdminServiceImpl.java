@@ -1,6 +1,7 @@
 package com.springboot.framework.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.springboot.framework.constant.BaseServiceMethodsEnum;
 import com.springboot.framework.service.BaseService;
 import com.springboot.framework.vo.ResponseVO;
 import com.springboot.framework.constant.Errors;
@@ -19,6 +20,8 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.springboot.framework.constant.Errors.SUCCESS;
 
 /**
  * 管理员业务处理类
@@ -41,42 +44,6 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public void customScheduled() {
         log.info("---------------- 定时任务 ----------------");
         log.info("customScheduled被执行了...");
-    }
-
-//    @Override
-//    public ResponseVO<Errors> insertSelective(AdminDTO recordDTO) {
-//        //1.请求校验
-//        Errors errors = validRequest(recordDTO, "insertSelective");
-//        if (errors.code != 0) {
-//            return ResponseVOUtil.fail(errors);
-//        }
-//        //2.创建entity
-//        Admin record = new Admin(recordDTO);
-//        record.setPassword(BinaryUtil.encodeMd5(record.getPassword()));
-//        //3.响应校验
-//        if (adminMapper.insertSelective(record) == 0) {
-//            return ResponseVOUtil.fail("添加失败");
-//        }
-//        return ResponseVOUtil.success(Errors.SUCCESS);
-//    }
-
-    @Override
-    public ResponseVO<Admin> login(AdminDTO recordDTO) {
-        //1.请求校验
-        Errors errors = validRequest(recordDTO, "login");
-        if (errors.code != 0) {
-            return ResponseVOUtil.fail(errors);
-        }
-        //2.创建entity
-        Admin admin = adminMapper.login(recordDTO.getLoginKey(), BinaryUtil.encodeMd5(recordDTO.getPassword()));
-        //3.响应校验
-        if (admin == null) {
-            return ResponseVOUtil.fail(Errors.USER_LOGIN_ERROR);
-        }
-        if (admin.getStatus() == 0) {
-            return ResponseVOUtil.fail(Errors.SYSTEM_NO_ACCESS);
-        }
-        return ResponseVOUtil.success(admin);
     }
 
     @Override
@@ -125,38 +92,23 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         return PageUtil.page(adminList);
     }
 
-//    @Override
-//    public ResponseVO<Errors> updateByPrimaryKeySelective(AdminDTO recordDTO) {
-//        //1.请求校验
-//        Errors errors = validRequest(recordDTO, "updateByPrimaryKeySelective");
-//        if (errors.code != 0) {
-//            return ResponseVOUtil.fail(errors);
-//        }
-//        //2.创建entity
-//        Admin admin = new Admin(recordDTO);
-//        //3.响应校验
-//        if (adminMapper.updateByPrimaryKeySelective(admin) == 0) {
-//            return ResponseVOUtil.fail("更新失败");
-//        }
-//        return ResponseVOUtil.success(Errors.SUCCESS);
-//    }
-
     @Override
     public ResponseVO<Errors> updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
         int updateCount = adminMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
         if (updateCount == 0) {
             return ResponseVOUtil.fail(Errors.USER_OLD_PASSWORD_ERROR);
         }
-        return ResponseVOUtil.success(Errors.SUCCESS);
+        return ResponseVOUtil.success(SUCCESS);
     }
 
-    private Errors validRequest(AdminDTO recordDTO, String type) {
+    @Override
+    public Errors validRequest(Admin recordDTO, BaseServiceMethodsEnum type) {
         Admin validRequest;
         Example example = new Example(Admin.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andNotEqualTo("status", -1);
         switch (type) {
-            case "insertSelective":
+            case INSERT_SELECTIVE:
                 criteria.andEqualTo("phone", recordDTO.getPhone());
                 validRequest = adminMapper.selectOneByExample(example);
                 if (validRequest != null) {
@@ -168,12 +120,12 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
                     return Errors.USER_USERNAME_SAME;
                 }
                 break;
-            case "login":
-                if (StringUtil.isEmpty(recordDTO.getLoginKey()) || StringUtil.isEmpty(recordDTO.getPassword())) {
-                    return Errors.SYSTEM_REQUEST_PARAM_ERROR;
-                }
+            case CUSTOM :
+//                if (StringUtil.isEmpty(recordDTO.getLoginKey()) || StringUtil.isEmpty(recordDTO.getPassword())) {
+//                    return Errors.SYSTEM_REQUEST_PARAM_ERROR;
+//                }
                 break;
-            case "updateByPrimaryKeySelective":
+            case UPDATE_BY_PRIMARY_KEY_SELECTIVE:
                 if (!StringUtil.isEmpty(recordDTO.getPhone())) {
                     criteria.andEqualTo("phone", recordDTO.getPhone());
                     validRequest = adminMapper.selectOneByExample(example);
@@ -183,8 +135,8 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
                 }
                 break;
             default:
-                return Errors.SUCCESS;
+                return SUCCESS;
         }
-        return Errors.SUCCESS;
+        return SUCCESS;
     }
 }
