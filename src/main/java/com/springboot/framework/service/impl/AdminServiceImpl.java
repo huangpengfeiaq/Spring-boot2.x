@@ -63,7 +63,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     }
 
     @Override
-    protected Example selectListByExample() {
+    protected Example getExampleForSelectList() {
         Example example = new Example(Admin.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("status", 1);

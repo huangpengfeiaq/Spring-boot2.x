@@ -65,13 +65,13 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      *
      * @return 用于列表显示的Example
      */
-    protected abstract Example selectListByExample();
+    protected abstract Example getExampleForSelectList();
 
     @Override
     public List<T> selectList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
 
-        Example example = selectListByExample();
+        Example example = getExampleForSelectList();
 
         return entityMapper.selectByExample(example);
     }
