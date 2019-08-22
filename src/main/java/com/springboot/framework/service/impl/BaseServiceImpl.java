@@ -13,7 +13,7 @@ import java.util.List;
 
 import static com.springboot.framework.constant.BaseServiceMethodsEnum.INSERT_SELECTIVE;
 import static com.springboot.framework.constant.BaseServiceMethodsEnum.UPDATE_BY_PRIMARY_KEY_SELECTIVE;
-import static com.springboot.framework.constant.Errors.SUCCESS;
+import static com.springboot.framework.constant.Errors.*;
 
 /**
  * 通用业务处理实现类
@@ -30,7 +30,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     public Errors deleteByPrimaryKey(T entity) {
         // 2.响应校验
         if (entityMapper.updateByPrimaryKeySelective(entity) != 1) {
-            throw new BusinessException(2, "删除失败");
+            throw new BusinessException(SYSTEM_DELETE_FAIL);
         }
         return SUCCESS;
     }
@@ -44,7 +44,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         }
         // 2.响应校验
         if (entityMapper.insertSelective(entity) != 1) {
-            throw new BusinessException(2, "添加失败");
+            throw new BusinessException(SYSTEM_INSERT_FAIL);
         }
         return SUCCESS;
     }
@@ -84,7 +84,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         }
         // 2.响应校验
         if (entityMapper.updateByPrimaryKeySelective(entity) != 1) {
-            throw new BusinessException(2, "更新失败");
+            throw new BusinessException(SYSTEM_UPDATE_ERROR);
         }
         return SUCCESS;
     }
