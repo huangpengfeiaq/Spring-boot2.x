@@ -47,7 +47,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public Admin login(String loginKey, String password) {
         //1.请求校验
 //        Errors errors = validRequest(recordDTO, CUSTOM);
-//        if (errors.code != 0) {
+//        if (errors != SUCCESS) {
 //            return ResponseVOUtil.fail(errors);
 //        }
         //2.创建entity

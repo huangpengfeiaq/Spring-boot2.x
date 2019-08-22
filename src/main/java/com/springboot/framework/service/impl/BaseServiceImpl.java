@@ -51,7 +51,13 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     @Override
     public T selectByPrimaryKey(Integer primaryKey) {
-        return entityMapper.selectByPrimaryKey(primaryKey);
+        //1.请求校验
+        T entity = entityMapper.selectByPrimaryKey(primaryKey);
+        // 2.响应校验
+        if (entity == null) {
+            throw new BusinessException(SYSTEM_DATA_NOT_FOUND);
+        }
+        return entity;
     }
 
     /**
