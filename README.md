@@ -54,7 +54,8 @@ com.springboot.framework
 └── ProjectApplication
 ```
 ## 1.开始使用
-使用idea导入项目
+1. 请先确认已在本地配置MySQL服务、Redis服务
+2. 使用idea导入项目
 
 ## 2.创建数据表
 * 方式一：使用图形化工具创建（以Navicat为例）admin表，结构如下：
