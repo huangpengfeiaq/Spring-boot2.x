@@ -30,11 +30,11 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   application:
     name: mq-producer
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: admin
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: admin
+#    password: admin
 
 mybatis:
   config-location: classpath:mybatis-config.xml
