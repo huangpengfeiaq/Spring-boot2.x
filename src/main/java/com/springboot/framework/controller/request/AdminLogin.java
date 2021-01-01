@@ -1,9 +1,10 @@
 package com.springboot.framework.controller.request;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
+//import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author huangpengfei
@@ -18,7 +19,7 @@ public class AdminLogin {
     /**
      * 密码
      */
-    @Length(min = 3, max = 16, message = "请输入3-16位密码")
+    @Size(min = 3, max = 16, message = "请输入3-16位密码")
     @NotNull(message = "密码，必填")
     private String loginPwd;
     /**
