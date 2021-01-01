@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
+ * 主程序类
+ * > @SpringBootApplication：这是一个SpringBoot应用
  * > @MapperScan 扫描mapper映射包路径
  * > @EnableTransactionManagement //开启事务管理
  * > @EnableScheduling //开启定时任务

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 应用配置文件
+ * 只有在容器中的组件，才会拥有SpringBoot提供的强大功能
  *
  * @author LJH
  * @version 1.0

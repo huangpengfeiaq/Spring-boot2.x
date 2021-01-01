@@ -11,10 +11,21 @@ import javax.annotation.Resource;
 
 /**
  * 生成特殊bean的工厂bean, 有些第三方的Bean没有标注@component, 需要手工初始化.
+ * >@Configuration
+ * 1、配置类里面使用@Bean标注在方法上给容器注册组件，默认也是单实例的
+ * 2、配置类本身也是组件
+ * 3、proxyBeanMethods：代理bean的方法
+ * Full模式(proxyBeanMethods = true)、【保证每个@Bean方法被调用多少次返回的组件都是单实例的】
+ * Lite模式(proxyBeanMethods = false)【每个@Bean方法被调用多少次返回的组件都是新创建的】
+ * 组件依赖必须使用Full模式默认。其他默认是否Lite模式
+ * <p>
+ * >@EnableConfigurationProperties
+ * 1、开启配置绑定功能
+ * 2、把这个组件自动注册到容器中
  *
  * @author huangpengfei
  */
-@Configuration
+@Configuration(proxyBeanMethods = true)
 @EnableConfigurationProperties
 public class AppBeanFactory {
     @Resource
