@@ -1,4 +1,4 @@
-# Spring boot模板（2019年度版）
+# Spring boot模板（高度适配Spring boot2.4.1版）
 
 ## 0.导读
 此模板目前已集成的模块如下：
