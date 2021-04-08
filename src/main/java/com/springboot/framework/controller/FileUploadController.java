@@ -133,6 +133,8 @@ public class FileUploadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //防止空指针异常
+        assert source != null;
         int owidth = source.getWidth();
         int oheight = source.getHeight();
         if (owidth > imageConfig.getWidth() || oheight > imageConfig.getHeight()) {
