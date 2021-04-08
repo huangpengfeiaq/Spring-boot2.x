@@ -10,7 +10,6 @@ import java.util.List;
  * @param <T> 对应的POJO类
  * @author huangpengfei
  * @version 1.1.190818
- * @date 2019/8/15 20:55
  */
 public interface BaseService<T> {
     /**

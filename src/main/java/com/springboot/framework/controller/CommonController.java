@@ -22,7 +22,7 @@ import java.util.Random;
 /**
  * @author huangpengfei
  * @version 1.0
- * @date 2019/7/8 19:39
+ * @since 2019/7/8 19:39
  */
 @Api(tags = {"公共操作接口"}, produces = "application/json")
 @RestController

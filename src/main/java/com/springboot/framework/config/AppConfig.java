@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  *
  * @author LJH
  * @version 1.0
- * @date 2018/1/17 16:51
+ * @since 2018/1/17 16:51
  */
 @Component
 @ConfigurationProperties(prefix = "app")

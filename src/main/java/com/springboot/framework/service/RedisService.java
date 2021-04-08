@@ -5,7 +5,7 @@ package com.springboot.framework.service;
  *
  * @author haungpengfei
  * @version 1.0.0326
- * @date 2019年3月26日
+ * @since 2019年3月26日
  */
 public interface RedisService {
     /**

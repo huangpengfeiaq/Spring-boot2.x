@@ -9,11 +9,11 @@ import java.util.Map;
 /**
  * @author huangpengfei
  * @version 1.0
- * @date 2019/7/13 23:46
+ * @since 2019/7/13 23:46
  */
 public class FileContentTypeUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(FileContentTypeUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileContentTypeUtil.class);
 
     private static Map<String, String> map = null;
 

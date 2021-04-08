@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  *
  * @author huangpengfei
  * @version 1.0
- * @date 2019/7/16 1:44
+ * @since 2019/7/16 1:44
  */
 @Data
 @ConfigurationProperties(prefix = "img")

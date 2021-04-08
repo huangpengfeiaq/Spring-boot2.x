@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
  *
  * @author huangpengfei
  * @version 1.0
- * @date 2019/7/13 23:26
+ * @since 2019/7/13 23:26
  */
 @Data
 @ConfigurationProperties(prefix = "object-storage")

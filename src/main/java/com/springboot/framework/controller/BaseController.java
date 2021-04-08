@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author haungpengfei
  * @version 1.2
- * @date 2019/5/8
  * @since 2019/1/10
  */
 @RestController

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author haungpengfei
  * @version 1.2.0325
- * @date 2019年3月25日
  * @since 2019/1/10
  */
 public interface RedisTokenService {

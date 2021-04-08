@@ -20,7 +20,7 @@ import static com.springboot.framework.constant.Errors.*;
  *
  * @author huangpengfei
  * @version 1.1.190818
- * @date 2019/8/15 23:23
+ * @since 2019/8/15 23:23
  */
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
     @Resource

@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author huangpengfei
- * @date 2019/7/16
+ * @since 2019/7/16
  */
 public class BinaryUtil {
     private static final char[] HEX_DIGITS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};

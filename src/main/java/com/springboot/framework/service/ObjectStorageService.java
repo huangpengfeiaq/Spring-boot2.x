@@ -7,7 +7,7 @@ import java.io.File;
 /**
  * @author huangpengfei
  * @version 1.0
- * @date 2019/7/13 23:22
+ * @since 2019/7/13 23:22
  */
 public interface ObjectStorageService {
     /**

@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  * @author huangpengfei
  */
 public class FileUtil {
-  private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+  private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
   private static String chartset = "UTF-8";
 
@@ -42,7 +42,7 @@ public class FileUtil {
       return "";
     }
 
-    StringBuffer out = new StringBuffer();
+    StringBuilder out = new StringBuilder();
     byte[] b = new byte[4096];
     try {
       for (int n; (n = in.read(b)) != -1;) {

@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  *
  * @author haungpengfei
  * @version 1.0.0326
- * @date 2019年3月26日
+ * @since 2019年3月26日
  */
 @Service
 public class RedisServiceImpl implements RedisService {
