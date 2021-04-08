@@ -27,7 +27,7 @@ import java.util.Arrays;
 @Component
 @Aspect
 public class AdviceAop {
-    private static Logger log = LoggerFactory.getLogger(AdviceAop.class);
+    private static final Logger log = LoggerFactory.getLogger(AdviceAop.class);
 
     private static final String AOP_POINTCUT_EXPRESSION = "execution(* com.springboot.framework.controller.AdminController.*(..))";
 
