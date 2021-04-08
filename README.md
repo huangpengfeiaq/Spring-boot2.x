@@ -250,12 +250,7 @@ public class ObjectStorageClient extends COSClient {
 * Interceptor（拦截器）：参考目录com.springboot.framework.interceptor下AdminServiceImpl类。
 
 ## 9.高级配置
-以下配置一般适用于中大型项目，故不做详解，仅供参考。
-* RabbitMq（消息中间件）
-    1. 下载与安装：自行百度。
-    2. 配置：参考目录com.springboot.framework.config下RabbitMqConfig类。
-    3. 生产者示例：参考目录com.springboot.framework.rabbit下Sender类。
-    4. 消费者示例：参考目录com.springboot.framework.rabbit下Receiver类。
+已移除
 
 ## 10.关于
 第3版：2021年1月1日。更新到了spring2.4.1，优化语法和各类依赖。
