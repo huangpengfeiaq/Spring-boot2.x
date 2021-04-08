@@ -35,6 +35,8 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
     @Override
     public String upload(MultipartFile file) {
         String originFileName = file.getOriginalFilename();
+        //防止空指针异常
+        assert originFileName != null;
         String suffixName = originFileName.substring(originFileName.indexOf(".") + 1);
 //        String fileType = FileContentTypeUtil.getContentType(suffixName);
         // 设置文件名
@@ -123,8 +125,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
             meta.setContentMD5(md5);
             meta.setContentType(fileType);
             uploadClient.putObject(objectStorageConfig.getBucketName(), filePathName, new ByteArrayInputStream(fileContent), meta);
-            String path = objectStorageConfig.getDownloadEndpoint() + FileUtil.getFileSeparator() + filePathName;
-            return path;
+            return objectStorageConfig.getDownloadEndpoint() + FileUtil.getFileSeparator() + filePathName;
         } catch (Exception e) {
             logger.error("ObjectStorage error", e);
             ExceptionUtil.throwException(Errors.SYSTEM_CUSTOM_ERROR.code, "ObjectStorage exception");
@@ -147,8 +148,7 @@ public class ObjectStorageServiceImpl implements ObjectStorageService {
         try {
             String key = url.split(objectStorageConfig.getDownloadEndpoint() + "/")[1];
             is = downloadClient.getObject(objectStorageConfig.getBucketName(), key).getObjectContent();
-            byte[] data = IOUtils.readStreamAsByteArray(is);
-            return data;
+            return IOUtils.readStreamAsByteArray(is);
         } catch (Exception e) {
             logger.error("下载文件异常,url={}", url, e);
             e.printStackTrace();
