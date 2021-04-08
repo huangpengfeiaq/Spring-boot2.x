@@ -77,18 +77,18 @@ public class CommonController {
         Random r = new Random();
         int len = ch.length, index;
 
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < 4; i++) {
             index = r.nextInt(len);
             graphics.setColor(new Color(r.nextInt(88), r.nextInt(188), r.nextInt(255)));
             graphics.drawString(ch[index] + "", (i * 15) + 5, 16);
 
-            str += ch[index];
+            str.append(ch[index]);
         }
 
         // 5将验证码信息保存到Session中
         // request.getSession().setAttribute(Const.VERIFY_CODE, str);
-        redisUtil.set(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + Const.VERIFY_CODE, str, 600);
+        redisUtil.set(appConfig.getAppName() + "_" + appConfig.getEnv() + "_" + Const.VERIFY_CODE, str.toString(), 600);
 
         System.out.println("verifyCode:---------------" + str);
         // 6使用ImageIO输出图片
@@ -100,7 +100,7 @@ public class CommonController {
     @ApiOperation(value = "校验图片验证码接口", notes = "校验随机验证码")
     @PostMapping(value = "valid_verify_code")
     public ResponseEntity<Boolean> validVerifyCode(@RequestBody String code, HttpServletRequest request) {
-        Boolean flag = false;
+        boolean flag = false;
         // String randomCode=
         // (String)request.getSession().getAttribute(Const.VERIFY_CODE);
 
