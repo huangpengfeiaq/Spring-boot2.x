@@ -29,7 +29,7 @@ import static com.springboot.framework.constant.Errors.*;
 @Service
 //@Transactional(rollbackFor = Exception.class)
 public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
-    private static Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Resource
     private AdminMapper adminMapper;
