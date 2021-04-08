@@ -19,9 +19,9 @@ import tk.mybatis.spring.annotation.MapperScan;
  */
 @MapperScan(value = "com.springboot.framework.dao.mapper")
 @SpringBootApplication
-@EnableTransactionManagement
-@EnableScheduling
-@EnableCaching
+//@EnableTransactionManagement
+//@EnableScheduling
+//@EnableCaching
 public class ProjectApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProjectApplication.class, args);

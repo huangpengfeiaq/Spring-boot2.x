@@ -27,21 +27,21 @@ import static com.springboot.framework.constant.Errors.*;
  * @author huangpengfei
  */
 @Service
-@Transactional(rollbackFor = Exception.class)
+//@Transactional(rollbackFor = Exception.class)
 public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
     private static Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Resource
     private AdminMapper adminMapper;
 
-    /**
-     * 自定义定时任务，每天23点执行一次
-     */
-    @Scheduled(cron = "0 0 23 * * ?")
-    public void customScheduled() {
-        log.info("---------------- 定时任务 ----------------");
-        log.info("customScheduled被执行了...");
-    }
+//    /**
+//     * 自定义定时任务，每天23点执行一次
+//     */
+//    @Scheduled(cron = "0 0 23 * * ?")
+//    public void customScheduled() {
+//        log.info("---------------- 定时任务 ----------------");
+//        log.info("customScheduled被执行了...");
+//    }
 
     @Override
     public Admin login(String loginKey, String password) {
