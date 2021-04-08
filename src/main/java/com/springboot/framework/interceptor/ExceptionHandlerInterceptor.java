@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ExceptionHandlerInterceptor {
     @ResponseBody
     @ExceptionHandler(RuntimeException.class)
-    public ResponseVO handler(RuntimeException e) {
+    public ResponseVO<?> handler(RuntimeException e) {
         return ResponseVOUtil.fail(e.getMessage());
     }
 }
