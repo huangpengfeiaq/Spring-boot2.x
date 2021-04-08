@@ -1,6 +1,5 @@
 package com.springboot.framework.dao.pojo;
 
-import com.springboot.framework.dto.AdminDTO;
 import lombok.Data;
 
 import javax.persistence.Id;
