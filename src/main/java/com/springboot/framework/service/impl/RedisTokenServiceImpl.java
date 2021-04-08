@@ -89,8 +89,7 @@ public class RedisTokenServiceImpl implements RedisTokenService {
 //        token = String.format(Const.SERVER_USER_KEY, token);
         if (redisUtils.hasKey(token)) {
             String jsonStr = (String) redisUtils.get(token);
-            UserVO userVO = JSON.parseObject(jsonStr, UserVO.class);
-            return userVO;
+            return JSON.parseObject(jsonStr, UserVO.class);
         }
         return null;
     }
@@ -110,8 +109,8 @@ public class RedisTokenServiceImpl implements RedisTokenService {
 //        UserVO user = JSON.parseObject(jsonStr, UserVO.class);
 //        if (user != null) {
 //            memcachedService.set(key, Const.SERVER_USER_EXP_KEY, jsonStr);
-//            String accesskey = Const.SERVER_USER_KEY + user.getId();
-//            memcachedService.set(accesskey, Const.SERVER_USER_EXP_KEY, key);
+//            String accessKey = Const.SERVER_USER_KEY + user.getId();
+//            memcachedService.set(accessKey, Const.SERVER_USER_EXP_KEY, key);
 //        }
 //        return user;
     }
@@ -131,10 +130,8 @@ public class RedisTokenServiceImpl implements RedisTokenService {
      * 获取用户缓存key
      */
     private String getUserSessionKey(HttpServletRequest request) {
-//        String key = Const.SERVER_USER_KEY + getSessionKey(request);
-        String key = getSessionKey(request);
-//        System.out.println("key:" + key);
-        return key;
+//        return Const.SERVER_USER_KEY + getSessionKey(request);
+        return getSessionKey(request);
     }
 
     /**
