@@ -23,7 +23,7 @@ import static com.springboot.framework.constant.Errors.*;
  * @since 2019/8/15 23:23
  */
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
-    @Resource
+//    @Resource
     private Mapper<T> entityMapper;
 
     @Override
