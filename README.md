@@ -13,7 +13,7 @@
     * Scheduled（定时器）
     * Interceptor（拦截器）
 * 高级配置：
-    * RabbitMq（消息中间件）
+    * ~~RabbitMq（消息中间件）~~
    
 目录结构如下：
 ```markdown
@@ -37,7 +37,7 @@ com.springboot.framework
 |   |    └── ......
 |   └── pojo
 |   |    └── ......
-├── dto //数据传输对象包
+├── dto //数据传输对象包【已移除】
 |   └── ......
 ├── exception //异常类包
 |   └── ......
