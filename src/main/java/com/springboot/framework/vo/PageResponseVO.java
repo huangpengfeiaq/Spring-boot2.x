@@ -3,7 +3,6 @@ package com.springboot.framework.vo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  * @version V1.0
  * @since 2017年3月31日
  */
-@Data
+//@Data
 @ApiModel
 public class PageResponseVO<T> implements Serializable {
 
@@ -147,5 +146,17 @@ public class PageResponseVO<T> implements Serializable {
 
     public void setHttpStatus(int httpStatus) {
         this.httpStatus = httpStatus;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public void setFirst(boolean first) {
+        this.first = first;
+    }
+
+    public void setLast(boolean last) {
+        this.last = last;
     }
 }

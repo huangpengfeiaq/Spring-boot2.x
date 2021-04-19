@@ -1,12 +1,11 @@
 package com.springboot.framework.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 /**
  * @author huangpengfei
  */
-@Data
+//@Data
 public class ImgUploadResponseVO {
     /**
      * 返回数据内容
@@ -18,4 +17,11 @@ public class ImgUploadResponseVO {
         this.src = src;
     }
 
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
 }

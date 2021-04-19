@@ -1,6 +1,5 @@
 package com.springboot.framework.controller.request;
 
-import lombok.Data;
 //import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +8,7 @@ import javax.validation.constraints.Size;
 /**
  * @author huangpengfei
  */
-@Data
+//@Data
 public class AdminLogin {
     /**
      * 用户名或手机号
@@ -27,4 +26,28 @@ public class AdminLogin {
      */
     @NotNull(message = "验证码，必填")
     private String verifyCode;
+
+    public String getLoginKey() {
+        return loginKey;
+    }
+
+    public void setLoginKey(String loginKey) {
+        this.loginKey = loginKey;
+    }
+
+    public String getLoginPwd() {
+        return loginPwd;
+    }
+
+    public void setLoginPwd(String loginPwd) {
+        this.loginPwd = loginPwd;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
 }

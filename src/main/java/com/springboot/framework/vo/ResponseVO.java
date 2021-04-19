@@ -1,6 +1,5 @@
 package com.springboot.framework.vo;
 
-import lombok.Data;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -10,7 +9,7 @@ import java.io.Serializable;
  *
  * @author huangpengfei
  */
-@Data
+//@Data
 public class ResponseVO<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -87,5 +86,65 @@ public class ResponseVO<T> implements Serializable {
 
     public boolean isSuccess() {
         return this.code == 0;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public int getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(int httpStatus) {
+        this.httpStatus = httpStatus;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getException() {
+        return exception;
+    }
+
+    public void setException(String exception) {
+        this.exception = exception;
+    }
+
+    public String getErrMsg() {
+        return errMsg;
+    }
+
+    public void setErrMsg(String errMsg) {
+        this.errMsg = errMsg;
     }
 }
