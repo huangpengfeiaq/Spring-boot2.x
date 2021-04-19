@@ -18,6 +18,8 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.springboot.framework.constant.BaseServiceMethodsEnum.INSERT_SELECTIVE;
+import static com.springboot.framework.constant.BaseServiceMethodsEnum.UPDATE_BY_PRIMARY_KEY_SELECTIVE;
 import static com.springboot.framework.constant.Errors.*;
 
 /**
@@ -28,11 +30,11 @@ import static com.springboot.framework.constant.Errors.*;
  */
 @Service
 //@Transactional(rollbackFor = Exception.class)
-public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
+public class AdminServiceImpl implements AdminService {
     private static final Logger log = LoggerFactory.getLogger(AdminServiceImpl.class);
 
     @Resource
-    private AdminMapper adminMapper;
+    private AdminMapper entityMapper;
 
 //    /**
 //     * 自定义定时任务，每天23点执行一次
@@ -44,6 +46,71 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
 //    }
 
     @Override
+    public Errors deleteByPrimaryKey(Admin entity) {
+        // 2.响应校验
+        if (entityMapper.updateByPrimaryKeySelective(entity) != 1) {
+            throw new BusinessException(SYSTEM_DELETE_FAIL);
+        }
+        return SUCCESS;
+    }
+
+    @Override
+    public Errors insertSelective(Admin entity) {
+        //1.请求校验
+        Errors errors = validRequest(entity, INSERT_SELECTIVE);
+        if (errors != SUCCESS) {
+            throw new BusinessException(errors);
+        }
+        // 2.响应校验
+        if (entityMapper.insertSelective(entity) != 1) {
+            throw new BusinessException(SYSTEM_INSERT_FAIL);
+        }
+        return SUCCESS;
+    }
+
+    @Override
+    public Admin selectByPrimaryKey(Integer primaryKey) {
+        //1.请求校验
+        Admin entity = entityMapper.selectByPrimaryKey(primaryKey);
+        // 2.响应校验
+        if (entity == null) {
+            throw new BusinessException(SYSTEM_DATA_NOT_FOUND);
+        }
+        return entity;
+    }
+
+    @Override
+    public List<Admin> selectList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+
+        Example example = new Example(Admin.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("status", 1);
+        example.orderBy("createDate").desc();
+
+        return entityMapper.selectByExample(example);
+    }
+
+    @Override
+    public Integer selectCount(Admin entity) {
+        return entityMapper.selectCount(entity);
+    }
+
+    @Override
+    public Errors updateByPrimaryKeySelective(Admin entity) {
+        // 1.请求校验
+        Errors errors = validRequest(entity, UPDATE_BY_PRIMARY_KEY_SELECTIVE);
+        if (errors != SUCCESS) {
+            throw new BusinessException(errors);
+        }
+        // 2.响应校验
+        if (entityMapper.updateByPrimaryKeySelective(entity) != 1) {
+            throw new BusinessException(SYSTEM_UPDATE_ERROR);
+        }
+        return SUCCESS;
+    }
+
+    @Override
     public Admin login(String loginKey, String password) {
         //1.请求校验
 //        Errors errors = validRequest(recordDTO, CUSTOM);
@@ -51,7 +118,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
 //            return ResponseVOUtil.fail(errors);
 //        }
         //2.创建entity
-        Admin admin = adminMapper.login(loginKey, BinaryUtil.encodeMd5(password));
+        Admin admin = entityMapper.login(loginKey, BinaryUtil.encodeMd5(password));
         //3.响应校验
         if (admin == null) {
             throw new BusinessException(USER_LOGIN_ERROR);
@@ -60,15 +127,6 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
             throw new BusinessException(SYSTEM_NO_ACCESS);
         }
         return admin;
-    }
-
-    @Override
-    protected Example getExampleForSelectList() {
-        Example example = new Example(Admin.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("status", 1);
-        example.orderBy("createDate").desc();
-        return example;
     }
 
     @Override
@@ -81,20 +139,19 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         criteria.andLike("createBy", "%" + phone + "%");
         example.orderBy("createDate").desc();
 
-        return adminMapper.selectByExample(example);
+        return entityMapper.selectByExample(example);
     }
 
     @Override
     public Errors updateByPassword(Integer id, String oldPassword, String newPassword, String updateBy) {
-        int updateCount = adminMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
+        int updateCount = entityMapper.updateByPassword(id, BinaryUtil.encodeMd5(oldPassword), BinaryUtil.encodeMd5(newPassword), updateBy);
         if (updateCount == 0) {
             throw new BusinessException(USER_OLD_PASSWORD_ERROR);
         }
         return SUCCESS;
     }
 
-    @Override
-    public Errors validRequest(Admin recordDTO, BaseServiceMethodsEnum type) {
+    private Errors validRequest(Admin recordDTO, BaseServiceMethodsEnum type) {
         Admin validRequest;
         Example example = new Example(Admin.class);
         Example.Criteria criteria = example.createCriteria();
@@ -102,12 +159,12 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
         switch (type) {
             case INSERT_SELECTIVE:
                 criteria.andEqualTo("phone", recordDTO.getPhone());
-                validRequest = adminMapper.selectOneByExample(example);
+                validRequest = entityMapper.selectOneByExample(example);
                 if (validRequest != null) {
                     return USER_MOBILE_EXISTS;
                 }
                 criteria.orEqualTo("account", recordDTO.getAccount());
-                validRequest = adminMapper.selectOneByExample(example);
+                validRequest = entityMapper.selectOneByExample(example);
                 if (validRequest != null) {
                     return USER_USERNAME_SAME;
                 }
@@ -120,7 +177,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
             case UPDATE_BY_PRIMARY_KEY_SELECTIVE:
                 if (!StringUtil.isEmpty(recordDTO.getPhone())) {
                     criteria.andEqualTo("phone", recordDTO.getPhone());
-                    validRequest = adminMapper.selectOneByExample(example);
+                    validRequest = entityMapper.selectOneByExample(example);
                     if (validRequest != null && !validRequest.getId().equals(recordDTO.getId())) {
                         return USER_MOBILE_EXISTS;
                     }

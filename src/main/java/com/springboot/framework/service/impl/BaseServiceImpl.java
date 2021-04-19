@@ -17,11 +17,13 @@ import static com.springboot.framework.constant.Errors.*;
 
 /**
  * 通用业务处理实现类
+ * 【已遗弃】由于实际开发以及类自身缺陷，暂时不予使用。待后期优化
  *
  * @author huangpengfei
- * @version 1.1.190818
+ * @version 2.0.210419
  * @since 2019/8/15 23:23
  */
+@Deprecated
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 //    @Resource
     private Mapper<T> entityMapper;
