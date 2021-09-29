@@ -68,7 +68,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder().title("Spring boot 2021 API").description("©2019-2021 Copyright. Powered By 黄鹏飞.")
                 // .termsOfServiceUrl("")
                 .contact(new Contact("黄鹏飞", "https://github.com/LoveClean", "641655770@qq.com")).license("Apache License Version 2.4.1")
-                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE").version("2.4.1").build();
+                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE").version("2.4.6").build();
     }
 
 }
