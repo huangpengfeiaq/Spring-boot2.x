@@ -2,9 +2,11 @@ package com.springboot.framework.dao.pojo;
 
 //import lombok.*;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,17 +16,17 @@ import java.util.Date;
  */
 //@EqualsAndHashCode(callSuper = true)
 //@Data
-@Table(name = "sys_admin")
+@TableName(value = "sys_admin")
 public class Admin extends BaseEntity implements Serializable {
     public static final long serialVersionUID = 641655770L;
 
-    @Id
+    @TableId(type = IdType.AUTO)
     private Integer id;
     private String account;
     private String password;
     private String phone;
     private String name;
-    @Transient
+    @TableField(exist = false)
     private String accessToken;
 
     public static long getSerialVersionUID() {

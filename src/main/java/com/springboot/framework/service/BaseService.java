@@ -51,7 +51,7 @@ public interface BaseService<T> {
      * @param entity 数据传输对象
      * @return 查询到的数量
      */
-    Integer selectCount(T entity);
+    Long selectCount(T entity);
 
     /**
      * 更新一个对象（根据主键）

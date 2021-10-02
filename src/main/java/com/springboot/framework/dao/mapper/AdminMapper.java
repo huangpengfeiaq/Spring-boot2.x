@@ -1,15 +1,15 @@
 package com.springboot.framework.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.springboot.framework.dao.pojo.Admin;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import tk.mybatis.mapper.common.Mapper;
 
 /**
  * @author huangpengfei
  */
-public interface AdminMapper extends Mapper<Admin> {
+public interface AdminMapper extends BaseMapper<Admin> {
     /**
      * 登陆
      *

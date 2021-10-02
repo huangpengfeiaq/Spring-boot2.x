@@ -1,14 +1,13 @@
 package com.springboot.framework.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.pagehelper.PageHelper;
 import com.springboot.framework.constant.BaseServiceMethodsEnum;
 import com.springboot.framework.constant.Errors;
 import com.springboot.framework.exception.BusinessException;
 import com.springboot.framework.service.BaseService;
-import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.entity.Example;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 import static com.springboot.framework.constant.BaseServiceMethodsEnum.INSERT_SELECTIVE;
@@ -26,12 +25,12 @@ import static com.springboot.framework.constant.Errors.*;
 @Deprecated
 public abstract class BaseServiceImpl<T> implements BaseService<T> {
 //    @Resource
-    private Mapper<T> entityMapper;
+    private BaseMapper<T> entityMapper;
 
     @Override
     public Errors deleteByPrimaryKey(T entity) {
         // 2.响应校验
-        if (entityMapper.updateByPrimaryKeySelective(entity) != 1) {
+        if (entityMapper.updateById(entity) != 1) {
             throw new BusinessException(SYSTEM_DELETE_FAIL);
         }
         return SUCCESS;
@@ -45,7 +44,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
             throw new BusinessException(errors);
         }
         // 2.响应校验
-        if (entityMapper.insertSelective(entity) != 1) {
+        if (entityMapper.insert(entity) != 1) {
             throw new BusinessException(SYSTEM_INSERT_FAIL);
         }
         return SUCCESS;
@@ -54,7 +53,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     @Override
     public T selectByPrimaryKey(Integer primaryKey) {
         //1.请求校验
-        T entity = entityMapper.selectByPrimaryKey(primaryKey);
+        T entity = entityMapper.selectById(primaryKey);
         // 2.响应校验
         if (entity == null) {
             throw new BusinessException(SYSTEM_DATA_NOT_FOUND);
@@ -67,20 +66,18 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
      *
      * @return 用于列表显示的Example
      */
-    protected abstract Example getExampleForSelectList();
+    protected abstract QueryWrapper getExampleForSelectList();
 
     @Override
     public List<T> selectList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
 
-        Example example = getExampleForSelectList();
-
-        return entityMapper.selectByExample(example);
+        return entityMapper.selectList(getExampleForSelectList());
     }
 
     @Override
-    public Integer selectCount(T entity) {
-        return entityMapper.selectCount(entity);
+    public Long selectCount(T entity) {
+        return entityMapper.selectCount(new QueryWrapper<>(entity));
     }
 
     @Override
@@ -91,7 +88,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
             throw new BusinessException(errors);
         }
         // 2.响应校验
-        if (entityMapper.updateByPrimaryKeySelective(entity) != 1) {
+        if (entityMapper.updateById(entity) != 1) {
             throw new BusinessException(SYSTEM_UPDATE_ERROR);
         }
         return SUCCESS;

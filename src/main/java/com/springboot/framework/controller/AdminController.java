@@ -128,7 +128,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value = "查看管理员总数", notes = "")
     @GetMapping(value = "selectCount")
-    public ResponseVO<Integer> selectCount() {
+    public ResponseVO<Long> selectCount() {
         Admin admin = new Admin();
         admin.setStatus((byte) 1);
         try {
